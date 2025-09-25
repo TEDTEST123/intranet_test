@@ -1,0 +1,164 @@
+<!doctype html>
+<html lang="tr">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <title>TEDU Intranet – Test Ana Sayfa</title>
+  <link rel="stylesheet" href="style.css" />
+</head>
+<body>
+  <header>
+    <div class="wrap">
+      <div class="brand">
+        <img src="logo.png" alt="TED Üniversitesi Amblemi">
+        <span>TED Üniversitesi</span>
+      </div>
+      <nav>
+        <a href="index.html">Ana Sayfa</a>
+        <a href="duyurular.html">Duyurular</a>
+        <a href="etkinlikler.html">Etkinlikler</a>
+      </nav>
+    </div>
+  </header>
+
+  <main class="wrap">
+    <!-- Grid 1: Hızlı Linkler + Dinamik İçerik -->
+    <div class="grid">
+      <!-- Sol: Hızlı linkler -->
+      <section class="card">
+        <h2>Hızlı Linkler</h2>
+        <div class="quick-links">
+          <a href="#" class="ql" data-sayfa="ik">İnsan Kaynakları</a>
+          <a href="#" class="ql" data-sayfa="kutuphane">Kütüphane</a>
+          <a href="#" class="ql" data-sayfa="takvim">Akademik Takvim</a>
+          <a href="#" class="ql" data-sayfa="formlar">Formlar</a>
+        </div>
+      </section>
+
+      <!-- Sağ: Dinamik içerik -->
+      <section id="icerik-alani" class="card" style="display:none;">
+        <h2 id="icerik-baslik"></h2>
+        <p id="icerik-metin"></p>
+      </section>
+    </div>
+
+    <!-- Grid 2: Duyurular + Etkinlikler -->
+    <div class="grid">
+      <!-- Sol: Son duyurular -->
+      <section class="card">
+        <h2>Son Duyurular</h2>
+        <select id="duyuru-combo" class="combo">
+          <option value="">Duyuru seçiniz...</option>
+        </select>
+        <div id="duyuru-detay" class="meta"></div>
+        <a class="more" href="duyurular.html">Tüm duyurular →</a>
+      </section>
+
+      <!-- Sağ: Yaklaşan etkinlikler -->
+      <aside class="card">
+        <h2>Yaklaşan Etkinlikler</h2>
+        <select id="etkinlik-combo" class="combo">
+          <option value="">Etkinlik seçiniz...</option>
+        </select>
+        <div id="etkinlik-detay" class="meta"></div>
+        <a class="more" href="etkinlikler.html">Tüm etkinlikler →</a>
+      </aside>
+    </div>
+  </main>
+
+  <footer class="wrap">© TED Üniversitesi • Test amaçlı ilk sürüm (MVP)</footer>
+
+  <!-- JS -->
+  <script>
+    const trDate = d => new Date(d).toLocaleDateString('tr-TR', {year:'numeric', month:'short', day:'2-digit'});
+    const byDateDesc = (a,b) => new Date(b.tarih) - new Date(a.tarih);
+    const byDateAsc  = (a,b) => new Date(a.tarih) - new Date(b.tarih);
+
+    // Duyurular combo
+    fetch('duyurular.json')
+      .then(r => r.json())
+      .then(data => {
+        const duyurular = data.sort(byDateDesc).slice(0,5);
+        const combo = document.getElementById('duyuru-combo');
+        const detay = document.getElementById('duyuru-detay');
+
+        duyurular.forEach((d, i) => {
+          const opt = document.createElement('option');
+          opt.value = i;
+          opt.textContent = `${trDate(d.tarih)} – ${d.baslik}`;
+          combo.appendChild(opt);
+        });
+
+        combo.addEventListener('change', ()=>{
+          const secili = duyurular[combo.value];
+          if(secili){
+            detay.innerHTML = `<strong>${secili.baslik}</strong><br>
+              ${secili.ozet} <br>
+              <span class="meta">${secili.birim} • ${trDate(secili.tarih)}</span>`;
+          } else {
+            detay.textContent = "";
+          }
+        });
+      });
+
+    // Etkinlikler combo
+    fetch('etkinlikler.json')
+      .then(r => r.json())
+      .then(data => {
+        const today = new Date().toISOString().slice(0,10);
+        const upcoming = data.filter(e => e.tarih >= today).sort(byDateAsc).slice(0,5);
+        const combo = document.getElementById('etkinlik-combo');
+        const detay = document.getElementById('etkinlik-detay');
+
+        upcoming.forEach((e, i) => {
+          const opt = document.createElement('option');
+          opt.value = i;
+          opt.textContent = `${trDate(e.tarih)} – ${e.baslik}`;
+          combo.appendChild(opt);
+        });
+
+        combo.addEventListener('change', ()=>{
+          const secili = upcoming[combo.value];
+          if(secili){
+            detay.innerHTML = `<strong>${secili.baslik}</strong><br>
+              ${secili.mekan} • ${secili.saat} <br>
+              <span class="meta">${secili.birim}</span>`;
+          } else {
+            detay.textContent = "";
+          }
+        });
+      });
+
+    // Hızlı linkler tıklama
+    document.querySelectorAll(".quick-links .ql").forEach(link=>{
+      link.addEventListener("click", e=>{
+        e.preventDefault();
+        const sayfa = link.dataset.sayfa;
+
+        const icerikAlani = document.getElementById("icerik-alani");
+        const baslik = document.getElementById("icerik-baslik");
+        const metin = document.getElementById("icerik-metin");
+
+        icerikAlani.style.display = "block";
+
+        if(sayfa==="ik"){
+          baslik.textContent = "İnsan Kaynakları";
+          metin.textContent = "Burası İnsan Kaynakları duyurularıdır.";
+        }
+        else if(sayfa==="kutuphane"){
+          baslik.textContent = "Kütüphane";
+          metin.textContent = "Burası Kütüphane içerikleridir.";
+        }
+        else if(sayfa==="takvim"){
+          baslik.textContent = "Akademik Takvim";
+          metin.textContent = "Burada Akademik Takvim yer alacak.";
+        }
+        else if(sayfa==="formlar"){
+          baslik.textContent = "Formlar";
+          metin.textContent = "Burası Formlar bölümüdür.";
+        }
+      });
+    });
+  </script>
+</body>
+</html>

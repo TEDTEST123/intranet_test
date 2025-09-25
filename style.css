@@ -1,0 +1,167 @@
+:root { 
+  --bg:#F4F4F4;        
+  --fg:#333333;        
+  --muted:#6b7280;     
+  --brand:#E30613;     
+  --navbg:#002D72;     
+  --card:#ffffff;      
+  --line:#E5E5E5;      
+}
+
+*{box-sizing:border-box;margin:0;padding:0}
+body{
+  font-family: system-ui, -apple-system, Segoe UI, Roboto, Ubuntu, Arial, sans-serif;
+  background: var(--bg);
+  color: var(--fg);
+  line-height: 1.6;
+}
+
+/* Header */
+header {
+  position: sticky;
+  top: 0;
+  z-index: 1;
+  background: var(--navbg);
+  border-bottom: 3px solid var(--brand);
+  color: #fff;
+}
+.wrap {
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 20px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  flex-wrap: wrap;
+}
+.brand { display: flex; align-items: center; gap: 12px; margin-bottom: 8px }
+.brand img { height: 48px }
+.brand span { font-weight: 700; font-size: 18px; color: #fff }
+
+nav { display: flex; gap: 12px; flex-wrap: wrap }
+nav a {
+  padding: 8px 12px;
+  border-radius: 6px;
+  text-decoration: none;
+  color: #fff;
+  transition: background 0.2s;
+}
+nav a:hover { background: var(--brand); color: #fff }
+
+/* Genel içerik */
+main { padding: 20px 0 }
+.card {
+  background: var(--card);
+  border: 1px solid var(--line);
+  border-radius: 12px;
+  padding: 20px;
+  margin-bottom: 24px;
+  box-shadow: 0 2px 6px rgba(0,0,0,0.08);
+}
+.card h2, .card h1 {
+  margin: 0 0 14px 0;
+  font-size: 22px;
+  font-weight: 700;
+  color: var(--navbg);
+}
+.list { display: flex; flex-direction: column; gap: 10px }
+article {
+  padding: 12px;
+  border: 1px solid var(--line);
+  border-radius: 10px;
+  background: #fff;
+}
+.badge {
+  display: inline-block;
+  font-size: 12px;
+  padding: 2px 8px;
+  border-radius: 999px;
+  border: 1px solid var(--line);
+  color: var(--muted);
+  margin-right: 6px;
+}
+.meta { color: var(--muted); font-size: 12px; margin-top: 6px }
+a.more { display: inline-block; margin-top: 10px; color: var(--brand); text-decoration: none }
+footer {
+  padding: 24px 0;
+  color: var(--muted);
+  font-size: 13px;
+  text-align: center;
+}
+
+/* Hızlı linkler */
+.quick-links {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: 16px;
+  margin-top: 16px;
+}
+.ql {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 10px;
+  padding: 20px;
+  background: var(--navbg);
+  color: #fff;
+  font-weight: 600;
+  text-decoration: none;
+  border-radius: 12px;
+  transition: background 0.3s, transform 0.2s;
+}
+.ql:hover {
+  background: var(--brand);
+  transform: translateY(-2px);
+}
+.ql::before {
+  font-family: "Segoe UI Emoji", sans-serif;
+  font-size: 20px;
+}
+.ql:nth-child(1)::before { content: "👥"; }
+.ql:nth-child(2)::before { content: "📚"; }
+.ql:nth-child(3)::before { content: "🗓"; }
+.ql:nth-child(4)::before { content: "📑"; }
+
+/* Grid yapısı */
+.grid {
+  display: grid;
+  grid-template-columns: 1fr 2fr; /* sol küçük, sağ geniş */
+  gap: 24px;
+  margin-bottom: 24px;
+}
+@media (max-width: 900px) {
+  .grid { grid-template-columns: 1fr }
+}
+
+/* Dinamik içerik alanı */
+#icerik-alani {
+  max-width: 100%;
+  margin: 0 0 24px 0;
+  align-self: start; /* hizalamayı yukarıdan başlat */
+}
+#icerik-baslik {
+  font-size: 22px;
+  font-weight: 700;
+  color: var(--navbg);
+  margin-bottom: 10px;
+  text-align: center;
+}
+#icerik-metin {
+  font-size: 16px;
+  line-height: 1.6;
+  color: var(--fg);
+  text-align: justify;
+  margin: 0 auto;
+  max-width: 800px;
+}
+
+/* Combo-box */
+.combo {
+  width: 100%;
+  padding: 10px;
+  border-radius: 8px;
+  border: 1px solid var(--line);
+  margin-bottom: 10px;
+  font-size: 14px;
+  background: #fff;
+}

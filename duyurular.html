@@ -1,0 +1,104 @@
+<!doctype html>
+<html lang="tr">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <title>Duyurular • TEDU Intranet – Test</title>
+  <link rel="stylesheet" href="style.css" />
+</head>
+<body>
+  <header>
+    <div class="wrap">
+      <div class="brand">
+        <img src="logo.png" alt="TED Üniversitesi Amblemi">
+        <span>TED Üniversitesi</span>
+      </div>
+      <nav>
+        <a href="index.html">Ana Sayfa</a>
+        <a href="duyurular.html">Duyurular</a>
+        <a href="etkinlikler.html">Etkinlikler</a>
+      </nav>
+    </div>
+  </header>
+
+  <main class="wrap">
+    <section class="card">
+      <h1>Tüm Duyurular</h1>
+
+      <!-- Filtreler -->
+      <div class="controls">
+        <button class="btn" data-filtre="Tümü" aria-pressed="true">Tümü</button>
+        <button class="btn" data-filtre="Akademik">Akademik</button>
+        <button class="btn" data-filtre="İdari">İdari</button>
+        <button class="btn" data-filtre="Sosyal">Sosyal</button>
+        <input id="q" class="search" type="search" placeholder="Başlıkta ara...">
+      </div>
+
+      <!-- Duyuru listesi -->
+      <div id="duyuru-list" class="list"></div>
+    </section>
+  </main>
+
+  <footer class="wrap">© TED Üniversitesi • Test amaçlı ilk sürüm (MVP)</footer>
+
+  <script>
+    const trDate = d => new Date(d).toLocaleDateString('tr-TR', {year:'numeric', month:'short', day:'2-digit'});
+    const byDateDesc = (a,b) => new Date(b.tarih) - new Date(a.tarih);
+
+    let DATA = [];
+    let activeFilter = "Tümü";
+    let query = "";
+
+    const listEl = document.getElementById('duyuru-list');
+    const qEl = document.getElementById('q');
+
+    function render(){
+      listEl.innerHTML = "";
+      const rows = DATA
+        .filter(d => (activeFilter==="Tümü" || d.kategori===activeFilter))
+        .filter(d => d.baslik.toLowerCase().includes(query.toLowerCase()));
+
+      if(rows.length===0){
+        const empty = document.createElement('div');
+        empty.className = "meta";
+        empty.textContent = "Kayıt bulunamadı.";
+        listEl.appendChild(empty);
+        return;
+      }
+
+      rows.forEach(d => {
+        const el = document.createElement('article');
+        el.innerHTML = `
+          <div><span class="badge">${d.kategori}</span><strong>${d.baslik}</strong></div>
+          <div class="meta">${trDate(d.tarih)} • ${d.birim}</div>
+          <p style="margin:8px 0 0 0">${d.ozet}</p>`;
+        listEl.appendChild(el);
+      });
+    }
+
+    // Filtre düğmeleri
+    document.querySelectorAll(".btn[data-filtre]").forEach(btn=>{
+      btn.addEventListener("click", ()=>{
+        document.querySelectorAll(".btn[data-filtre]").forEach(b=>b.setAttribute("aria-pressed","false"));
+        btn.setAttribute("aria-pressed","true");
+        activeFilter = btn.dataset.filtre;
+        render();
+      });
+    });
+
+    // Arama
+    qEl.addEventListener("input", ()=>{
+      query = qEl.value;
+      render();
+    });
+
+    // JSON'dan veriyi oku
+    fetch('duyurular.json')
+      .then(r => r.json())
+      .then(data => {
+        DATA = data.sort(byDateDesc);
+        render();
+      });
+  </script>
+</body>
+</html>

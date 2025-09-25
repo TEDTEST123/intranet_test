@@ -1,0 +1,35 @@
+[
+    {
+      "id": 101,
+      "kategori": "Akademik",
+      "baslik": "Atama & Yükseltme Duyurusu",
+      "tarih": "2025-10-02",
+      "birim": "İK",
+      "ozet": "Ekim ayı atama ve yükseltmeleri yayımlandı."
+    },
+    {
+      "id": 102,
+      "kategori": "Sosyal",
+      "baslik": "Doğum Günü Kutlamaları",
+      "tarih": "2025-10-01",
+      "birim": "Kurumsal İletişim",
+      "ozet": "Ekim ayı doğum günü listesi."
+    },
+    {
+      "id": 103,
+      "kategori": "Akademik",
+      "baslik": "Haftanın Yayınları",
+      "tarih": "2025-09-29",
+      "birim": "Rektörlük",
+      "ozet": "Bu hafta öne çıkan akademik çalışmalar."
+    },
+    {
+      "id": 103,
+      "kategori": "Akademik",
+      "baslik": "Yeni Akademik Yayın Duyurusu",
+      "tarih": "2025-10-05",
+      "birim": "Rektörlük",
+      "ozet": "Bu hafta yayımlanan akademik makaleler duyurulmuştur."
+    }
+  ]
+  
