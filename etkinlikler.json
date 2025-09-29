@@ -1,35 +1,50 @@
 [
-    {
-      "id": 201,
-      "baslik": "Seminer: Yapay Zeka ve Eğitim",
-      "tarih": "2025-10-07",
-      "saat": "14:00",
-      "mekan": "Konferans Salonu",
-      "birim": "Bilgisayar Müh."
-    },
-    {
-      "id": 202,
-      "baslik": "Akademik Kurul Toplantısı",
-      "tarih": "2025-10-10",
-      "saat": "10:00",
-      "mekan": "Senato Odası",
-      "birim": "Rektörlük"
-    },
-    {
-      "id": 203,
-      "baslik": "Kütüphane: Yeni Kaynak Tanıtımı",
-      "tarih": "2025-10-05",
-      "saat": "11:00",
-      "mekan": "Kütüphane",
-      "birim": "Kütüphane"
-    },
-    {
-      "id": 204,
-      "baslik": "Öğrenci Kulübü Konseri",
-      "tarih": "2025-10-15",
-      "saat": "18:00",
-      "mekan": "Amfi Tiyatro",
-      "birim": "Müzik Kulübü"
-    }
-  ]
-  
+  {
+    "baslik": "Bilimsel Araştırma Semineri",
+    "tarih": "2025-03-15",
+    "saat": "14:00",
+    "mekan": "Konferans Salonu A",
+    "birim": "Fen-Edebiyat Fakültesi",
+    "kategori": "Akademik"
+  },
+  {
+    "baslik": "Personel Toplantısı",
+    "tarih": "2025-03-20",
+    "saat": "10:00",
+    "mekan": "Senato Salonu",
+    "birim": "Rektörlük",
+    "kategori": "İdari"
+  },
+  {
+    "baslik": "Kariyer Günleri 2025",
+    "tarih": "2025-04-05",
+    "saat": "09:30",
+    "mekan": "Spor Salonu",
+    "birim": "Kariyer Merkezi",
+    "kategori": "Öğrenci"
+  },
+  {
+    "baslik": "Akademik Kurul Toplantısı",
+    "tarih": "2025-04-18",
+    "saat": "13:30",
+    "mekan": "Konferans Salonu B",
+    "birim": "Mühendislik Fakültesi",
+    "kategori": "Akademik"
+  },
+  {
+    "baslik": "Personel Oryantasyon Programı",
+    "tarih": "2025-05-02",
+    "saat": "11:00",
+    "mekan": "İdari Eğitim Salonu",
+    "birim": "İnsan Kaynakları",
+    "kategori": "İdari"
+  },
+  {
+    "baslik": "Öğrenci Kulüpleri Tanıtım Fuarı",
+    "tarih": "2025-05-10",
+    "saat": "12:00",
+    "mekan": "Kampüs Meydanı",
+    "birim": "Öğrenci İşleri",
+    "kategori": "Öğrenci"
+  }
+]
