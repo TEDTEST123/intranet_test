@@ -115,7 +115,8 @@ header nav a:hover {
 }
 
 /* Etkinlikler listesi */
-#etkinlik-list {
+#etkinlik-list, 
+#tum-etkinlikler {
   margin-top: 10px;
 }
 .etkinlik-item {
@@ -141,7 +142,7 @@ header nav a:hover {
   text-decoration: underline;
 }
 
-/* Hava durumu kartı */
+/* Hava durumu kartı (küçültülmüş) */
 .weather-card {
   margin-top: 20px;
   text-align: center;
@@ -149,18 +150,19 @@ header nav a:hover {
 .weather-card h2 {
   font-size: 16px;
   margin-bottom: 6px;
+  color: #002d72;
 }
 .weather-card iframe {
   width: 100%;
   max-width: 100%;
-  height: 150px;
+  height: 120px; /* küçültülmüş */
   border: none;
   border-radius: 6px;
   overflow: hidden;
   box-shadow: 0 1px 3px rgba(0,0,0,0.1);
 }
 
-/* Filtre butonları (duyurular sayfası) */
+/* Filtre butonları (duyurular ve etkinlikler sayfası) */
 .filter-bar {
   display: flex;
   align-items: center;
