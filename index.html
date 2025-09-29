@@ -68,11 +68,11 @@
         <!-- Hava Durumu Kartı -->
         <div class="card">
           <h2>Hava Durumu</h2>
-          <a class="weatherwidget-io" 
-             href="https://forecast7.com/tr/39d93n32d85/ankara/" 
-             data-label_1="ANKARA" 
-             data-label_2="HAVA DURUMU" 
-             data-theme="original" >
+          <a class="weatherwidget-io"
+             href="https://forecast7.com/tr/39d93n32d85/ankara/"
+             data-label_1="ANKARA"
+             data-label_2="HAVA DURUMU"
+             data-theme="original">
              ANKARA HAVA DURUMU
           </a>
         </div>
@@ -85,7 +85,7 @@
     © 2025 TED Üniversitesi • Tüm Hakları Saklıdır
   </footer>
 
-  <!-- JS -->
+  <!-- JS: JSON’dan veri okuma -->
   <script>
     const trDate = d => new Date(d).toLocaleDateString('tr-TR', {year:'numeric', month:'short', day:'2-digit'});
     const byDateDesc = (a,b) => new Date(b.tarih) - new Date(a.tarih);
@@ -192,4 +192,3 @@
   </script>
 </body>
 </html>
-
