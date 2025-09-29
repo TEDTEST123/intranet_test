@@ -34,19 +34,43 @@ header {
   justify-content: space-between;
   flex-wrap: wrap;
 }
-.brand { display: flex; align-items: center; gap: 12px; margin-bottom: 8px }
-.brand img { height: 48px }
-.brand span { font-weight: 700; font-size: 18px; color: #fff }
+.brand { 
+  display: flex; 
+  align-items: center; 
+  gap: 10px; 
+  margin-bottom: 8px 
+}
+.brand img { 
+  height: 64px;   /* Logo büyütüldü */
+}
+.brand span { 
+  font-weight: 700; 
+  font-size: 22px;  
+  color: #fff 
+}
 
+/* Menü */
 nav { display: flex; gap: 12px; flex-wrap: wrap }
 nav a {
-  padding: 8px 12px;
-  border-radius: 6px;
+  padding: 10px 18px;
+  border-radius: 8px;
   text-decoration: none;
   color: #fff;
-  transition: background 0.2s;
+  font-weight: 500;
+  background: rgba(255,255,255,0.1);
+  transition: background 0.3s, transform 0.2s;
 }
-nav a:hover { background: var(--brand); color: #fff }
+nav a:hover {
+  background: var(--brand);
+  color: #fff;
+  transform: translateY(-2px);
+  box-shadow: 0 2px 6px rgba(0,0,0,0.2);
+}
+nav a.active {
+  background: #fff;
+  color: var(--navbg);
+  font-weight: 600;
+}
 
 /* Genel içerik */
 main { padding: 20px 0 }
@@ -64,12 +88,22 @@ main { padding: 20px 0 }
   font-weight: 700;
   color: var(--navbg);
 }
-.list { display: flex; flex-direction: column; gap: 10px }
+.list { display: flex; flex-direction: column; gap: 14px }
 article {
-  padding: 12px;
+  padding: 16px;
   border: 1px solid var(--line);
   border-radius: 10px;
   background: #fff;
+  transition: transform 0.2s, box-shadow 0.2s;
+}
+article:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 4px 12px rgba(0,0,0,0.12);
+}
+article h3 {
+  font-size: 18px;
+  margin-bottom: 6px;
+  color: var(--navbg);
 }
 .badge {
   display: inline-block;
@@ -77,11 +111,19 @@ article {
   padding: 2px 8px;
   border-radius: 999px;
   border: 1px solid var(--line);
+  background: #f3f4f6;
   color: var(--muted);
-  margin-right: 6px;
+  margin-left: 6px;
 }
-.meta { color: var(--muted); font-size: 12px; margin-top: 6px }
-a.more { display: inline-block; margin-top: 10px; color: var(--brand); text-decoration: none }
+.meta { color: var(--muted); font-size: 13px; margin-top: 4px }
+a.more { 
+  display: inline-block; 
+  margin-top: 8px; 
+  color: var(--brand); 
+  text-decoration: none; 
+  font-weight: 500;
+}
+a.more:hover { text-decoration: underline; }
 footer {
   padding: 24px 0;
   color: var(--muted);
@@ -125,7 +167,7 @@ footer {
 /* Grid yapısı */
 .grid {
   display: grid;
-  grid-template-columns: 1fr 2fr; /* sol küçük, sağ geniş */
+  grid-template-columns: 1fr 2fr; 
   gap: 24px;
   margin-bottom: 24px;
 }
@@ -137,7 +179,7 @@ footer {
 #icerik-alani {
   max-width: 100%;
   margin: 0 0 24px 0;
-  align-self: start; /* hizalamayı yukarıdan başlat */
+  align-self: start;
 }
 #icerik-baslik {
   font-size: 22px;
@@ -164,4 +206,48 @@ footer {
   margin-bottom: 10px;
   font-size: 14px;
   background: #fff;
+}
+
+/* --- DUYURULAR SAYFASI --- */
+.filter-bar {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 12px;
+  margin-bottom: 20px;
+}
+
+.filter-buttons {
+  display: flex;
+  gap: 10px;
+}
+
+.filter-buttons button {
+  padding: 8px 16px;
+  border: none;
+  border-radius: 20px;
+  background: var(--navbg);
+  color: #fff;
+  font-weight: 500;
+  cursor: pointer;
+  transition: background 0.3s, transform 0.2s;
+}
+
+.filter-buttons button:hover {
+  background: var(--brand);
+  transform: translateY(-2px);
+}
+
+.filter-buttons button.active {
+  background: var(--brand);
+  color: #fff;
+}
+
+#search {
+  flex: 1;
+  min-width: 200px;
+  padding: 8px 14px;
+  border-radius: 20px;
+  border: 1px solid var(--line);
+  font-size: 14px;
 }
