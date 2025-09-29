@@ -38,19 +38,18 @@ header nav a:hover {
   text-decoration: underline;
 }
 
-/* Grid */
+/* Ana 3 kolon grid */
 .wrap {
   width: 90%;
   margin: 20px auto;
 }
-.grid {
+.main-grid {
   display: grid;
-  grid-template-columns: 1fr 1fr;
+  grid-template-columns: 220px 1fr 300px;
   gap: 20px;
-  margin-bottom: 20px;
 }
-@media (max-width: 768px) {
-  .grid {
+@media (max-width: 992px) {
+  .main-grid {
     grid-template-columns: 1fr;
   }
 }
@@ -65,19 +64,23 @@ header nav a:hover {
 .card h2 {
   margin-top: 0;
   color: #002d72;
+  font-size: 18px;
 }
 
-/* Hızlı Linkler */
+/* Sol Menü (Hızlı Linkler) */
+.side-links {
+  padding: 10px;
+}
 .quick-links {
   display: flex;
   flex-direction: column;
-  gap: 10px;
+  gap: 8px;
 }
 .quick-links .ql {
   display: block;
-  padding: 12px;
-  text-align: center;
-  border-radius: 8px;
+  padding: 10px;
+  text-align: left;  /* sola yaslı */
+  border-radius: 6px;
   background: #002d72;
   color: white;
   font-weight: bold;
@@ -88,49 +91,72 @@ header nav a:hover {
   background: #0044aa;
 }
 
-/* Combo-box stil */
-.combo {
-  width: 100%;
-  padding: 8px;
-  margin-bottom: 10px;
-  border-radius: 5px;
-  border: 1px solid #ccc;
+/* Duyurular listesi */
+#duyuru-list {
+  margin-top: 10px;
+}
+.duyuru-item {
+  margin-bottom: 12px;
+  padding-bottom: 10px;
+  border-bottom: 1px solid #eee;
+}
+.duyuru-item strong {
+  color: #002d72;
+}
+.duyuru-item p {
+  margin: 4px 0 0 0;
+  font-size: 14px;
+  color: #444;
 }
 .meta {
-  font-size: 14px;
-  color: #666;
+  font-size: 12px;
+  color: #777;
 }
 
-/* "Daha fazlası" linkleri */
+/* Etkinlikler listesi */
+#etkinlik-list {
+  margin-top: 10px;
+}
+.etkinlik-item {
+  margin-bottom: 12px;
+  padding-bottom: 10px;
+  border-bottom: 1px solid #eee;
+}
+.etkinlik-item strong {
+  color: #002d72;
+  font-size: 14px;
+}
+
+/* Daha fazlası linkleri */
 .more {
   display: inline-block;
-  margin-top: 10px;
+  margin-top: 8px;
   color: #c00;
   font-weight: bold;
   text-decoration: none;
+  font-size: 13px;
 }
 .more:hover {
   text-decoration: underline;
 }
 
-/* Hava durumu kartı düzeni */
+/* Hava durumu kartı */
 .weather-card {
+  margin-top: 20px;
   text-align: center;
-  padding: 10px;
 }
 .weather-card h2 {
-  font-size: 18px;
-  margin-bottom: 8px;
-  color: #002d72;
+  font-size: 16px;
+  margin-bottom: 6px;
 }
 .weather-card iframe {
   width: 100%;
   max-width: 100%;
-  height: 180px;
+  height: 150px;
   border: none;
-  border-radius: 8px;
+  border-radius: 6px;
   overflow: hidden;
-  box-shadow: 0 1px 4px rgba(0,0,0,0.1);
+  box-shadow: 0 1px 3px rgba(0,0,0,0.1);
 }
 
 /* Footer */
