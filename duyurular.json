@@ -1,35 +1,44 @@
 [
-    {
-      "id": 101,
-      "kategori": "Akademik",
-      "baslik": "Atama & Yükseltme Duyurusu",
-      "tarih": "2025-10-02",
-      "birim": "İK",
-      "ozet": "Ekim ayı atama ve yükseltmeleri yayımlandı."
-    },
-    {
-      "id": 102,
-      "kategori": "Sosyal",
-      "baslik": "Doğum Günü Kutlamaları",
-      "tarih": "2025-10-01",
-      "birim": "Kurumsal İletişim",
-      "ozet": "Ekim ayı doğum günü listesi."
-    },
-    {
-      "id": 103,
-      "kategori": "Akademik",
-      "baslik": "Haftanın Yayınları",
-      "tarih": "2025-09-29",
-      "birim": "Rektörlük",
-      "ozet": "Bu hafta öne çıkan akademik çalışmalar."
-    },
-    {
-      "id": 103,
-      "kategori": "Akademik",
-      "baslik": "Yeni Akademik Yayın Duyurusu",
-      "tarih": "2025-10-05",
-      "birim": "Rektörlük",
-      "ozet": "Bu hafta yayımlanan akademik makaleler duyurulmuştur."
-    }
-  ]
-  
+  {
+    "baslik": "Akademik Takvim Yayınlandı",
+    "tarih": "2025-02-25",
+    "birim": "Rektörlük",
+    "kategori": "Akademik",
+    "ozet": "2025-2026 akademik yılı için güncellenmiş akademik takvim duyuruldu."
+  },
+  {
+    "baslik": "Yeni Personel Alımı",
+    "tarih": "2025-03-01",
+    "birim": "İnsan Kaynakları",
+    "kategori": "İdari",
+    "ozet": "Üniversitemizde çeşitli pozisyonlar için yeni personel alımı yapılacaktır."
+  },
+  {
+    "baslik": "Bahar Şenlikleri Başlıyor",
+    "tarih": "2025-04-10",
+    "birim": "Öğrenci Dekanlığı",
+    "kategori": "Sosyal",
+    "ozet": "Her yıl düzenlenen bahar şenlikleri bu yıl Nisan ayında gerçekleştirilecektir."
+  },
+  {
+    "baslik": "Araştırma Projeleri Başvuru Çağrısı",
+    "tarih": "2025-03-20",
+    "birim": "Bilimsel Araştırma Projeleri Ofisi",
+    "kategori": "Akademik",
+    "ozet": "2025 yılı BAP projeleri için başvuru süreci başlamıştır."
+  },
+  {
+    "baslik": "Kampüs İçi Ulaşım Düzenlemesi",
+    "tarih": "2025-03-28",
+    "birim": "İdari İşler",
+    "kategori": "İdari",
+    "ozet": "Kampüs içi ring seferlerinde güzergah ve saat değişiklikleri yapılmıştır."
+  },
+  {
+    "baslik": "Sosyal Sorumluluk Projesi",
+    "tarih": "2025-04-15",
+    "birim": "Toplumsal Katkı Koordinatörlüğü",
+    "kategori": "Sosyal",
+    "ozet": "Üniversitemiz öğrencileri için sosyal sorumluluk projelerine katılım çağrısı yapılmaktadır."
+  }
+]
