@@ -1,253 +1,144 @@
-:root { 
-  --bg:#F4F4F4;        
-  --fg:#333333;        
-  --muted:#6b7280;     
-  --brand:#E30613;     
-  --navbg:#002D72;     
-  --card:#ffffff;      
-  --line:#E5E5E5;      
-}
-
-*{box-sizing:border-box;margin:0;padding:0}
-body{
-  font-family: system-ui, -apple-system, Segoe UI, Roboto, Ubuntu, Arial, sans-serif;
-  background: var(--bg);
-  color: var(--fg);
-  line-height: 1.6;
+/* Genel sayfa ayarları */
+body {
+  font-family: Arial, sans-serif;
+  margin: 0;
+  background: #f5f5f5;
+  color: #222;
 }
 
 /* Header */
 header {
-  position: sticky;
-  top: 0;
-  z-index: 1;
-  background: var(--navbg);
-  border-bottom: 3px solid var(--brand);
-  color: #fff;
+  background: #002d72; /* TEDU koyu mavi */
+  color: white;
+  padding: 10px 0;
 }
-.wrap {
-  max-width: 1200px;
-  margin: 0 auto;
-  padding: 20px;
+header .wrap {
   display: flex;
-  align-items: center;
   justify-content: space-between;
-  flex-wrap: wrap;
+  align-items: center;
+  width: 90%;
+  margin: auto;
 }
-.brand { 
-  display: flex; 
-  align-items: center; 
-  gap: 10px; 
-  margin-bottom: 8px 
-}
-.brand img { 
-  height: 64px;   /* Logo büyütüldü */
-}
-.brand span { 
-  font-weight: 700; 
-  font-size: 22px;  
-  color: #fff 
-}
-
-/* Menü */
-nav { display: flex; gap: 12px; flex-wrap: wrap }
-nav a {
-  padding: 10px 18px;
-  border-radius: 8px;
-  text-decoration: none;
-  color: #fff;
-  font-weight: 500;
-  background: rgba(255,255,255,0.1);
-  transition: background 0.3s, transform 0.2s;
-}
-nav a:hover {
-  background: var(--brand);
-  color: #fff;
-  transform: translateY(-2px);
-  box-shadow: 0 2px 6px rgba(0,0,0,0.2);
-}
-nav a.active {
-  background: #fff;
-  color: var(--navbg);
-  font-weight: 600;
-}
-
-/* Genel içerik */
-main { padding: 20px 0 }
-.card {
-  background: var(--card);
-  border: 1px solid var(--line);
-  border-radius: 12px;
-  padding: 20px;
-  margin-bottom: 24px;
-  box-shadow: 0 2px 6px rgba(0,0,0,0.08);
-}
-.card h2, .card h1 {
-  margin: 0 0 14px 0;
-  font-size: 22px;
-  font-weight: 700;
-  color: var(--navbg);
-}
-.list { display: flex; flex-direction: column; gap: 14px }
-article {
-  padding: 16px;
-  border: 1px solid var(--line);
-  border-radius: 10px;
-  background: #fff;
-  transition: transform 0.2s, box-shadow 0.2s;
-}
-article:hover {
-  transform: translateY(-2px);
-  box-shadow: 0 4px 12px rgba(0,0,0,0.12);
-}
-article h3 {
-  font-size: 18px;
-  margin-bottom: 6px;
-  color: var(--navbg);
-}
-.badge {
-  display: inline-block;
-  font-size: 12px;
-  padding: 2px 8px;
-  border-radius: 999px;
-  border: 1px solid var(--line);
-  background: #f3f4f6;
-  color: var(--muted);
-  margin-left: 6px;
-}
-.meta { color: var(--muted); font-size: 13px; margin-top: 4px }
-a.more { 
-  display: inline-block; 
-  margin-top: 8px; 
-  color: var(--brand); 
-  text-decoration: none; 
-  font-weight: 500;
-}
-a.more:hover { text-decoration: underline; }
-footer {
-  padding: 24px 0;
-  color: var(--muted);
-  font-size: 13px;
-  text-align: center;
-}
-
-/* Hızlı linkler */
-.quick-links {
-  display: grid;
-  grid-template-columns: 1fr;
-  gap: 16px;
-  margin-top: 16px;
-}
-.ql {
+header .brand {
   display: flex;
   align-items: center;
-  justify-content: center;
   gap: 10px;
-  padding: 20px;
-  background: var(--navbg);
-  color: #fff;
-  font-weight: 600;
+}
+header .brand img {
+  height: 45px;
+}
+header nav a {
+  color: white;
+  margin-left: 15px;
   text-decoration: none;
-  border-radius: 12px;
-  transition: background 0.3s, transform 0.2s;
+  font-weight: bold;
 }
-.ql:hover {
-  background: var(--brand);
-  transform: translateY(-2px);
+header nav a.active,
+header nav a:hover {
+  text-decoration: underline;
 }
-.ql::before {
-  font-family: "Segoe UI Emoji", sans-serif;
-  font-size: 20px;
-}
-.ql:nth-child(1)::before { content: "👥"; }
-.ql:nth-child(2)::before { content: "📚"; }
-.ql:nth-child(3)::before { content: "🗓"; }
-.ql:nth-child(4)::before { content: "📑"; }
 
-/* Grid yapısı */
+/* Grid */
+.wrap {
+  width: 90%;
+  margin: 20px auto;
+}
 .grid {
   display: grid;
-  grid-template-columns: 1fr 2fr; 
-  gap: 24px;
-  margin-bottom: 24px;
-}
-@media (max-width: 900px) {
-  .grid { grid-template-columns: 1fr }
-}
-
-/* Dinamik içerik alanı */
-#icerik-alani {
-  max-width: 100%;
-  margin: 0 0 24px 0;
-  align-self: start;
-}
-#icerik-baslik {
-  font-size: 22px;
-  font-weight: 700;
-  color: var(--navbg);
-  margin-bottom: 10px;
-  text-align: center;
-}
-#icerik-metin {
-  font-size: 16px;
-  line-height: 1.6;
-  color: var(--fg);
-  text-align: justify;
-  margin: 0 auto;
-  max-width: 800px;
-}
-
-/* Combo-box */
-.combo {
-  width: 100%;
-  padding: 10px;
-  border-radius: 8px;
-  border: 1px solid var(--line);
-  margin-bottom: 10px;
-  font-size: 14px;
-  background: #fff;
-}
-
-/* --- DUYURULAR SAYFASI --- */
-.filter-bar {
-  display: flex;
-  flex-wrap: wrap;
-  align-items: center;
-  gap: 12px;
+  grid-template-columns: 1fr 1fr;
+  gap: 20px;
   margin-bottom: 20px;
 }
+@media (max-width: 768px) {
+  .grid {
+    grid-template-columns: 1fr;
+  }
+}
 
-.filter-buttons {
+/* Kart */
+.card {
+  background: white;
+  padding: 15px;
+  border-radius: 10px;
+  box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+}
+.card h2 {
+  margin-top: 0;
+  color: #002d72;
+}
+
+/* Hızlı Linkler */
+.quick-links {
   display: flex;
+  flex-direction: column;
   gap: 10px;
 }
+.quick-links .ql {
+  display: block;
+  padding: 12px;
+  text-align: center;
+  border-radius: 8px;
+  background: #002d72;
+  color: white;
+  font-weight: bold;
+  text-decoration: none;
+  transition: background 0.3s;
+}
+.quick-links .ql:hover {
+  background: #0044aa;
+}
 
-.filter-buttons button {
-  padding: 8px 16px;
+/* Combo-box stil */
+.combo {
+  width: 100%;
+  padding: 8px;
+  margin-bottom: 10px;
+  border-radius: 5px;
+  border: 1px solid #ccc;
+}
+.meta {
+  font-size: 14px;
+  color: #666;
+}
+
+/* "Daha fazlası" linkleri */
+.more {
+  display: inline-block;
+  margin-top: 10px;
+  color: #c00;
+  font-weight: bold;
+  text-decoration: none;
+}
+.more:hover {
+  text-decoration: underline;
+}
+
+/* Hava durumu kartı düzeni */
+.weather-card {
+  text-align: center;
+  padding: 10px;
+}
+.weather-card h2 {
+  font-size: 18px;
+  margin-bottom: 8px;
+  color: #002d72;
+}
+.weather-card iframe {
+  width: 100%;
+  max-width: 100%;
+  height: 180px;
   border: none;
-  border-radius: 20px;
-  background: var(--navbg);
-  color: #fff;
-  font-weight: 500;
-  cursor: pointer;
-  transition: background 0.3s, transform 0.2s;
+  border-radius: 8px;
+  overflow: hidden;
+  box-shadow: 0 1px 4px rgba(0,0,0,0.1);
 }
 
-.filter-buttons button:hover {
-  background: var(--brand);
-  transform: translateY(-2px);
-}
-
-.filter-buttons button.active {
-  background: var(--brand);
-  color: #fff;
-}
-
-#search {
-  flex: 1;
-  min-width: 200px;
-  padding: 8px 14px;
-  border-radius: 20px;
-  border: 1px solid var(--line);
+/* Footer */
+footer {
+  background: #002d72;
+  color: white;
+  text-align: center;
+  padding: 12px;
+  margin-top: 20px;
   font-size: 14px;
 }
