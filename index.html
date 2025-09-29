@@ -12,10 +12,10 @@
     <div class="wrap">
       <div class="brand">
         <img src="logo.png" alt="TED Üniversitesi Amblemi">
-        <span>TED Üniversitesi </span>
+        <span>TED Üniversitesi Intranet</span>
       </div>
       <nav>
-        <a href="index.html">Ana Sayfa</a>
+        <a href="index.html" class="active">Ana Sayfa</a>
         <a href="duyurular.html">Duyurular</a>
         <a href="etkinlikler.html">Etkinlikler</a>
       </nav>
@@ -42,7 +42,7 @@
       </section>
     </div>
 
-    <!-- Grid 2: Duyurular + Etkinlikler -->
+    <!-- Grid 2: Duyurular + Etkinlikler + Hava Durumu -->
     <div class="grid">
       <!-- Sol: Son duyurular -->
       <section class="card">
@@ -54,14 +54,28 @@
         <a class="more" href="duyurular.html">Tüm duyurular →</a>
       </section>
 
-      <!-- Sağ: Yaklaşan etkinlikler -->
-      <aside class="card">
-        <h2>Yaklaşan Etkinlikler</h2>
-        <select id="etkinlik-combo" class="combo">
-          <option value="">Etkinlik seçiniz...</option>
-        </select>
-        <div id="etkinlik-detay" class="meta"></div>
-        <a class="more" href="etkinlikler.html">Tüm etkinlikler →</a>
+      <!-- Sağ: Yaklaşan etkinlikler + hava durumu -->
+      <aside>
+        <div class="card">
+          <h2>Yaklaşan Etkinlikler</h2>
+          <select id="etkinlik-combo" class="combo">
+            <option value="">Etkinlik seçiniz...</option>
+          </select>
+          <div id="etkinlik-detay" class="meta"></div>
+          <a class="more" href="etkinlikler.html">Tüm etkinlikler →</a>
+        </div>
+
+        <!-- Hava Durumu Kartı -->
+        <div class="card">
+          <h2>Hava Durumu</h2>
+          <a class="weatherwidget-io" 
+             href="https://forecast7.com/tr/39d93n32d85/ankara/" 
+             data-label_1="ANKARA" 
+             data-label_2="HAVA DURUMU" 
+             data-theme="original" >
+             ANKARA HAVA DURUMU
+          </a>
+        </div>
       </aside>
     </div>
   </main>
@@ -162,6 +176,19 @@
         }
       });
     });
+  </script>
+
+  <!-- Hava Durumu Widget Script -->
+  <script>
+  !function(d,s,id){
+    var js,fjs=d.getElementsByTagName(s)[0];
+    if(!d.getElementById(id)){
+      js=d.createElement(s);
+      js.id=id;
+      js.src='https://weatherwidget.io/js/widget.min.js';
+      fjs.parentNode.insertBefore(js,fjs);
+    }
+  }(document,'script','weatherwidget-io-js');
   </script>
 </body>
 </html>
