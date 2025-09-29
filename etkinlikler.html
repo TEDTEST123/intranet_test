@@ -3,56 +3,110 @@
 <head>
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width,initial-scale=1" />
-  <title>Etkinlikler • TEDU Intranet – Test</title>
+  <title>Tüm Etkinlikler – TEDU Intranet</title>
   <link rel="stylesheet" href="style.css" />
 </head>
 <body>
+  <!-- HEADER -->
   <header>
     <div class="wrap">
       <div class="brand">
         <img src="logo.png" alt="TED Üniversitesi Amblemi">
-        <span>TED Üniversitesi</span>
+        <span>TED Üniversitesi Intranet</span>
       </div>
       <nav>
         <a href="index.html">Ana Sayfa</a>
         <a href="duyurular.html">Duyurular</a>
-        <a href="etkinlikler.html">Etkinlikler</a>
+        <a href="etkinlikler.html" class="active">Etkinlikler</a>
       </nav>
     </div>
   </header>
 
   <main class="wrap">
     <section class="card">
-      <h1>Tüm Etkinlikler</h1>
-      <div id="etkinlik-list" class="list"></div>
+      <h2>Tüm Etkinlikler</h2>
+
+      <!-- Filtre Butonları -->
+      <div class="filter-bar">
+        <div class="filter-buttons">
+          <button data-kategori="all" class="active">Tümü</button>
+          <button data-kategori="Akademik">Akademik</button>
+          <button data-kategori="İdari">İdari</button>
+          <button data-kategori="Öğrenci">Öğrenci</button>
+        </div>
+        <input type="text" id="etkinlik-search" placeholder="Etkinlik başlığında ara..." />
+      </div>
+
+      <!-- Etkinlikler listesi -->
+      <div id="etkinlik-listesi" class="list"></div>
     </section>
   </main>
 
-  <footer class="wrap">© TED Üniversitesi • Test amaçlı ilk sürüm (MVP)</footer>
+  <!-- FOOTER -->
+  <footer class="wrap">
+    © 2025 TED Üniversitesi • Tüm Hakları Saklıdır
+  </footer>
 
+  <!-- JS -->
   <script>
     const trDate = d => new Date(d).toLocaleDateString('tr-TR', {year:'numeric', month:'short', day:'2-digit'});
-    const byDateAsc  = (a,b) => new Date(a.tarih) - new Date(b.tarih);
+    const byDateAsc = (a,b) => new Date(a.tarih) - new Date(b.tarih);
 
-    const listEl = document.getElementById('etkinlik-list');
+    let tumEtkinlikler = [];
 
-    function render(data){
-      listEl.innerHTML = "";
-      data.forEach(e => {
-        const el = document.createElement('article');
-        el.innerHTML = `
-          <strong>${e.baslik}</strong>
-          <div class="meta">${trDate(e.tarih)} • ${e.saat} • ${e.mekan} • ${e.birim}</div>
-        `;
-        listEl.appendChild(el);
-      });
-    }
-
+    // JSON'dan etkinlikleri çek
     fetch('etkinlikler.json')
       .then(r => r.json())
       .then(data => {
-        render(data.sort(byDateAsc));
+        tumEtkinlikler = data.sort(byDateAsc);
+        filtreleVeGoster("all", "");
       });
+
+    const liste = document.getElementById("etkinlik-listesi");
+    const search = document.getElementById("etkinlik-search");
+    const buttons = document.querySelectorAll(".filter-buttons button");
+
+    function filtreleVeGoster(kategori, arama) {
+      liste.innerHTML = "";
+      let sonuc = tumEtkinlikler;
+
+      if (kategori !== "all") {
+        sonuc = sonuc.filter(e => e.kategori === kategori);
+      }
+      if (arama) {
+        sonuc = sonuc.filter(e => e.baslik.toLowerCase().includes(arama.toLowerCase()));
+      }
+
+      sonuc.forEach(e => {
+        const el = document.createElement("article");
+        el.innerHTML = `
+          <h3>${e.baslik}</h3>
+          <div class="meta">${trDate(e.tarih)} • ${e.saat} • ${e.mekan} • ${e.birim} • <span class="badge">${e.kategori}</span></div>
+          <p>${e.aciklama || ""}</p>
+          <a class="more" href="#">Detayları Gör →</a>
+        `;
+        liste.appendChild(el);
+      });
+
+      if (sonuc.length === 0) {
+        liste.innerHTML = "<p>Hiç etkinlik bulunamadı.</p>";
+      }
+    }
+
+    // Butonlara tıklama
+    buttons.forEach(btn=>{
+      btn.addEventListener("click", ()=>{
+        buttons.forEach(b=>b.classList.remove("active"));
+        btn.classList.add("active");
+        filtreleVeGoster(btn.dataset.kategori, search.value);
+      });
+    });
+
+    // Arama kutusu
+    search.addEventListener("input", ()=>{
+      const aktifBtn = document.querySelector(".filter-buttons button.active");
+      filtreleVeGoster(aktifBtn.dataset.kategori, search.value);
+    });
   </script>
 </body>
 </html>
