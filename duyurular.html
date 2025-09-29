@@ -3,7 +3,7 @@
 <head>
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width,initial-scale=1" />
-  <title>Tüm Duyurular – TEDU Intranet</title>
+  <title>Tüm Duyurular - TEDU Intranet</title>
   <link rel="stylesheet" href="style.css" />
 </head>
 <body>
@@ -12,7 +12,7 @@
     <div class="wrap">
       <div class="brand">
         <img src="logo.png" alt="TED Üniversitesi Amblemi">
-        <span>TED Üniversitesi </span>
+        <span>TED Üniversitesi Intranet</span>
       </div>
       <nav>
         <a href="index.html">Ana Sayfa</a>
@@ -22,23 +22,22 @@
     </div>
   </header>
 
+  <!-- MAIN -->
   <main class="wrap">
     <section class="card">
       <h2>Tüm Duyurular</h2>
 
-      <!-- Filtre Butonları -->
+      <!-- Filtre & Arama Çubuğu -->
       <div class="filter-bar">
-        <div class="filter-buttons">
-          <button data-kategori="all" class="active">Tümü</button>
-          <button data-kategori="Akademik">Akademik</button>
-          <button data-kategori="İdari">İdari</button>
-          <button data-kategori="Sosyal">Sosyal</button>
-        </div>
+        <button class="filter-btn active" data-kategori="all">Tümü</button>
+        <button class="filter-btn" data-kategori="Akademik">Akademik</button>
+        <button class="filter-btn" data-kategori="İdari">İdari</button>
+        <button class="filter-btn" data-kategori="Sosyal">Sosyal</button>
         <input type="text" id="search" placeholder="Başlıkta ara..." />
       </div>
 
-      <!-- Duyurular listesi -->
-      <div id="duyuru-listesi" class="list"></div>
+      <!-- Duyuru listesi -->
+      <div id="tum-duyurular"></div>
     </section>
   </main>
 
@@ -49,66 +48,65 @@
 
   <!-- JS -->
   <script>
-    const trDate = d => new Date(d).toLocaleDateString('tr-TR', {year:'numeric', month:'short', day:'2-digit'});
+    const trDate = d => new Date(d).toLocaleDateString('tr-TR',{year:'numeric',month:'short',day:'2-digit'});
     const byDateDesc = (a,b) => new Date(b.tarih) - new Date(a.tarih);
 
     let tumDuyurular = [];
 
-    // JSON'dan duyuruları çek
-    fetch('duyurular.json')
-      .then(r => r.json())
-      .then(data => {
-        tumDuyurular = data.sort(byDateDesc);
-        filtreleVeGoster("all", "");
-      });
+    function renderDuyurular(filter="all", search="") {
+      const container = document.getElementById("tum-duyurular");
+      container.innerHTML = "";
 
-    // Filtreleme ve arama
-    const liste = document.getElementById("duyuru-listesi");
-    const search = document.getElementById("search");
-    const buttons = document.querySelectorAll(".filter-buttons button");
+      let filtered = tumDuyurular;
 
-    function filtreleVeGoster(kategori, arama) {
-      liste.innerHTML = "";
-      let sonuc = tumDuyurular;
-
-      if (kategori !== "all") {
-        sonuc = sonuc.filter(d => d.kategori === kategori);
+      if(filter !== "all") {
+        filtered = filtered.filter(d => d.kategori === filter);
       }
-      if (arama) {
-        sonuc = sonuc.filter(d => d.baslik.toLowerCase().includes(arama.toLowerCase()));
+      if(search) {
+        filtered = filtered.filter(d => d.baslik.toLowerCase().includes(search.toLowerCase()));
       }
 
-      sonuc.forEach(d => {
+      filtered.forEach(d => {
         const el = document.createElement("article");
+        el.className = "duyuru-item";
         el.innerHTML = `
-          <h3>${d.baslik}</h3>
-          <div class="meta">${trDate(d.tarih)} • ${d.birim} • <span class="badge">${d.kategori}</span></div>
+          <strong>${d.baslik}</strong>
+          <div class="meta">${trDate(d.tarih)} • ${d.birim} • ${d.kategori}</div>
           <p>${d.ozet}</p>
-          <a class="more" href="#">Devamını Oku →</a>
+          <a href="#" class="more">Devamını Oku →</a>
         `;
-        liste.appendChild(el);
+        container.appendChild(el);
       });
 
-      if (sonuc.length === 0) {
-        liste.innerHTML = "<p>Hiç duyuru bulunamadı.</p>";
+      if(filtered.length === 0) {
+        container.innerHTML = "<p>Hiç duyuru bulunamadı.</p>";
       }
     }
 
-    // Butonlara tıklama
-    buttons.forEach(btn=>{
+    // JSON’dan duyuruları çek
+    fetch("duyurular.json")
+      .then(r => r.json())
+      .then(data => {
+        tumDuyurular = data.sort(byDateDesc);
+        renderDuyurular();
+      });
+
+    // Filtre butonları
+    document.querySelectorAll(".filter-btn").forEach(btn => {
       btn.addEventListener("click", ()=>{
-        buttons.forEach(b=>b.classList.remove("active"));
+        document.querySelectorAll(".filter-btn").forEach(b=>b.classList.remove("active"));
         btn.classList.add("active");
-        filtreleVeGoster(btn.dataset.kategori, search.value);
+        const kategori = btn.dataset.kategori;
+        const search = document.getElementById("search").value;
+        renderDuyurular(kategori, search);
       });
     });
 
     // Arama kutusu
-    search.addEventListener("input", ()=>{
-      const aktifBtn = document.querySelector(".filter-buttons button.active");
-      filtreleVeGoster(aktifBtn.dataset.kategori, search.value);
+    document.getElementById("search").addEventListener("input", e=>{
+      const kategori = document.querySelector(".filter-btn.active").dataset.kategori;
+      renderDuyurular(kategori, e.target.value);
     });
   </script>
 </body>
 </html>
-
