@@ -3,19 +3,20 @@
 <head>
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width,initial-scale=1" />
-  <title>Duyurular • TEDU Intranet – Test</title>
+  <title>Tüm Duyurular – TEDU Intranet</title>
   <link rel="stylesheet" href="style.css" />
 </head>
 <body>
+  <!-- HEADER -->
   <header>
     <div class="wrap">
       <div class="brand">
         <img src="logo.png" alt="TED Üniversitesi Amblemi">
-        <span>TED Üniversitesi</span>
+        <span>TED Üniversitesi Intranet</span>
       </div>
       <nav>
         <a href="index.html">Ana Sayfa</a>
-        <a href="duyurular.html">Duyurular</a>
+        <a href="duyurular.html" class="active">Duyurular</a>
         <a href="etkinlikler.html">Etkinlikler</a>
       </nav>
     </div>
@@ -23,82 +24,90 @@
 
   <main class="wrap">
     <section class="card">
-      <h1>Tüm Duyurular</h1>
+      <h2>Tüm Duyurular</h2>
 
-      <!-- Filtreler -->
-      <div class="controls">
-        <button class="btn" data-filtre="Tümü" aria-pressed="true">Tümü</button>
-        <button class="btn" data-filtre="Akademik">Akademik</button>
-        <button class="btn" data-filtre="İdari">İdari</button>
-        <button class="btn" data-filtre="Sosyal">Sosyal</button>
-        <input id="q" class="search" type="search" placeholder="Başlıkta ara...">
+      <!-- Filtre Butonları -->
+      <div class="filter-bar">
+        <div class="filter-buttons">
+          <button data-kategori="all" class="active">Tümü</button>
+          <button data-kategori="Akademik">Akademik</button>
+          <button data-kategori="İdari">İdari</button>
+          <button data-kategori="Sosyal">Sosyal</button>
+        </div>
+        <input type="text" id="search" placeholder="Başlıkta ara..." />
       </div>
 
-      <!-- Duyuru listesi -->
-      <div id="duyuru-list" class="list"></div>
+      <!-- Duyurular listesi -->
+      <div id="duyuru-listesi" class="list"></div>
     </section>
   </main>
 
-  <footer class="wrap">© TED Üniversitesi • Test amaçlı ilk sürüm (MVP)</footer>
+  <!-- FOOTER -->
+  <footer class="wrap">
+    © 2025 TED Üniversitesi • Tüm Hakları Saklıdır
+  </footer>
 
+  <!-- JS -->
   <script>
     const trDate = d => new Date(d).toLocaleDateString('tr-TR', {year:'numeric', month:'short', day:'2-digit'});
     const byDateDesc = (a,b) => new Date(b.tarih) - new Date(a.tarih);
 
-    let DATA = [];
-    let activeFilter = "Tümü";
-    let query = "";
+    let tumDuyurular = [];
 
-    const listEl = document.getElementById('duyuru-list');
-    const qEl = document.getElementById('q');
-
-    function render(){
-      listEl.innerHTML = "";
-      const rows = DATA
-        .filter(d => (activeFilter==="Tümü" || d.kategori===activeFilter))
-        .filter(d => d.baslik.toLowerCase().includes(query.toLowerCase()));
-
-      if(rows.length===0){
-        const empty = document.createElement('div');
-        empty.className = "meta";
-        empty.textContent = "Kayıt bulunamadı.";
-        listEl.appendChild(empty);
-        return;
-      }
-
-      rows.forEach(d => {
-        const el = document.createElement('article');
-        el.innerHTML = `
-          <div><span class="badge">${d.kategori}</span><strong>${d.baslik}</strong></div>
-          <div class="meta">${trDate(d.tarih)} • ${d.birim}</div>
-          <p style="margin:8px 0 0 0">${d.ozet}</p>`;
-        listEl.appendChild(el);
-      });
-    }
-
-    // Filtre düğmeleri
-    document.querySelectorAll(".btn[data-filtre]").forEach(btn=>{
-      btn.addEventListener("click", ()=>{
-        document.querySelectorAll(".btn[data-filtre]").forEach(b=>b.setAttribute("aria-pressed","false"));
-        btn.setAttribute("aria-pressed","true");
-        activeFilter = btn.dataset.filtre;
-        render();
-      });
-    });
-
-    // Arama
-    qEl.addEventListener("input", ()=>{
-      query = qEl.value;
-      render();
-    });
-
-    // JSON'dan veriyi oku
+    // JSON'dan duyuruları çek
     fetch('duyurular.json')
       .then(r => r.json())
       .then(data => {
-        DATA = data.sort(byDateDesc);
-        render();
+        tumDuyurular = data.sort(byDateDesc);
+        filtreleVeGoster("all", "");
       });
+
+    // Filtreleme ve arama
+    const liste = document.getElementById("duyuru-listesi");
+    const search = document.getElementById("search");
+    const buttons = document.querySelectorAll(".filter-buttons button");
+
+    function filtreleVeGoster(kategori, arama) {
+      liste.innerHTML = "";
+      let sonuc = tumDuyurular;
+
+      if (kategori !== "all") {
+        sonuc = sonuc.filter(d => d.kategori === kategori);
+      }
+      if (arama) {
+        sonuc = sonuc.filter(d => d.baslik.toLowerCase().includes(arama.toLowerCase()));
+      }
+
+      sonuc.forEach(d => {
+        const el = document.createElement("article");
+        el.innerHTML = `
+          <h3>${d.baslik}</h3>
+          <div class="meta">${trDate(d.tarih)} • ${d.birim} • <span class="badge">${d.kategori}</span></div>
+          <p>${d.ozet}</p>
+          <a class="more" href="#">Devamını Oku →</a>
+        `;
+        liste.appendChild(el);
+      });
+
+      if (sonuc.length === 0) {
+        liste.innerHTML = "<p>Hiç duyuru bulunamadı.</p>";
+      }
+    }
+
+    // Butonlara tıklama
+    buttons.forEach(btn=>{
+      btn.addEventListener("click", ()=>{
+        buttons.forEach(b=>b.classList.remove("active"));
+        btn.classList.add("active");
+        filtreleVeGoster(btn.dataset.kategori, search.value);
+      });
+    });
+
+    // Arama kutusu
+    search.addEventListener("input", ()=>{
+      const aktifBtn = document.querySelector(".filter-buttons button.active");
+      filtreleVeGoster(aktifBtn.dataset.kategori, search.value);
+    });
   </script>
 </body>
 </html>
