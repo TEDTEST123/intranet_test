@@ -45,7 +45,7 @@ header nav a:hover {
 }
 .main-grid {
   display: grid;
-  grid-template-columns: 220px 1fr 300px;
+  grid-template-columns: 220px 1fr 280px;
   gap: 20px;
 }
 @media (max-width: 992px) {
@@ -142,23 +142,26 @@ header nav a:hover {
   text-decoration: underline;
 }
 
-/* Hava durumu kartı (yalnızca bugünü göster) */
+/* Hava durumu kartı (TEDU renkleri + küçültülmüş) */
 .weather-card {
   margin-top: 20px;
   text-align: center;
+  background: #002d72;
+  border-radius: 8px;
+  padding: 8px;
 }
 .weather-card h2 {
   font-size: 16px;
   margin-bottom: 6px;
-  color: #002d72;
+  color: #ffffff;
 }
 .weatherwidget-io {
   display: block;
   width: 100% !important;
-  max-height: 140px !important;  /* sadece bugünü gösterecek */
+  max-height: 100px !important; /* yalnızca bugünü gösterecek kadar */
   overflow: hidden !important;
   border-radius: 6px;
-  box-shadow: 0 1px 3px rgba(0,0,0,0.1);
+  filter: brightness(0.95) contrast(1.05);
 }
 
 /* Filtre butonları */
