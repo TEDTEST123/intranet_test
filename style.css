@@ -1,37 +1,29 @@
-/* ====== Genel görünüm ve yerleşim ====== */
+/* ====== Genel görünüm ====== */
 :root {
   --ted-blue: #002d72;
-  --ted-blue-2: #003b88;
-  --card-bg: #ffffff;
+  --card-bg: #fff;
   --text: #222;
-}
-* { box-sizing: border-box; }
-
-html, body {
-  height: 100%;
 }
 body {
   margin: 0;
   font-family: Arial, sans-serif;
   color: var(--text);
   background: #f5f5f5;
-  display: flex;
-  flex-direction: column;
 }
-
-/* sayfa içi */
-.wrap { width: 90%; max-width: 1200px; margin: 0 auto; }
-main { flex: 1; margin: 20px 0; }
-
-/* kart */
+.wrap {
+  width: 90%;
+  max-width: 1200px;
+  margin: 0 auto;
+}
 .card {
   background: var(--card-bg);
   border-radius: 10px;
   padding: 16px;
   box-shadow: 0 2px 6px rgba(0,0,0,.08);
+  margin: 12px 0;
 }
 
-/* ====== Header & Menü (TEK YAPI) ====== */
+/* ====== Header ====== */
 header {
   background: var(--ted-blue);
   color: #fff;
@@ -40,90 +32,91 @@ header .wrap {
   display: flex;
   align-items: center;
   justify-content: space-between;
-  gap: 16px;
   padding: 10px 0;
 }
-.brand { display: flex; align-items: center; gap: 10px; }
-.brand img { height: 44px; }
-.brand span { font-weight: 700; }
-
-/* HAMBURGER (masaüstünde gizli) */
-.menu-toggle {
-  display: none;
-  background: none;
-  border: none;
-  color: #fff;
-  font-size: 28px;
-  cursor: pointer;
-}
-
-/* NAV: anchor’lı menü */
-#main-nav {
+.brand {
   display: flex;
-  gap: 14px;
-  flex-wrap: wrap;
+  align-items: center;
+  gap: 10px;
 }
-#main-nav a {
+.brand img {
+  height: 44px;
+}
+.brand span {
+  font-weight: 700;
+}
+nav a {
   color: #fff;
+  margin-left: 14px;
   text-decoration: none;
   font-weight: 700;
 }
-#main-nav a:hover, #main-nav a.active { text-decoration: underline; }
-
-/* ====== Mobil menü ====== */
-@media (max-width: 768px) {
-  .menu-toggle { display: block; }
-  #main-nav {
-    display: none;              /* mobilde kapalı başlasın */
-    flex-direction: column;
-    width: 100%;
-    background: var(--ted-blue-2);
-    border-radius: 8px;
-    padding: 10px;
-  }
-  #main-nav.show { display: flex; }  /* hamburger tıklanınca açılır */
-  #main-nav a { padding: 8px 6px; }
-  header .wrap { flex-wrap: wrap; align-items: flex-start; }
+nav a:hover, nav a.active {
+  text-decoration: underline;
 }
 
-/* ====== Takvim tablosu ====== */
-.takvim-table {
-  width: 100%;
-  border-collapse: collapse;
-  margin-top: 12px;
-  background: #fff;
+/* ====== Grid ====== */
+.grid {
+  display: grid;
+  grid-template-columns: 2fr 1fr;
+  gap: 20px;
 }
-.takvim-table th, .takvim-table td {
-  border: 1px solid #e6e6e6;
-  padding: 10px 12px;
-  text-align: left;
-}
-.takvim-table th {
-  background: var(--ted-blue);
-  color: #fff;
-}
-.takvim-table tr:nth-child(even) { background: #fafafa; }
-.takvim-table tr:hover { background: #eef4ff; }
-
-/* ====== Listeler (duyuru/etkinlik) ====== */
-.meta { color:#777; font-size: 12px; }
-.duyuru-item, .etkinlik-item {
-  padding: 10px 0;
+.list article {
+  padding: 8px 0;
   border-bottom: 1px solid #eee;
 }
-.duyuru-item strong, .etkinlik-item strong { color: var(--ted-blue); }
+.badge {
+  background: var(--ted-blue);
+  color: #fff;
+  border-radius: 4px;
+  padding: 2px 6px;
+  font-size: 12px;
+  margin-right: 6px;
+}
+.more {
+  display: inline-block;
+  margin-top: 6px;
+  font-weight: 700;
+  color: #c00;
+}
 
-/* ====== Hava kartı ====== */
-.weather-card { background: var(--ted-blue); color:#fff; text-align:center; }
-.weather-card h2 { margin: 0 0 8px 0; color:#fff; }
-#hava { display:flex; align-items:center; justify-content:center; gap:8px; font-size:14px; }
-#hava img { width:40px; height:40px; }
+/* ====== Hızlı Linkler ====== */
+.quick-links {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+.ql {
+  display: block;
+  padding: 12px;
+  background: var(--ted-blue);
+  color: #fff;
+  font-weight: 700;
+  text-align: center;
+  border-radius: 8px;
+  text-decoration: none;
+}
+.ql:hover {
+  background: #003b9a;
+}
 
-/* ====== Footer her zaman altta ====== */
+/* ====== Footer ====== */
 footer {
   background: var(--ted-blue);
   color: #fff;
   text-align: center;
   padding: 12px;
-  margin-top: auto;
+  margin-top: 20px;
+}
+
+/* ====== Responsive ====== */
+@media (max-width: 768px) {
+  .grid {
+    grid-template-columns: 1fr;
+  }
+  nav {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 8px;
+  }
 }
