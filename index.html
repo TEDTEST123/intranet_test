@@ -2,18 +2,24 @@
 <html lang="tr">
 <head>
   <meta charset="utf-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1" />
-  <title>TEDU Intranet – Test Ana Sayfa</title>
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <title>TEDU Intranet – Ana Sayfa</title>
   <link rel="stylesheet" href="style.css" />
 </head>
 <body>
+  <!-- Üst Bar -->
   <header>
     <div class="wrap">
       <div class="brand">
         <img src="logo.png" alt="TED Üniversitesi Amblemi">
         <span>TED Üniversitesi</span>
       </div>
-      <nav>
+
+      <!-- Hamburger -->
+      <button class="menu-toggle" id="menu-toggle" aria-label="Menüyü Aç/Kapat">☰</button>
+
+      <!-- Ana Menü -->
+      <nav id="main-nav">
         <a href="index.html" class="active">Ana Sayfa</a>
         <a href="duyurular.html">Duyurular</a>
         <a href="etkinlikler.html">Etkinlikler</a>
@@ -22,8 +28,9 @@
     </div>
   </header>
 
+  <!-- İçerik -->
   <main class="wrap main-grid">
-    <!-- Sol menü -->
+    <!-- Sol kısayollar -->
     <aside class="card side-links">
       <div class="quick-links">
         <a href="ik.html" class="ql">İnsan Kaynakları</a>
@@ -32,14 +39,14 @@
       </div>
     </aside>
 
-    <!-- Duyurular -->
+    <!-- Orta: Duyurular -->
     <section class="card">
       <h2>Son Duyurular</h2>
       <div id="duyuru-list" class="list"></div>
       <a class="more" href="duyurular.html">Tüm duyurular →</a>
     </section>
 
-    <!-- Etkinlikler + Hava -->
+    <!-- Sağ: Etkinlikler + Hava -->
     <aside>
       <section class="card">
         <h2>Yaklaşan Etkinlikler</h2>
@@ -54,24 +61,29 @@
     </aside>
   </main>
 
+  <!-- Alt Bilgi -->
   <footer>
     © 2025 TED Üniversitesi • Tüm Hakları Saklıdır
   </footer>
 
-  <!-- JSON’dan veri okuma -->
+  <!-- JS: Menü / Veri Çekme -->
   <script>
-    const trDate = d => new Date(d).toLocaleDateString('tr-TR', {
-      year: 'numeric', month: 'short', day: '2-digit'
+    // Hamburger menü aç/kapat
+    document.getElementById("menu-toggle").addEventListener("click", () => {
+      document.getElementById("main-nav").classList.toggle("show");
     });
+
+    // Yardımcılar
+    const trDate = d => new Date(d).toLocaleDateString('tr-TR',{year:'numeric',month:'short',day:'2-digit'});
     const byDateDesc = (a,b) => new Date(b.tarih) - new Date(a.tarih);
     const byDateAsc  = (a,b) => new Date(a.tarih) - new Date(b.tarih);
 
-    // Duyuruları yükle
+    // Duyurular
     fetch('duyurular.json')
       .then(r => r.json())
       .then(data => {
         const duyurular = data.sort(byDateDesc).slice(0,3);
-        const dList = document.getElementById('duyuru-list');
+        const list = document.getElementById('duyuru-list');
         duyurular.forEach(d => {
           const el = document.createElement('article');
           el.className = "duyuru-item";
@@ -80,17 +92,17 @@
             <div class="meta">${trDate(d.tarih)} • ${d.birim} • ${d.kategori}</div>
             <p>${d.ozet}</p>
           `;
-          dList.appendChild(el);
+          list.appendChild(el);
         });
       });
 
-    // Etkinlikleri yükle
+    // Etkinlikler
     fetch('etkinlikler.json')
       .then(r => r.json())
       .then(data => {
         const today = new Date().toISOString().slice(0,10);
         const upcoming = data.filter(e => e.tarih >= today).sort(byDateAsc).slice(0,2);
-        const eList = document.getElementById('etkinlik-list');
+        const list = document.getElementById('etkinlik-list');
         upcoming.forEach(e => {
           const el = document.createElement('article');
           el.className = "etkinlik-item";
@@ -98,19 +110,22 @@
             <strong>${e.baslik}</strong>
             <div class="meta">${trDate(e.tarih)} • ${e.saat} • ${e.mekan} • ${e.birim}</div>
           `;
-          eList.appendChild(el);
+          list.appendChild(el);
         });
       });
 
-    // Hava durumu API
+    // Hava durumu (OpenWeatherMap)
     fetch("https://api.openweathermap.org/data/2.5/weather?q=Ankara,tr&appid=0cc3b07cb1fe90abf9ca6733495ea6f8&units=metric&lang=tr")
       .then(r => r.json())
       .then(data => {
         const hava = document.getElementById("hava");
         hava.innerHTML = `
-          <img src="https://openweathermap.org/img/wn/${data.weather[0].icon}@2x.png" alt="">
+          <img src="https://openweathermap.org/img/wn/${data.weather[0].icon}@2x.png" alt="${data.weather[0].description}">
           <span>${Math.round(data.main.temp)}°C – ${data.weather[0].description}</span>
         `;
+      })
+      .catch(() => {
+        document.getElementById("hava").textContent = "Hava durumu alınamadı.";
       });
   </script>
 </body>
