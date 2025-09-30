@@ -1,67 +1,80 @@
-<!doctype html>
+<!DOCTYPE html>
 <html lang="tr">
 <head>
-  <meta charset="utf-8" />
-  <meta name="viewport" content="width=device-width,initial-scale=1" />
-  <title>Duyurular – TEDU Intranet</title>
-  <link rel="stylesheet" href="style.css" />
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Duyurular - TED Üniversitesi</title>
+  <link rel="stylesheet" href="style.css">
 </head>
-<body>
+<body class="duyurular">
+  <!-- Üst Menü -->
   <header>
-    <div class="wrap">
-      <div class="brand">
-        <img src="logo.png" alt="TED Üniversitesi Amblemi">
-        <span>TED Üniversitesi</span>
-      </div>
-
-      <button class="menu-toggle" id="menu-toggle">☰</button>
-
-      <nav id="main-nav">
-        <a href="index.html">Ana Sayfa</a>
-        <a href="duyurular.html" class="active">Duyurular</a>
-        <a href="etkinlikler.html">Etkinlikler</a>
-        <a href="takvim.html">Akademik Takvim</a>
-      </nav>
+    <div class="logo">
+      <img src="images/tedu_logo.png" alt="TED Üniversitesi Logosu">
+      <span class="site-title">TED Üniversitesi</span>
     </div>
+    <nav>
+      <ul>
+        <li><a href="index.html">Ana Sayfa</a></li>
+        <li><a href="duyurular.html" class="active">Duyurular</a></li>
+        <li><a href="etkinlikler.html">Etkinlikler</a></li>
+        <li><a href="takvim.html">Akademik Takvim</a></li>
+      </ul>
+    </nav>
   </header>
 
-  <main class="wrap">
-    <section class="card">
-      <h2>📢 Tüm Duyurular</h2>
-      <div id="tum-duyurular"></div>
+  <!-- İçerik -->
+  <main class="container">
+    <section class="content-box">
+      <h2><i class="fas fa-bullhorn"></i> Tüm Duyurular</h2>
+
+      <div class="announcement">
+        <h3>Sosyal Sorumluluk Projesi</h3>
+        <p class="meta">15 Nis 2025 • Toplumsal Katkı Koordinatörlüğü • Sosyal</p>
+        <p>Üniversitemiz öğrencileri için sosyal sorumluluk projelerine katılım çağrısı yapılmaktadır.</p>
+        <a href="#">Devamını Oku →</a>
+      </div>
+
+      <div class="announcement">
+        <h3>Bahar Şenlikleri Başlıyor</h3>
+        <p class="meta">10 Nis 2025 • Öğrenci Dekanlığı • Sosyal</p>
+        <p>Her yıl düzenlenen bahar şenlikleri bu yıl Nisan ayında gerçekleştirilecektir.</p>
+        <a href="#">Devamını Oku →</a>
+      </div>
+
+      <div class="announcement">
+        <h3>Kampüs İçi Ulaşım Düzenlemesi</h3>
+        <p class="meta">28 Mar 2025 • İdari İşler • İdari</p>
+        <p>Kampüs içi ring seferlerinde güzergah ve saat değişiklikleri yapılmıştır.</p>
+        <a href="#">Devamını Oku →</a>
+      </div>
+
+      <div class="announcement">
+        <h3>Araştırma Projeleri Başvuru Çağrısı</h3>
+        <p class="meta">20 Mar 2025 • Bilimsel Araştırma Projeleri Ofisi • Akademik</p>
+        <p>2025 yılı BAP projeleri için başvuru süreci başlamıştır.</p>
+        <a href="#">Devamını Oku →</a>
+      </div>
+
+      <div class="announcement">
+        <h3>Yeni Personel Alımı</h3>
+        <p class="meta">01 Mar 2025 • İnsan Kaynakları • İdari</p>
+        <p>Üniversitemizde çeşitli pozisyonlar için yeni personel alımı yapılacaktır.</p>
+        <a href="#">Devamını Oku →</a>
+      </div>
+
+      <div class="announcement">
+        <h3>Akademik Takvim Yayınlandı</h3>
+        <p class="meta">25 Şub 2025 • Rektörlük • Akademik</p>
+        <p>2025-2026 akademik yılı için güncellenmiş akademik takvim duyuruldu.</p>
+        <a href="#">Devamını Oku →</a>
+      </div>
     </section>
   </main>
 
+  <!-- Footer -->
   <footer>
-    © 2025 TED Üniversitesi • Tüm Hakları Saklıdır
+    <p>© 2025 TED Üniversitesi • Tüm Hakları Saklıdır</p>
   </footer>
-
-  <!-- Menü için JS -->
-  <script>
-    document.getElementById("menu-toggle").addEventListener("click", () => {
-      document.getElementById("main-nav").classList.toggle("show");
-    });
-  </script>
-
-  <!-- JSON’dan duyuruları doldur -->
-  <script>
-    const trDate = d => new Date(d).toLocaleDateString('tr-TR',{year:'numeric',month:'short',day:'2-digit'});
-    fetch('duyurular.json')
-      .then(r => r.json())
-      .then(data => {
-        const list = document.getElementById('tum-duyurular');
-        data.sort((a,b)=> new Date(b.tarih)-new Date(a.tarih));
-        data.forEach(d => {
-          const el = document.createElement('article');
-          el.className = "duyuru-item";
-          el.innerHTML = `
-            <strong>${d.baslik}</strong>
-            <div class="meta">${trDate(d.tarih)} • ${d.birim} • ${d.kategori}</div>
-            <p>${d.ozet}</p>
-          `;
-          list.appendChild(el);
-        });
-      });
-  </script>
 </body>
 </html>
