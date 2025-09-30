@@ -1,67 +1,79 @@
-<!DOCTYPE html>
+<!doctype html>
 <html lang="tr">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Akademik Takvim</title>
-    <link rel="stylesheet" href="style.css">
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <title>Akademik Takvim • TED Üniversitesi Intranet</title>
+  <link rel="stylesheet" href="style.css" />
 </head>
 <body>
-    <header>
-        <div class="logo">
-            <img src="logo.png" alt="TED Üniversitesi Logosu">
-            <span class="site-title">TED Üniversitesi</span>
-        </div>
-        <nav>
-            <ul>
-                <li><a href="index.html">Ana Sayfa</a></li>
-                <li><a href="duyurular.html">Duyurular</a></li>
-                <li><a href="etkinlikler.html">Etkinlikler</a></li>
-                <li><a href="takvim.html" class="active">Akademik Takvim</a></li>
-            </ul>
-        </nav>
-    </header>
+  <!-- Üst Menü -->
+  <header>
+    <div class="wrap">
+      <div class="brand">
+        <img src="logo.png" alt="TED Üniversitesi Amblemi">
+        <span>TED Üniversitesi</span>
+      </div>
+      <nav>
+        <a href="index.html">Ana Sayfa</a>
+        <a href="duyurular.html">Duyurular</a>
+        <a href="etkinlikler.html">Etkinlikler</a>
+        <a href="takvim.html" class="active">Akademik Takvim</a>
+      </nav>
+    </div>
+  </header>
 
-    <main class="container">
-        <section class="card">
-            <h2>📅 Akademik Takvim</h2>
-            <p>Bu sayfada dönem içindeki önemli tarihleri görebilirsiniz.</p>
-            
-            <div class="table-wrapper">
-                <table class="academic-calendar">
-                    <thead>
-                        <tr>
-                            <th>Tarih</th>
-                            <th>Etkinlik</th>
-                        </tr>
-                    </thead>
-                    <tbody id="takvim-listesi">
-                        <!-- JSON'dan veriler buraya gelecek -->
-                    </tbody>
-                </table>
-            </div>
-        </section>
-    </main>
+  <!-- İçerik -->
+  <main class="wrap">
+    <section class="card">
+      <h2>Akademik Takvim</h2>
+      <p>Bu sayfada dönem içindeki önemli tarihleri görebilirsiniz.</p>
 
-    <footer>
-        <p>© 2025 TED Üniversitesi • Tüm Hakları Saklıdır</p>
-    </footer>
+      <div class="table-wrapper">
+        <table class="academic-calendar">
+          <thead>
+            <tr>
+              <th>Tarih</th>
+              <th>Etkinlik</th>
+            </tr>
+          </thead>
+          <tbody id="takvim-body">
+            <!-- JSON’dan doldurulacak -->
+          </tbody>
+        </table>
+      </div>
+    </section>
+  </main>
 
-    <script>
-        fetch('takvim.json')
-            .then(response => response.json())
-            .then(data => {
-                const tbody = document.getElementById("takvim-listesi");
-                data.forEach(item => {
-                    const tr = document.createElement("tr");
-                    tr.innerHTML = `
-                        <td>${item.tarih}</td>
-                        <td>${item.etkinlik}</td>
-                    `;
-                    tbody.appendChild(tr);
-                });
-            })
-            .catch(error => console.error("Takvim yüklenemedi:", error));
-    </script>
+  <footer>
+    © 2025 TED Üniversitesi • Tüm Hakları Saklıdır
+  </footer>
+
+  <script>
+    // 2025-02-17 gibi ISO tarih gelirse TR formatına çevir
+    const trDate = s => {
+      if (/^\d{4}-\d{2}-\d{2}$/.test(s)) {
+        const d = new Date(s);
+        return d.toLocaleDateString('tr-TR', { day:'2-digit', month:'long', year:'numeric' });
+      }
+      return s; // Zaten metin ise olduğu gibi bırak
+    };
+
+    fetch('takvim.json')
+      .then(r => r.json())
+      .then(rows => {
+        const tbody = document.getElementById('takvim-body');
+        rows.forEach(row => {
+          const tr = document.createElement('tr');
+          tr.innerHTML = `<td>${trDate(row.tarih)}</td><td>${row.etkinlik}</td>`;
+          tbody.appendChild(tr);
+        });
+      })
+      .catch(err => {
+        console.error('Takvim yüklenemedi:', err);
+        document.getElementById('takvim-body').innerHTML =
+          `<tr><td colspan="2">Takvim verisi yüklenemedi.</td></tr>`;
+      });
+  </script>
 </body>
 </html>
