@@ -1,5 +1,6 @@
 :root {
   --ted-blue: #002d72;
+  --ted-lightblue: #004a99;
   --ted-red: #c00;
   --card-bg: #fff;
   --text: #222;
@@ -13,11 +14,12 @@ body {
 }
 
 .wrap {
-  width: 90%;
-  max-width: 1200px;
+  width: 95%;
+  max-width: 1300px;
   margin: 0 auto;
 }
 
+/* ==== Genel kart görünümü ==== */
 .card {
   background: var(--card-bg);
   border-radius: 10px;
@@ -26,7 +28,7 @@ body {
   margin: 12px 0;
 }
 
-/* ===== Header ===== */
+/* ==== Header ==== */
 header {
   background: var(--ted-blue);
   color: #fff;
@@ -45,37 +47,25 @@ header .wrap {
 .brand img {
   height: 44px;
 }
-.brand span {
-  font-weight: 700;
-}
 nav a {
   color: #fff;
-  margin-left: 14px;
+  margin-left: 16px;
   text-decoration: none;
-  font-weight: 700;
+  font-weight: 600;
 }
 nav a:hover, nav a.active {
   text-decoration: underline;
 }
 
-/* ===== Grid düzeni ===== */
-.grid {
+/* ==== Ana grid düzeni ==== */
+.layout {
   display: grid;
-  grid-template-columns: 2fr 1fr;
-  grid-template-rows: auto auto;
+  grid-template-columns: 220px 1fr 300px;
   gap: 20px;
-}
-.grid > section {
-  grid-column: 1 / 2;
-}
-.grid > aside {
-  grid-column: 2 / 3;
-}
-.grid > aside:last-child {
-  grid-row: 2 / 3;
+  margin-top: 20px;
 }
 
-/* ===== Hızlı Linkler ===== */
+/* ==== Hızlı Linkler ==== */
 .quick-links {
   display: flex;
   flex-direction: column;
@@ -92,10 +82,10 @@ nav a:hover, nav a.active {
   text-decoration: none;
 }
 .ql:hover {
-  background: #003b9a;
+  background: var(--ted-lightblue);
 }
 
-/* ===== Duyuru / Etkinlik listesi ===== */
+/* ==== Duyurular / Etkinlikler ==== */
 .list article {
   padding: 8px 0;
   border-bottom: 1px solid #eee;
@@ -115,7 +105,17 @@ nav a:hover, nav a.active {
   color: var(--ted-red);
 }
 
-/* ===== Footer ===== */
+/* ==== Hava Durumu ==== */
+.weather-card {
+  background: var(--ted-blue);
+  color: #fff;
+  text-align: center;
+}
+.weather-card p {
+  margin: 6px 0;
+}
+
+/* ==== Footer ==== */
 footer {
   background: var(--ted-blue);
   color: #fff;
@@ -124,13 +124,9 @@ footer {
   margin-top: 20px;
 }
 
-/* ===== Responsive ===== */
-@media (max-width: 768px) {
-  .grid {
+/* ==== Responsive ==== */
+@media (max-width: 900px) {
+  .layout {
     grid-template-columns: 1fr;
-    grid-template-rows: auto;
-  }
-  .grid > aside:last-child {
-    grid-row: auto;
   }
 }
