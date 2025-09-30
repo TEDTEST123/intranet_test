@@ -163,6 +163,10 @@ header nav a:hover {
   border-radius: 6px;
   filter: brightness(0.95) contrast(1.05);
 }
+/* Açıklama yazısını gizle (ör. broken clouds) */
+.weatherwidget-io .weather-desc {
+  display: none !important;
+}
 
 /* Filtre butonları */
 .filter-bar {
