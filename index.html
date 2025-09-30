@@ -3,23 +3,18 @@
 <head>
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width,initial-scale=1" />
-  <title>TEDU Intranet – Ana Sayfa</title>
+  <title>TED Üniversitesi Intranet – Ana Sayfa</title>
   <link rel="stylesheet" href="style.css" />
 </head>
 <body>
-  <!-- Üst Bar -->
+  <!-- Üst Menü -->
   <header>
     <div class="wrap">
       <div class="brand">
         <img src="logo.png" alt="TED Üniversitesi Amblemi">
         <span>TED Üniversitesi</span>
       </div>
-
-      <!-- Hamburger -->
-      <button class="menu-toggle" id="menu-toggle" aria-label="Menüyü Aç/Kapat">☰</button>
-
-      <!-- Ana Menü -->
-      <nav id="main-nav">
+      <nav>
         <a href="index.html" class="active">Ana Sayfa</a>
         <a href="duyurular.html">Duyurular</a>
         <a href="etkinlikler.html">Etkinlikler</a>
@@ -28,104 +23,92 @@
     </div>
   </header>
 
-  <!-- İçerik -->
-  <main class="wrap main-grid">
-    <!-- Sol kısayollar -->
-    <aside class="card side-links">
+  <!-- Ana içerik -->
+  <main class="wrap">
+
+    <!-- Sol menü: Hızlı Linkler -->
+    <section class="card">
       <div class="quick-links">
         <a href="ik.html" class="ql">İnsan Kaynakları</a>
         <a href="kutuphane.html" class="ql">Kütüphane</a>
+        <a href="takvim.html" class="ql">Akademik Takvim</a>
         <a href="formlar.html" class="ql">Formlar</a>
       </div>
-    </aside>
-
-    <!-- Orta: Duyurular -->
-    <section class="card">
-      <h2>Son Duyurular</h2>
-      <div id="duyuru-list" class="list"></div>
-      <a class="more" href="duyurular.html">Tüm duyurular →</a>
     </section>
 
-    <!-- Sağ: Etkinlikler + Hava -->
-    <aside>
+    <!-- Grid düzeni -->
+    <div class="grid">
+      <!-- Sol: Son Duyurular -->
       <section class="card">
+        <h2>Son Duyurular</h2>
+        <div id="duyuru-list" class="list"></div>
+        <a class="more" href="duyurular.html">Tüm duyurular →</a>
+      </section>
+
+      <!-- Sağ: Yaklaşan Etkinlikler -->
+      <aside class="card">
         <h2>Yaklaşan Etkinlikler</h2>
         <div id="etkinlik-list" class="list"></div>
         <a class="more" href="etkinlikler.html">Tüm etkinlikler →</a>
-      </section>
+      </aside>
 
-      <section class="card weather-card">
+      <!-- Sağ alt: Hava Durumu -->
+      <aside class="card">
         <h2>Hava Durumu</h2>
-        <div id="hava">Yükleniyor...</div>
-      </section>
-    </aside>
+        <div id="weather"></div>
+      </aside>
+    </div>
   </main>
 
-  <!-- Alt Bilgi -->
+  <!-- Footer -->
   <footer>
     © 2025 TED Üniversitesi • Tüm Hakları Saklıdır
   </footer>
 
-  <!-- JS: Menü / Veri Çekme -->
+  <!-- JS: JSON’dan veri okuma -->
   <script>
-    // Hamburger menü aç/kapat
-    document.getElementById("menu-toggle").addEventListener("click", () => {
-      document.getElementById("main-nav").classList.toggle("show");
-    });
-
-    // Yardımcılar
-    const trDate = d => new Date(d).toLocaleDateString('tr-TR',{year:'numeric',month:'short',day:'2-digit'});
+    const trDate = d => new Date(d).toLocaleDateString('tr-TR', {year:'numeric', month:'short', day:'2-digit'});
     const byDateDesc = (a,b) => new Date(b.tarih) - new Date(a.tarih);
     const byDateAsc  = (a,b) => new Date(a.tarih) - new Date(b.tarih);
 
-    // Duyurular
+    // Duyuruları oku
     fetch('duyurular.json')
       .then(r => r.json())
       .then(data => {
         const duyurular = data.sort(byDateDesc).slice(0,3);
-        const list = document.getElementById('duyuru-list');
+        const dList = document.getElementById('duyuru-list');
         duyurular.forEach(d => {
           const el = document.createElement('article');
-          el.className = "duyuru-item";
           el.innerHTML = `
-            <strong>${d.baslik}</strong>
-            <div class="meta">${trDate(d.tarih)} • ${d.birim} • ${d.kategori}</div>
-            <p>${d.ozet}</p>
-          `;
-          list.appendChild(el);
+            <div><span class="badge">${d.kategori}</span><strong>${d.baslik}</strong></div>
+            <div class="meta">${trDate(d.tarih)} • ${d.birim}</div>
+            <p style="margin:8px 0 0 0">${d.ozet}</p>`;
+          dList.appendChild(el);
         });
       });
 
-    // Etkinlikler
+    // Etkinlikleri oku
     fetch('etkinlikler.json')
       .then(r => r.json())
       .then(data => {
         const today = new Date().toISOString().slice(0,10);
         const upcoming = data.filter(e => e.tarih >= today).sort(byDateAsc).slice(0,2);
-        const list = document.getElementById('etkinlik-list');
+        const eList = document.getElementById('etkinlik-list');
         upcoming.forEach(e => {
           const el = document.createElement('article');
-          el.className = "etkinlik-item";
           el.innerHTML = `
             <strong>${e.baslik}</strong>
-            <div class="meta">${trDate(e.tarih)} • ${e.saat} • ${e.mekan} • ${e.birim}</div>
-          `;
-          list.appendChild(el);
+            <div class="meta">${trDate(e.tarih)} • ${e.saat} • ${e.mekan} • ${e.birim}</div>`;
+          eList.appendChild(el);
         });
       });
 
-    // Hava durumu (OpenWeatherMap)
-    fetch("https://api.openweathermap.org/data/2.5/weather?q=Ankara,tr&appid=0cc3b07cb1fe90abf9ca6733495ea6f8&units=metric&lang=tr")
+    // Hava Durumu (OpenWeather API)
+    fetch('https://api.openweathermap.org/data/2.5/weather?q=Ankara,tr&appid=0cc3b07cb1fe90abf9ca6733495ea6f8&units=metric&lang=tr')
       .then(r => r.json())
       .then(data => {
-        const hava = document.getElementById("hava");
-        hava.innerHTML = `
-          <img src="https://openweathermap.org/img/wn/${data.weather[0].icon}@2x.png" alt="${data.weather[0].description}">
-          <span>${Math.round(data.main.temp)}°C – ${data.weather[0].description}</span>
-        `;
-      })
-      .catch(() => {
-        document.getElementById("hava").textContent = "Hava durumu alınamadı.";
+        const w = document.getElementById('weather');
+        w.innerHTML = `<p><strong>${Math.round(data.main.temp)}°C</strong> – ${data.weather[0].description}</p>`;
       });
   </script>
 </body>
