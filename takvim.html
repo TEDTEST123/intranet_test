@@ -2,8 +2,8 @@
 <html lang="tr">
 <head>
   <meta charset="utf-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1" />
-  <title>Akademik Takvim</title>
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <title>Akademik Takvim – TEDU Intranet</title>
   <link rel="stylesheet" href="style.css" />
 </head>
 <body>
@@ -13,7 +13,10 @@
         <img src="logo.png" alt="TED Üniversitesi Amblemi">
         <span>TED Üniversitesi</span>
       </div>
-      <nav>
+
+      <button class="menu-toggle" id="menu-toggle">☰</button>
+
+      <nav id="main-nav">
         <a href="index.html">Ana Sayfa</a>
         <a href="duyurular.html">Duyurular</a>
         <a href="etkinlikler.html">Etkinlikler</a>
@@ -25,7 +28,6 @@
   <main class="wrap">
     <section class="card">
       <h2>📅 Akademik Takvim</h2>
-      <p>Bu sayfada dönem içindeki önemli tarihleri görebilirsiniz.</p>
       <table class="takvim-table" id="takvim-table">
         <thead>
           <tr>
@@ -33,9 +35,7 @@
             <th>Etkinlik</th>
           </tr>
         </thead>
-        <tbody>
-          <!-- JSON’dan veri buraya gelecek -->
-        </tbody>
+        <tbody></tbody>
       </table>
     </section>
   </main>
@@ -45,22 +45,21 @@
   </footer>
 
   <script>
-    // Türkçe tarih formatı için fonksiyon
-    const trDate = d => new Date(d).toLocaleDateString('tr-TR', {
-      year: 'numeric', month: 'long', day: 'numeric'
+    document.getElementById("menu-toggle").addEventListener("click", () => {
+      document.getElementById("main-nav").classList.toggle("show");
     });
+  </script>
 
-    // JSON’dan verileri oku ve tabloya ekle
+  <script>
+    const trDate = d => new Date(d).toLocaleDateString('tr-TR',{year:'numeric',month:'long',day:'numeric'});
     fetch('takvim.json')
       .then(r => r.json())
       .then(data => {
         const tbody = document.querySelector("#takvim-table tbody");
+        data.sort((a,b)=> new Date(a.tarih)-new Date(b.tarih));
         data.forEach(item => {
           const tr = document.createElement("tr");
-          tr.innerHTML = `
-            <td>${trDate(item.tarih)}</td>
-            <td>${item.etkinlik}</td>
-          `;
+          tr.innerHTML = `<td>${trDate(item.tarih)}</td><td>${item.etkinlik}</td>`;
           tbody.appendChild(tr);
         });
       });
