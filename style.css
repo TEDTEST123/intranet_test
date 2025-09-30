@@ -201,6 +201,28 @@ header nav a:hover {
   min-width: 200px;
 }
 
+/* Takvim tablosu */
+.takvim-table {
+  width: 100%;
+  border-collapse: collapse;
+  margin-top: 15px;
+}
+.takvim-table th, .takvim-table td {
+  border: 1px solid #ddd;
+  padding: 10px;
+  text-align: left;
+}
+.takvim-table th {
+  background: #002d72;
+  color: white;
+}
+.takvim-table tr:nth-child(even) {
+  background: #f9f9f9;
+}
+.takvim-table tr:hover {
+  background: #eef;
+}
+
 /* Footer */
 footer {
   background: #002d72;
