@@ -142,7 +142,7 @@ header nav a:hover {
   text-decoration: underline;
 }
 
-/* Hava durumu kartı (küçültülmüş) */
+/* Hava durumu kartı (yalnızca bugünü göster) */
 .weather-card {
   margin-top: 20px;
   text-align: center;
@@ -152,17 +152,16 @@ header nav a:hover {
   margin-bottom: 6px;
   color: #002d72;
 }
-.weather-card iframe {
-  width: 100%;
-  max-width: 100%;
-  height: 120px; /* küçültülmüş */
-  border: none;
+.weatherwidget-io {
+  display: block;
+  width: 100% !important;
+  max-height: 140px !important;  /* sadece bugünü gösterecek */
+  overflow: hidden !important;
   border-radius: 6px;
-  overflow: hidden;
   box-shadow: 0 1px 3px rgba(0,0,0,0.1);
 }
 
-/* Filtre butonları (duyurular ve etkinlikler sayfası) */
+/* Filtre butonları */
 .filter-bar {
   display: flex;
   align-items: center;
@@ -170,12 +169,11 @@ header nav a:hover {
   margin-bottom: 15px;
   flex-wrap: wrap;
 }
-
 .filter-btn {
   padding: 6px 14px;
   border: none;
   border-radius: 6px;
-  background: #002d72; /* TEDU mavi */
+  background: #002d72;
   color: #fff;
   font-size: 14px;
   cursor: pointer;
@@ -186,7 +184,7 @@ header nav a:hover {
   transform: translateY(-2px);
 }
 .filter-btn.active {
-  background: #c00; /* seçili olan kırmızı */
+  background: #c00;
 }
 #search {
   padding: 6px 10px;
