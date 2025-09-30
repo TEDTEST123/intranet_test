@@ -1,20 +1,23 @@
-/* ====== Genel görünüm ====== */
 :root {
   --ted-blue: #002d72;
+  --ted-red: #c00;
   --card-bg: #fff;
   --text: #222;
 }
+
 body {
   margin: 0;
   font-family: Arial, sans-serif;
   color: var(--text);
   background: #f5f5f5;
 }
+
 .wrap {
   width: 90%;
   max-width: 1200px;
   margin: 0 auto;
 }
+
 .card {
   background: var(--card-bg);
   border-radius: 10px;
@@ -23,7 +26,7 @@ body {
   margin: 12px 0;
 }
 
-/* ====== Header ====== */
+/* ===== Header ===== */
 header {
   background: var(--ted-blue);
   color: #fff;
@@ -55,32 +58,24 @@ nav a:hover, nav a.active {
   text-decoration: underline;
 }
 
-/* ====== Grid ====== */
+/* ===== Grid düzeni ===== */
 .grid {
   display: grid;
   grid-template-columns: 2fr 1fr;
+  grid-template-rows: auto auto;
   gap: 20px;
 }
-.list article {
-  padding: 8px 0;
-  border-bottom: 1px solid #eee;
+.grid > section {
+  grid-column: 1 / 2;
 }
-.badge {
-  background: var(--ted-blue);
-  color: #fff;
-  border-radius: 4px;
-  padding: 2px 6px;
-  font-size: 12px;
-  margin-right: 6px;
+.grid > aside {
+  grid-column: 2 / 3;
 }
-.more {
-  display: inline-block;
-  margin-top: 6px;
-  font-weight: 700;
-  color: #c00;
+.grid > aside:last-child {
+  grid-row: 2 / 3;
 }
 
-/* ====== Hızlı Linkler ====== */
+/* ===== Hızlı Linkler ===== */
 .quick-links {
   display: flex;
   flex-direction: column;
@@ -100,7 +95,27 @@ nav a:hover, nav a.active {
   background: #003b9a;
 }
 
-/* ====== Footer ====== */
+/* ===== Duyuru / Etkinlik listesi ===== */
+.list article {
+  padding: 8px 0;
+  border-bottom: 1px solid #eee;
+}
+.badge {
+  background: var(--ted-blue);
+  color: #fff;
+  border-radius: 4px;
+  padding: 2px 6px;
+  font-size: 12px;
+  margin-right: 6px;
+}
+.more {
+  display: inline-block;
+  margin-top: 6px;
+  font-weight: 700;
+  color: var(--ted-red);
+}
+
+/* ===== Footer ===== */
 footer {
   background: var(--ted-blue);
   color: #fff;
@@ -109,14 +124,13 @@ footer {
   margin-top: 20px;
 }
 
-/* ====== Responsive ====== */
+/* ===== Responsive ===== */
 @media (max-width: 768px) {
   .grid {
     grid-template-columns: 1fr;
+    grid-template-rows: auto;
   }
-  nav {
-    display: flex;
-    flex-wrap: wrap;
-    gap: 8px;
+  .grid > aside:last-child {
+    grid-row: auto;
   }
 }
