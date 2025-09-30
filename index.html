@@ -3,74 +3,70 @@
 <head>
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width,initial-scale=1" />
-  <title>TED Üniversitesi Intranet – Ana Sayfa</title>
+  <title>TEDU Intranet – Ana Sayfa</title>
   <link rel="stylesheet" href="style.css" />
 </head>
 <body>
-  <!-- Üst Menü -->
+  <!-- HEADER -->
   <header>
-    <div class="wrap">
-      <div class="brand">
-        <img src="logo.png" alt="TED Üniversitesi Amblemi">
-        <span>TED Üniversitesi</span>
-      </div>
-      <nav>
-        <a href="index.html" class="active">Ana Sayfa</a>
-        <a href="duyurular.html">Duyurular</a>
-        <a href="etkinlikler.html">Etkinlikler</a>
-        <a href="takvim.html">Akademik Takvim</a>
-      </nav>
+    <div class="logo">
+      <img src="logo.png" alt="TED Üniversitesi Logosu">
+      <span>TED Üniversitesi</span>
     </div>
+    <nav>
+      <a href="index.html" class="active">Ana Sayfa</a>
+      <a href="duyurular.html">Duyurular</a>
+      <a href="etkinlikler.html">Etkinlikler</a>
+      <a href="takvim.html">Akademik Takvim</a>
+    </nav>
   </header>
 
-  <!-- Ana içerik -->
-  <main class="wrap">
-    <div class="layout">
-      <!-- Sol: Hızlı Linkler -->
-      <section>
-        <div class="quick-links">
-          <a href="ik.html" class="ql">İnsan Kaynakları</a>
-          <a href="kutuphane.html" class="ql">Kütüphane</a>
-          <a href="takvim.html" class="ql">Akademik Takvim</a>
-          <a href="formlar.html" class="ql">Formlar</a>
-        </div>
-      </section>
+  <!-- ANA DÜZEN -->
+  <main class="container">
+    <!-- Sol Menü -->
+    <aside class="quick-links">
+      <a href="ik.html" class="ql">İnsan Kaynakları</a>
+      <a href="kutuphane.html" class="ql">Kütüphane</a>
+      <a href="takvim.html" class="ql">Akademik Takvim</a>
+      <a href="formlar.html" class="ql">Formlar</a>
+    </aside>
 
-      <!-- Orta: Son Duyurular -->
-      <section class="card">
-        <h2>Son Duyurular</h2>
-        <div id="duyuru-list" class="list"></div>
-        <a class="more" href="duyurular.html">Tüm duyurular →</a>
-      </section>
-
-      <!-- Sağ: Etkinlik + Hava Durumu -->
-      <div>
-        <aside class="card">
-          <h2>Yaklaşan Etkinlikler</h2>
-          <div id="etkinlik-list" class="list"></div>
-          <a class="more" href="etkinlikler.html">Tüm etkinlikler →</a>
-        </aside>
-
-        <aside class="card weather-card">
-          <h2>Hava Durumu</h2>
-          <div id="weather"></div>
-        </aside>
+    <!-- Orta Bölüm -->
+    <section class="card">
+      <h2>Son Duyurular</h2>
+      <div id="duyuru-list" class="list">
+        <!-- JS ile doldurulacak -->
       </div>
-    </div>
+      <a class="more" href="duyurular.html">Tüm duyurular →</a>
+    </section>
+
+    <!-- Sağ Panel -->
+    <aside class="sidebar">
+      <div class="card">
+        <h2>Yaklaşan Etkinlikler</h2>
+        <div id="etkinlik-list" class="list"></div>
+        <a class="more" href="etkinlikler.html">Tüm etkinlikler →</a>
+      </div>
+
+      <div class="card weather-card">
+        <h2>Hava Durumu</h2>
+        <p>19°C – parçalı az bulutlu</p>
+      </div>
+    </aside>
   </main>
 
-  <!-- Footer -->
+  <!-- FOOTER -->
   <footer>
     © 2025 TED Üniversitesi • Tüm Hakları Saklıdır
   </footer>
 
-  <!-- JS: JSON’dan veri okuma -->
+  <!-- JS: Duyuru ve Etkinlikler JSON’dan -->
   <script>
     const trDate = d => new Date(d).toLocaleDateString('tr-TR', {year:'numeric', month:'short', day:'2-digit'});
     const byDateDesc = (a,b) => new Date(b.tarih) - new Date(a.tarih);
     const byDateAsc  = (a,b) => new Date(a.tarih) - new Date(b.tarih);
 
-    // Duyuruları oku
+    // Duyurular
     fetch('duyurular.json')
       .then(r => r.json())
       .then(data => {
@@ -86,7 +82,7 @@
         });
       });
 
-    // Etkinlikleri oku
+    // Etkinlikler
     fetch('etkinlikler.json')
       .then(r => r.json())
       .then(data => {
@@ -100,14 +96,6 @@
             <div class="meta">${trDate(e.tarih)} • ${e.saat} • ${e.mekan} • ${e.birim}</div>`;
           eList.appendChild(el);
         });
-      });
-
-    // Hava Durumu (OpenWeather API)
-    fetch('https://api.openweathermap.org/data/2.5/weather?q=Ankara,tr&appid=0cc3b07cb1fe90abf9ca6733495ea6f8&units=metric&lang=tr')
-      .then(r => r.json())
-      .then(data => {
-        const w = document.getElementById('weather');
-        w.innerHTML = `<p><strong>${Math.round(data.main.temp)}°C</strong> – ${data.weather[0].description}</p>`;
       });
   </script>
 </body>
