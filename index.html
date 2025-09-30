@@ -25,38 +25,37 @@
 
   <!-- Ana içerik -->
   <main class="wrap">
+    <div class="layout">
+      <!-- Sol: Hızlı Linkler -->
+      <section>
+        <div class="quick-links">
+          <a href="ik.html" class="ql">İnsan Kaynakları</a>
+          <a href="kutuphane.html" class="ql">Kütüphane</a>
+          <a href="takvim.html" class="ql">Akademik Takvim</a>
+          <a href="formlar.html" class="ql">Formlar</a>
+        </div>
+      </section>
 
-    <!-- Sol menü: Hızlı Linkler -->
-    <section class="card">
-      <div class="quick-links">
-        <a href="ik.html" class="ql">İnsan Kaynakları</a>
-        <a href="kutuphane.html" class="ql">Kütüphane</a>
-        <a href="takvim.html" class="ql">Akademik Takvim</a>
-        <a href="formlar.html" class="ql">Formlar</a>
-      </div>
-    </section>
-
-    <!-- Grid düzeni -->
-    <div class="grid">
-      <!-- Sol: Son Duyurular -->
+      <!-- Orta: Son Duyurular -->
       <section class="card">
         <h2>Son Duyurular</h2>
         <div id="duyuru-list" class="list"></div>
         <a class="more" href="duyurular.html">Tüm duyurular →</a>
       </section>
 
-      <!-- Sağ: Yaklaşan Etkinlikler -->
-      <aside class="card">
-        <h2>Yaklaşan Etkinlikler</h2>
-        <div id="etkinlik-list" class="list"></div>
-        <a class="more" href="etkinlikler.html">Tüm etkinlikler →</a>
-      </aside>
+      <!-- Sağ: Etkinlik + Hava Durumu -->
+      <div>
+        <aside class="card">
+          <h2>Yaklaşan Etkinlikler</h2>
+          <div id="etkinlik-list" class="list"></div>
+          <a class="more" href="etkinlikler.html">Tüm etkinlikler →</a>
+        </aside>
 
-      <!-- Sağ alt: Hava Durumu -->
-      <aside class="card">
-        <h2>Hava Durumu</h2>
-        <div id="weather"></div>
-      </aside>
+        <aside class="card weather-card">
+          <h2>Hava Durumu</h2>
+          <div id="weather"></div>
+        </aside>
+      </div>
     </div>
   </main>
 
