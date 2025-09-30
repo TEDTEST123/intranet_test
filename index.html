@@ -2,17 +2,16 @@
 <html lang="tr">
 <head>
   <meta charset="utf-8" />
-  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
   <title>TEDU Intranet – Test Ana Sayfa</title>
   <link rel="stylesheet" href="style.css" />
 </head>
 <body>
-  <!-- Üst Menü -->
   <header>
     <div class="wrap">
       <div class="brand">
         <img src="logo.png" alt="TED Üniversitesi Amblemi">
-        <span><strong>TED Üniversitesi</strong></span>
+        <span>TED Üniversitesi</span>
       </div>
       <nav>
         <a href="index.html" class="active">Ana Sayfa</a>
@@ -23,107 +22,96 @@
     </div>
   </header>
 
-  <!-- Ana İçerik -->
-  <main class="wrap">
-    <div class="main-grid">
-      
-      <!-- Sol Menü -->
-      <aside class="card side-links">
-        <div class="quick-links">
-          <a href="#" class="ql">İnsan Kaynakları</a>
-          <a href="#" class="ql">Kütüphane</a>
-          <a href="#" class="ql">Formlar</a>
-        </div>
-      </aside>
+  <main class="wrap main-grid">
+    <!-- Sol menü -->
+    <aside class="card side-links">
+      <div class="quick-links">
+        <a href="ik.html" class="ql">İnsan Kaynakları</a>
+        <a href="kutuphane.html" class="ql">Kütüphane</a>
+        <a href="formlar.html" class="ql">Formlar</a>
+      </div>
+    </aside>
 
-      <!-- Orta Alan: Duyurular -->
+    <!-- Duyurular -->
+    <section class="card">
+      <h2>Son Duyurular</h2>
+      <div id="duyuru-list" class="list"></div>
+      <a class="more" href="duyurular.html">Tüm duyurular →</a>
+    </section>
+
+    <!-- Etkinlikler + Hava -->
+    <aside>
       <section class="card">
-        <h2>Son Duyurular</h2>
-        <select id="duyuru-select">
-          <option>Duyuru seçiniz...</option>
-        </select>
-        <a class="more" href="duyurular.html">Tüm duyurular →</a>
+        <h2>Yaklaşan Etkinlikler</h2>
+        <div id="etkinlik-list" class="list"></div>
+        <a class="more" href="etkinlikler.html">Tüm etkinlikler →</a>
       </section>
 
-      <!-- Sağ Alan -->
-      <aside>
-        <!-- Etkinlikler -->
-        <section class="card">
-          <h2>Yaklaşan Etkinlikler</h2>
-          <select id="etkinlik-select">
-            <option>Etkinlik seçiniz...</option>
-          </select>
-          <a class="more" href="etkinlikler.html">Tüm etkinlikler →</a>
-        </section>
-
-        <!-- Hava Durumu -->
-        <section class="card weather-card">
-          <h2>Hava Durumu</h2>
-          <div id="hava"></div>
-        </section>
-      </aside>
-    </div>
+      <section class="card weather-card">
+        <h2>Hava Durumu</h2>
+        <div id="hava">Yükleniyor...</div>
+      </section>
+    </aside>
   </main>
 
-  <!-- Footer -->
   <footer>
     © 2025 TED Üniversitesi • Tüm Hakları Saklıdır
   </footer>
 
-  <!-- JSON’dan Veri Çekme -->
+  <!-- JSON’dan veri okuma -->
   <script>
-    const trDate = d => new Date(d).toLocaleDateString('tr-TR',{year:'numeric',month:'short',day:'2-digit'});
+    const trDate = d => new Date(d).toLocaleDateString('tr-TR', {
+      year: 'numeric', month: 'short', day: '2-digit'
+    });
     const byDateDesc = (a,b) => new Date(b.tarih) - new Date(a.tarih);
     const byDateAsc  = (a,b) => new Date(a.tarih) - new Date(b.tarih);
 
-    // Duyurular
+    // Duyuruları yükle
     fetch('duyurular.json')
       .then(r => r.json())
       .then(data => {
-        const duyurular = data.sort(byDateDesc).slice(0,5);
-        const select = document.getElementById('duyuru-select');
+        const duyurular = data.sort(byDateDesc).slice(0,3);
+        const dList = document.getElementById('duyuru-list');
         duyurular.forEach(d => {
-          const opt = document.createElement('option');
-          opt.textContent = `${trDate(d.tarih)} – ${d.baslik}`;
-          select.appendChild(opt);
+          const el = document.createElement('article');
+          el.className = "duyuru-item";
+          el.innerHTML = `
+            <strong>${d.baslik}</strong>
+            <div class="meta">${trDate(d.tarih)} • ${d.birim} • ${d.kategori}</div>
+            <p>${d.ozet}</p>
+          `;
+          dList.appendChild(el);
         });
       });
 
-    // Etkinlikler
+    // Etkinlikleri yükle
     fetch('etkinlikler.json')
       .then(r => r.json())
       .then(data => {
         const today = new Date().toISOString().slice(0,10);
-        const upcoming = data.filter(e => e.tarih >= today).sort(byDateAsc).slice(0,5);
-        const select = document.getElementById('etkinlik-select');
+        const upcoming = data.filter(e => e.tarih >= today).sort(byDateAsc).slice(0,2);
+        const eList = document.getElementById('etkinlik-list');
         upcoming.forEach(e => {
-          const opt = document.createElement('option');
-          opt.textContent = `${trDate(e.tarih)} – ${e.baslik}`;
-          select.appendChild(opt);
+          const el = document.createElement('article');
+          el.className = "etkinlik-item";
+          el.innerHTML = `
+            <strong>${e.baslik}</strong>
+            <div class="meta">${trDate(e.tarih)} • ${e.saat} • ${e.mekan} • ${e.birim}</div>
+          `;
+          eList.appendChild(el);
         });
       });
 
-    // Hava Durumu (OpenWeatherMap API)
-    fetch("https://api.openweathermap.org/data/2.5/weather?q=Ankara,tr&units=metric&lang=tr&appid=0cc3b07cb1fe90abf9ca6733495ea6f8")
+    // Hava durumu API
+    fetch("https://api.openweathermap.org/data/2.5/weather?q=Ankara,tr&appid=0cc3b07cb1fe90abf9ca6733495ea6f8&units=metric&lang=tr")
       .then(r => r.json())
       .then(data => {
-        const div = document.getElementById("hava");
-        const sicaklik = Math.round(data.main.temp);
-        const aciklama = data.weather[0].description;
-        const ikon = data.weather[0].icon;
-        div.innerHTML = `
-          <div style="display:flex; align-items:center; justify-content:center; gap:8px;">
-            <img src="http://openweathermap.org/img/wn/${ikon}.png" alt="${aciklama}" />
-            <p style="margin:0; color:white;"><strong>${sicaklik}°C</strong> – ${aciklama}</p>
-          </div>
+        const hava = document.getElementById("hava");
+        hava.innerHTML = `
+          <img src="https://openweathermap.org/img/wn/${data.weather[0].icon}@2x.png" alt="">
+          <span>${Math.round(data.main.temp)}°C – ${data.weather[0].description}</span>
         `;
-      })
-      .catch(err => {
-        document.getElementById("hava").innerHTML = "<p>Hava durumu verisi alınamadı.</p>";
       });
   </script>
-
 </body>
 </html>
-
-
