@@ -142,30 +142,30 @@ header nav a:hover {
   text-decoration: underline;
 }
 
-/* Hava durumu kartı (TEDU renkleri + küçültülmüş) */
+/* Hava durumu kartı (API tabanlı) */
 .weather-card {
   margin-top: 20px;
   text-align: center;
   background: #002d72;
   border-radius: 8px;
-  padding: 8px;
+  padding: 12px;
 }
 .weather-card h2 {
   font-size: 16px;
   margin-bottom: 6px;
   color: #ffffff;
 }
-.weatherwidget-io {
-  display: block;
-  width: 100% !important;
-  max-height: 100px !important; /* yalnızca bugünü gösterecek kadar */
-  overflow: hidden !important;
-  border-radius: 6px;
-  filter: brightness(0.95) contrast(1.05);
+#hava {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  color: white;
+  font-size: 14px;
 }
-/* Açıklama yazısını gizle (ör. broken clouds) */
-.weatherwidget-io .weather-desc {
-  display: none !important;
+#hava img {
+  width: 40px;
+  height: 40px;
 }
 
 /* Filtre butonları */
