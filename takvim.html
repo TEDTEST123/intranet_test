@@ -3,31 +3,63 @@
 <head>
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width,initial-scale=1" />
-  <title>Akademik Takvim • TEDU Intranet – Test</title>
+  <title>Akademik Takvim – TEDU </title>
   <link rel="stylesheet" href="style.css" />
 </head>
 <body>
+  <!-- Üst Menü -->
   <header>
     <div class="wrap">
       <div class="brand">
         <img src="logo.png" alt="TED Üniversitesi Amblemi">
-        <span>TED Üniversitesi</span>
+        <span><strong>TED Üniversitesi</strong></span>
       </div>
       <nav>
         <a href="index.html">Ana Sayfa</a>
         <a href="duyurular.html">Duyurular</a>
         <a href="etkinlikler.html">Etkinlikler</a>
+        <a href="takvim.html" class="active">Akademik Takvim</a>
       </nav>
     </div>
   </header>
 
+  <!-- İçerik -->
   <main class="wrap">
     <section class="card">
-      <h1>Akademik Takvim</h1>
-      <p>Burası Akademik Takvim sayfasıdır. Yakında ders ve dönem bilgileri burada olacak.</p>
+      <h2>📅 Akademik Takvim</h2>
+      <p>Bu sayfada dönem içindeki önemli tarihleri görebilirsiniz.</p>
+      <table class="takvim-table">
+        <thead>
+          <tr>
+            <th>Tarih</th>
+            <th>Etkinlik</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td>17 Şubat 2025</td>
+            <td>Bahar Dönemi Başlangıcı</td>
+          </tr>
+          <tr>
+            <td>15 Mart 2025</td>
+            <td>Ara Sınav Haftası</td>
+          </tr>
+          <tr>
+            <td>02 Haziran 2025</td>
+            <td>Final Haftası Başlangıcı</td>
+          </tr>
+          <tr>
+            <td>16 Haziran 2025</td>
+            <td>Final Haftası Bitişi</td>
+          </tr>
+        </tbody>
+      </table>
     </section>
   </main>
 
-  <footer class="wrap">© TED Üniversitesi • Test amaçlı ilk sürüm (MVP)</footer>
+  <!-- Footer -->
+  <footer>
+    © 2025 TED Üniversitesi • Tüm Hakları Saklıdır
+  </footer>
 </body>
 </html>
