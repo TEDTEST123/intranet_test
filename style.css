@@ -1,102 +1,110 @@
-:root {
-  --ted-blue: #002b6b;
-  --ted-red: #e30613;
-  --bg: #f4f4f4;
-  --paper: #ffffff;
-  --text: #222;
-}
-
+/* Genel sayfa yapısı */
 html, body {
   height: 100%;
-  margin: 0;
-  font-family: Arial, Helvetica, sans-serif;
-  color: var(--text);
-  background: var(--bg);
-  font-size: 18px;      /* yazılar büyütüldü */
-  line-height: 1.6;     /* okunabilirlik artırıldı */
   display: flex;
   flex-direction: column;
+  margin: 0;
+  font-family: Arial, sans-serif;
+  background-color: #f4f4f4;
 }
 
-main {
-  flex: 1;  /* içerik alanı footer'ı aşağı iter */
-}
-
-/* ÜST BAR */
+/* Header */
 header {
-  background: var(--ted-blue);
+  background-color: #002d72; /* TEDÜ kurumsal mavi */
   color: white;
+  padding: 10px 20px;
   display: flex;
   align-items: center;
   justify-content: space-between;
-  padding: 12px 24px;
 }
 
-header img {
+header .brand {
+  display: flex;
+  align-items: center;
+}
+
+header .brand img {
   height: 40px;
   margin-right: 10px;
 }
 
-nav a {
+header nav a {
   color: white;
-  margin-left: 20px;
   text-decoration: none;
+  margin-left: 20px;
   font-weight: bold;
 }
 
-nav a:hover {
+header nav a:hover {
   text-decoration: underline;
 }
 
-/* ANA YAPI */
-.container {
-  display: grid;
-  grid-template-columns: 250px 1fr 300px;
-  gap: 20px;
+/* Ana içerik */
+main {
+  flex: 1;
   padding: 20px;
+  display: flex;
+  gap: 20px;
 }
 
-/* SOL MENÜ */
+/* Sol menü */
 .quick-links {
   display: flex;
   flex-direction: column;
-  gap: 12px;
+  gap: 10px;
 }
 
-.ql {
-  background: var(--ted-blue);
+.quick-links .ql {
+  background-color: #002d72;
   color: white;
+  padding: 12px;
+  border-radius: 6px;
   text-align: center;
-  padding: 14px;
-  border-radius: 10px;
-  text-decoration: none;
   font-weight: bold;
-  font-size: 16px;
+  text-decoration: none;
+  transition: background 0.3s;
 }
 
-.ql:hover {
-  background: #00409d;
+.quick-links .ql:hover {
+  background-color: #004aad;
 }
 
-/* KART TASARIMI */
+/* Kart tasarımları */
 .card {
-  background: var(--paper);
-  border-radius: 12px;
-  padding: 24px;       /* daha ferah */
-  box-shadow: 0 3px 8px rgba(0,0,0,.1);
+  background: white;
+  padding: 15px;
+  border-radius: 8px;
+  box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+  margin-bottom: 20px;
 }
 
 .card h2 {
-  font-size: 22px;    /* başlıklar daha büyük */
-  margin-bottom: 16px;
+  margin-top: 0;
+  color: #002d72;
 }
 
-/* FOOTER */
+/* Duyuru ve etkinlik listeleri */
+.list article {
+  padding: 8px 0;
+  border-bottom: 1px solid #eee;
+}
+
+.list article:last-child {
+  border-bottom: none;
+}
+
+.list strong {
+  display: block;
+  margin-bottom: 5px;
+  color: #333;
+}
+
+/* Footer */
 footer {
-  background: var(--ted-blue);
+  background-color: #002d72;
   color: white;
   text-align: center;
-  padding: 12px;
-  font-size: 15px;
-  margin-top: auto;   /* alta sabitle */
+  padding: 10px;
+  margin-top: auto;
+  font-size: 14px;
 }
