@@ -1,110 +1,102 @@
-/* Genel sayfa yapısı */
-html, body {
-  height: 100%;
-  display: flex;
-  flex-direction: column;
-  margin: 0;
-  font-family: Arial, sans-serif;
-  background-color: #f4f4f4;
+:root{
+  --ted-blue:#002d72;
+  --ted-blue-2:#0043a3;
+  --ted-red:#c00;
+  --text:#222;
+  --bg:#f5f6f8;
+  --paper:#fff;
 }
 
-/* Header */
-header {
-  background-color: #002d72; /* TEDÜ kurumsal mavi */
-  color: white;
-  padding: 10px 20px;
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
+/* ==== Sayfa iskeleti: footer hep altta ==== */
+html,body{
+  height:100%;
+  margin:0;
+  display:flex;
+  flex-direction:column;
+  font-family:Arial, Helvetica, sans-serif;
+  color:var(--text);
+  background:var(--bg);
+  font-size:16px;
+  line-height:1.6;
+}
+main{ flex:1; }
+
+/* ==== HEADER ==== */
+header{
+  background:var(--ted-blue);
+  color:#fff;
+  padding:10px 16px;
+  display:flex;
+  align-items:center;
+  justify-content:space-between;
+}
+header .logo{ display:flex; align-items:center; gap:10px; }
+header .logo img{ height:38px; }
+header .logo span{ font-weight:700; font-size:18px; }
+nav a{
+  color:#fff; text-decoration:none; margin-left:18px; font-weight:700;
+}
+nav a:hover, nav a.active{ text-decoration:underline; }
+
+/* ==== 3 sütunlu ana düzen ==== */
+.container{
+  max-width:1200px;
+  margin:20px auto;
+  padding:0 16px;
+  display:grid;
+  grid-template-columns:260px 1fr 340px;
+  gap:22px;
+  align-items:start;
 }
 
-header .brand {
-  display: flex;
-  align-items: center;
+/* ==== Sol menü ===== */
+.quick-links{ display:flex; flex-direction:column; gap:12px; }
+.ql{
+  display:block; text-align:center;
+  background:var(--ted-blue); color:#fff;
+  padding:12px 14px; border-radius:10px;
+  text-decoration:none; font-weight:700; font-size:15px;
+  box-shadow:0 2px 6px rgba(0,0,0,.08);
+}
+.ql:hover{ background:var(--ted-blue-2); }
+
+/* ==== Kartlar ===== */
+.card{
+  background:var(--paper);
+  border-radius:12px;
+  padding:18px;
+  box-shadow:0 2px 8px rgba(0,0,0,.08);
+}
+.card h2{ margin:0 0 12px 0; color:var(--ted-blue); font-size:20px; }
+.more{ color:var(--ted-red); font-weight:700; text-decoration:none; }
+
+/* Duyuru listesi görselliği */
+.list article{ padding:10px 0; border-bottom:1px solid #eee; }
+.list article:last-child{ border-bottom:0; }
+.badge{
+  background:var(--ted-blue); color:#fff; border-radius:4px;
+  padding:2px 6px; font-size:12px; margin-right:6px;
+}
+.meta{ color:#666; font-size:14px; margin:4px 0; }
+
+/* Sağ panel sütunu: kartları dikey sırala */
+.sidebar{ display:flex; flex-direction:column; gap:20px; }
+
+/* Hava durumu kartı lacivert */
+.weather-card{ background:var(--ted-blue); color:#fff; }
+.weather-card h2{ color:#fff; }
+
+/* ==== FOOTER ==== */
+footer{
+  background:var(--ted-blue); color:#fff;
+  text-align:center; padding:12px; font-size:14px;
+  margin-top:auto;
 }
 
-header .brand img {
-  height: 40px;
-  margin-right: 10px;
-}
-
-header nav a {
-  color: white;
-  text-decoration: none;
-  margin-left: 20px;
-  font-weight: bold;
-}
-
-header nav a:hover {
-  text-decoration: underline;
-}
-
-/* Ana içerik */
-main {
-  flex: 1;
-  padding: 20px;
-  display: flex;
-  gap: 20px;
-}
-
-/* Sol menü */
-.quick-links {
-  display: flex;
-  flex-direction: column;
-  gap: 10px;
-}
-
-.quick-links .ql {
-  background-color: #002d72;
-  color: white;
-  padding: 12px;
-  border-radius: 6px;
-  text-align: center;
-  font-weight: bold;
-  text-decoration: none;
-  transition: background 0.3s;
-}
-
-.quick-links .ql:hover {
-  background-color: #004aad;
-}
-
-/* Kart tasarımları */
-.card {
-  background: white;
-  padding: 15px;
-  border-radius: 8px;
-  box-shadow: 0 2px 5px rgba(0,0,0,0.1);
-  margin-bottom: 20px;
-}
-
-.card h2 {
-  margin-top: 0;
-  color: #002d72;
-}
-
-/* Duyuru ve etkinlik listeleri */
-.list article {
-  padding: 8px 0;
-  border-bottom: 1px solid #eee;
-}
-
-.list article:last-child {
-  border-bottom: none;
-}
-
-.list strong {
-  display: block;
-  margin-bottom: 5px;
-  color: #333;
-}
-
-/* Footer */
-footer {
-  background-color: #002d72;
-  color: white;
-  text-align: center;
-  padding: 10px;
-  margin-top: auto;
-  font-size: 14px;
+/* ==== Responsive ==== */
+@media (max-width: 992px){
+  .container{
+    grid-template-columns: 1fr;
+  }
+  .sidebar{ flex-direction:column; }
 }
