@@ -7,12 +7,12 @@
   <link rel="stylesheet" href="style.css" />
 </head>
 <body>
-  <!-- HEADER -->
+  <!-- Üst Menü -->
   <header>
     <div class="wrap">
       <div class="brand">
         <img src="logo.png" alt="TED Üniversitesi Amblemi">
-        <span>TED Üniversitesi </span>
+        <span><strong>TED Üniversitesi</strong></span>
       </div>
       <nav>
         <a href="index.html" class="active">Ana Sayfa</a>
@@ -22,95 +22,101 @@
     </div>
   </header>
 
-  <!-- ANA GRID: 3 kolon -->
-  <main class="wrap main-grid">
-    <!-- Sol: Hızlı Linkler -->
-    <aside class="card side-links">
-      <h2>Menü</h2>
-      <div class="quick-links">
-        <a href="#" class="ql" data-sayfa="ik">İnsan Kaynakları</a>
-        <a href="#" class="ql" data-sayfa="kutuphane">Kütüphane</a>
-        <a href="#" class="ql" data-sayfa="takvim">Akademik Takvim</a>
-        <a href="#" class="ql" data-sayfa="formlar">Formlar</a>
-      </div>
-    </aside>
+  <!-- Ana İçerik -->
+  <main class="wrap">
+    <div class="main-grid">
+      
+      <!-- Sol Menü -->
+      <aside class="card side-links">
+        <div class="quick-links">
+          <a href="#" class="ql">İnsan Kaynakları</a>
+          <a href="#" class="ql">Kütüphane</a>
+          <a href="#" class="ql">Akademik Takvim</a>
+          <a href="#" class="ql">Formlar</a>
+        </div>
+      </aside>
 
-    <!-- Orta: Son Duyurular -->
-    <section class="card main-content">
-      <h2>Son Duyurular</h2>
-      <div id="duyuru-list"></div>
-      <a class="more" href="duyurular.html">Tüm duyurular →</a>
-    </section>
+      <!-- Orta Alan: Duyurular -->
+      <section class="card">
+        <h2>Son Duyurular</h2>
+        <select id="duyuru-select">
+          <option>Duyuru seçiniz...</option>
+        </select>
+        <a class="more" href="duyurular.html">Tüm duyurular →</a>
+      </section>
 
-    <!-- Sağ: Etkinlikler + Hava Durumu -->
-    <aside class="card right-col">
-      <h2>Yaklaşan Etkinlikler</h2>
-      <div id="etkinlik-list"></div>
-      <a class="more" href="etkinlikler.html">Tüm etkinlikler →</a>
+      <!-- Sağ Alan -->
+      <aside>
+        <!-- Etkinlikler -->
+        <section class="card">
+          <h2>Yaklaşan Etkinlikler</h2>
+          <select id="etkinlik-select">
+            <option>Etkinlik seçiniz...</option>
+          </select>
+          <a class="more" href="etkinlikler.html">Tüm etkinlikler →</a>
+        </section>
 
-      <div class="weather-card">
-        <h2>Hava Durumu</h2>
-        <iframe src="https://www.meteoblue.com/tr/hava/widget/daily/ankara_türkiye_323786?geoloc=detect&days=3&tempunit=CELSIUS&windunit=KILOMETER_PER_HOUR&layout=image"
-                style="width:100%; height:120px; border:none;" 
-                scrolling="no">
-        </iframe>
-      </div>
-    </aside>
+        <!-- Hava Durumu -->
+        <section class="card weather-card">
+          <h2>Hava Durumu</h2>
+          <a class="weatherwidget-io" href="https://forecast7.com/en/39d9332d86/ankara/" 
+             data-label_1="ANKARA" 
+             data-label_2="WEATHER" 
+             data-theme="original">ANKARA WEATHER</a>
+        </section>
+      </aside>
+    </div>
   </main>
 
-  <!-- FOOTER -->
-  <footer class="wrap">
+  <!-- Footer -->
+  <footer>
     © 2025 TED Üniversitesi • Tüm Hakları Saklıdır
   </footer>
 
-  <!-- JS: JSON’dan veri okuma -->
+  <!-- JSON’dan Veri Çekme -->
   <script>
-    const trDate = d => new Date(d).toLocaleDateString('tr-TR', {year:'numeric', month:'short', day:'2-digit'});
+    const trDate = d => new Date(d).toLocaleDateString('tr-TR',{year:'numeric',month:'short',day:'2-digit'});
     const byDateDesc = (a,b) => new Date(b.tarih) - new Date(a.tarih);
     const byDateAsc  = (a,b) => new Date(a.tarih) - new Date(b.tarih);
 
-    // Duyurular listesi
+    // Duyurular
     fetch('duyurular.json')
       .then(r => r.json())
       .then(data => {
-        const duyurular = data.sort(byDateDesc).slice(0,4);
-        const dList = document.getElementById('duyuru-list');
+        const duyurular = data.sort(byDateDesc).slice(0,5);
+        const select = document.getElementById('duyuru-select');
         duyurular.forEach(d => {
-          const el = document.createElement('article');
-          el.className = "duyuru-item";
-          el.innerHTML = `
-            <strong>${d.baslik}</strong><br>
-            <span class="meta">${trDate(d.tarih)} • ${d.birim} • ${d.kategori}</span>
-            <p>${d.ozet}</p>`;
-          dList.appendChild(el);
+          const opt = document.createElement('option');
+          opt.textContent = `${trDate(d.tarih)} – ${d.baslik}`;
+          select.appendChild(opt);
         });
       });
 
-    // Etkinlikler listesi
+    // Etkinlikler
     fetch('etkinlikler.json')
       .then(r => r.json())
       .then(data => {
         const today = new Date().toISOString().slice(0,10);
-        const upcoming = data.filter(e => e.tarih >= today).sort(byDateAsc).slice(0,3);
-        const eList = document.getElementById('etkinlik-list');
+        const upcoming = data.filter(e => e.tarih >= today).sort(byDateAsc).slice(0,5);
+        const select = document.getElementById('etkinlik-select');
         upcoming.forEach(e => {
-          const el = document.createElement('article');
-          el.className = "etkinlik-item";
-          el.innerHTML = `
-            <strong>${e.baslik}</strong><br>
-            <span class="meta">${trDate(e.tarih)} • ${e.saat} • ${e.mekan}</span>`;
-          eList.appendChild(el);
+          const opt = document.createElement('option');
+          opt.textContent = `${trDate(e.tarih)} – ${e.baslik}`;
+          select.appendChild(opt);
         });
       });
-
-    // Hızlı linkler tıklama
-    document.querySelectorAll(".quick-links .ql").forEach(link=>{
-      link.addEventListener("click", e=>{
-        e.preventDefault();
-        alert(link.textContent + " sayfası açılacak (şimdilik test).");
-      });
-    });
   </script>
+
+  <!-- Hava Durumu Script -->
+  <script>
+  !function(d,s,id){
+    var js,fjs=d.getElementsByTagName(s)[0];
+    if(!d.getElementById(id)){
+      js=d.createElement(s);js.id=id;js.src='https://weatherwidget.io/js/widget.min.js';
+      fjs.parentNode.insertBefore(js,fjs);
+    }
+  }(document,'script','weatherwidget-io-js');
+  </script>
+
 </body>
 </html>
-
