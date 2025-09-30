@@ -3,18 +3,20 @@
 <head>
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width,initial-scale=1" />
-  <title>Tüm Duyurular - TEDU Intranet</title>
+  <title>Duyurular – TEDU Intranet</title>
   <link rel="stylesheet" href="style.css" />
 </head>
 <body>
-  <!-- HEADER -->
   <header>
     <div class="wrap">
       <div class="brand">
         <img src="logo.png" alt="TED Üniversitesi Amblemi">
-        <span>TED Üniversitesi </span>
+        <span>TED Üniversitesi</span>
       </div>
-      <nav>
+
+      <button class="menu-toggle" id="menu-toggle">☰</button>
+
+      <nav id="main-nav">
         <a href="index.html">Ana Sayfa</a>
         <a href="duyurular.html" class="active">Duyurular</a>
         <a href="etkinlikler.html">Etkinlikler</a>
@@ -23,92 +25,43 @@
     </div>
   </header>
 
-  <!-- MAIN -->
   <main class="wrap">
     <section class="card">
-      <h2>Tüm Duyurular</h2>
-
-      <!-- Filtre & Arama Çubuğu -->
-      <div class="filter-bar">
-        <button class="filter-btn active" data-kategori="all">Tümü</button>
-        <button class="filter-btn" data-kategori="Akademik">Akademik</button>
-        <button class="filter-btn" data-kategori="İdari">İdari</button>
-        <button class="filter-btn" data-kategori="Sosyal">Sosyal</button>
-        <input type="text" id="search" placeholder="Başlıkta ara..." />
-      </div>
-
-      <!-- Duyuru listesi -->
+      <h2>📢 Tüm Duyurular</h2>
       <div id="tum-duyurular"></div>
     </section>
   </main>
 
-  <!-- FOOTER -->
-  <footer class="wrap">
+  <footer>
     © 2025 TED Üniversitesi • Tüm Hakları Saklıdır
   </footer>
 
-  <!-- JS -->
+  <!-- Menü için JS -->
+  <script>
+    document.getElementById("menu-toggle").addEventListener("click", () => {
+      document.getElementById("main-nav").classList.toggle("show");
+    });
+  </script>
+
+  <!-- JSON’dan duyuruları doldur -->
   <script>
     const trDate = d => new Date(d).toLocaleDateString('tr-TR',{year:'numeric',month:'short',day:'2-digit'});
-    const byDateDesc = (a,b) => new Date(b.tarih) - new Date(a.tarih);
-
-    let tumDuyurular = [];
-
-    function renderDuyurular(filter="all", search="") {
-      const container = document.getElementById("tum-duyurular");
-      container.innerHTML = "";
-
-      let filtered = tumDuyurular;
-
-      if(filter !== "all") {
-        filtered = filtered.filter(d => d.kategori === filter);
-      }
-      if(search) {
-        filtered = filtered.filter(d => d.baslik.toLowerCase().includes(search.toLowerCase()));
-      }
-
-      filtered.forEach(d => {
-        const el = document.createElement("article");
-        el.className = "duyuru-item";
-        el.innerHTML = `
-          <strong>${d.baslik}</strong>
-          <div class="meta">${trDate(d.tarih)} • ${d.birim} • ${d.kategori}</div>
-          <p>${d.ozet}</p>
-          <a href="#" class="more">Devamını Oku →</a>
-        `;
-        container.appendChild(el);
-      });
-
-      if(filtered.length === 0) {
-        container.innerHTML = "<p>Hiç duyuru bulunamadı.</p>";
-      }
-    }
-
-    // JSON’dan duyuruları çek
-    fetch("duyurular.json")
+    fetch('duyurular.json')
       .then(r => r.json())
       .then(data => {
-        tumDuyurular = data.sort(byDateDesc);
-        renderDuyurular();
+        const list = document.getElementById('tum-duyurular');
+        data.sort((a,b)=> new Date(b.tarih)-new Date(a.tarih));
+        data.forEach(d => {
+          const el = document.createElement('article');
+          el.className = "duyuru-item";
+          el.innerHTML = `
+            <strong>${d.baslik}</strong>
+            <div class="meta">${trDate(d.tarih)} • ${d.birim} • ${d.kategori}</div>
+            <p>${d.ozet}</p>
+          `;
+          list.appendChild(el);
+        });
       });
-
-    // Filtre butonları
-    document.querySelectorAll(".filter-btn").forEach(btn => {
-      btn.addEventListener("click", ()=>{
-        document.querySelectorAll(".filter-btn").forEach(b=>b.classList.remove("active"));
-        btn.classList.add("active");
-        const kategori = btn.dataset.kategori;
-        const search = document.getElementById("search").value;
-        renderDuyurular(kategori, search);
-      });
-    });
-
-    // Arama kutusu
-    document.getElementById("search").addEventListener("input", e=>{
-      const kategori = document.querySelector(".filter-btn.active").dataset.kategori;
-      renderDuyurular(kategori, e.target.value);
-    });
   </script>
 </body>
 </html>
-
