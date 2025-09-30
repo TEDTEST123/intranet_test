@@ -7,6 +7,7 @@
   <link rel="stylesheet" href="style.css" />
 </head>
 <body>
+  <!-- HEADER (her sayfada birebir aynı olmalı) -->
   <header>
     <div class="wrap">
       <div class="brand">
@@ -14,7 +15,7 @@
         <span>TED Üniversitesi</span>
       </div>
 
-      <button class="menu-toggle" id="menu-toggle">☰</button>
+      <button class="menu-toggle" id="menu-toggle" aria-label="Menüyü Aç/Kapat">☰</button>
 
       <nav id="main-nav">
         <a href="index.html">Ana Sayfa</a>
@@ -25,9 +26,12 @@
     </div>
   </header>
 
+  <!-- İÇERİK -->
   <main class="wrap">
     <section class="card">
       <h2>📅 Akademik Takvim</h2>
+      <p>Bu sayfada dönem içindeki önemli tarihleri görebilirsiniz.</p>
+
       <table class="takvim-table" id="takvim-table">
         <thead>
           <tr>
@@ -35,33 +39,49 @@
             <th>Etkinlik</th>
           </tr>
         </thead>
-        <tbody></tbody>
+        <tbody><!-- JSON’dan doldurulacak --></tbody>
       </table>
+
+      <div id="takvim-hata" style="color:#c00; font-weight:700; margin-top:10px; display:none;"></div>
     </section>
   </main>
 
-  <footer>
-    © 2025 TED Üniversitesi • Tüm Hakları Saklıdır
-  </footer>
+  <!-- FOOTER -->
+  <footer>© 2025 TED Üniversitesi • Tüm Hakları Saklıdır</footer>
 
+  <!-- Hamburger JS -->
   <script>
-    document.getElementById("menu-toggle").addEventListener("click", () => {
-      document.getElementById("main-nav").classList.toggle("show");
+    document.getElementById('menu-toggle').addEventListener('click', () => {
+      document.getElementById('main-nav').classList.toggle('show');
     });
   </script>
 
+  <!-- Takvim JSON’u yükle -->
   <script>
-    const trDate = d => new Date(d).toLocaleDateString('tr-TR',{year:'numeric',month:'long',day:'numeric'});
-    fetch('takvim.json')
-      .then(r => r.json())
+    const trDate = d => new Date(d).toLocaleDateString('tr-TR', {
+      year:'numeric', month:'long', day:'numeric'
+    });
+
+    fetch('takvim.json', {cache: 'no-store'})   // cache’i kır
+      .then(r => {
+        if (!r.ok) throw new Error('takvim.json bulunamadı ('+r.status+')');
+        return r.json();
+      })
       .then(data => {
-        const tbody = document.querySelector("#takvim-table tbody");
-        data.sort((a,b)=> new Date(a.tarih)-new Date(b.tarih));
-        data.forEach(item => {
-          const tr = document.createElement("tr");
-          tr.innerHTML = `<td>${trDate(item.tarih)}</td><td>${item.etkinlik}</td>`;
+        // tarihe göre sırala
+        data.sort((a,b) => new Date(a.tarih) - new Date(b.tarih));
+        const tbody = document.querySelector('#takvim-table tbody');
+        data.forEach(row => {
+          const tr = document.createElement('tr');
+          tr.innerHTML = `<td>${trDate(row.tarih)}</td><td>${row.etkinlik}</td>`;
           tbody.appendChild(tr);
         });
+      })
+      .catch(err => {
+        const msg = document.getElementById('takvim-hata');
+        msg.style.display = 'block';
+        msg.textContent = 'Takvim verileri yüklenemedi: ' + err.message;
+        console.error(err);
       });
   </script>
 </body>
