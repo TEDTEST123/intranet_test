@@ -59,13 +59,7 @@
         <!-- Hava Durumu -->
         <section class="card weather-card">
           <h2>Hava Durumu</h2>
-          <a class="weatherwidget-io" 
-             href="https://forecast7.com/en/39d9332d86/ankara/" 
-             data-label_1="ANKARA" 
-             data-label_2="HAVA DURUMU" 
-             data-theme="original">
-             ANKARA Hava Durumu
-          </a>
+          <div id="hava"></div>
         </section>
       </aside>
     </div>
@@ -108,17 +102,25 @@
           select.appendChild(opt);
         });
       });
-  </script>
 
-  <!-- Hava Durumu Script -->
-  <script>
-  !function(d,s,id){
-    var js,fjs=d.getElementsByTagName(s)[0];
-    if(!d.getElementById(id)){
-      js=d.createElement(s);js.id=id;js.src='https://weatherwidget.io/js/widget.min.js';
-      fjs.parentNode.insertBefore(js,fjs);
-    }
-  }(document,'script','weatherwidget-io-js');
+    // Hava Durumu (OpenWeatherMap API)
+    fetch("https://api.openweathermap.org/data/2.5/weather?q=Ankara,tr&units=metric&lang=tr&appid=0cc3b07cb1fe90abf9ca6733495ea6f8")
+      .then(r => r.json())
+      .then(data => {
+        const div = document.getElementById("hava");
+        const sicaklik = Math.round(data.main.temp);
+        const aciklama = data.weather[0].description;
+        const ikon = data.weather[0].icon;
+        div.innerHTML = `
+          <div style="display:flex; align-items:center; justify-content:center; gap:8px;">
+            <img src="http://openweathermap.org/img/wn/${ikon}.png" alt="${aciklama}" />
+            <p style="margin:0; color:white;"><strong>${sicaklik}°C</strong> – ${aciklama}</p>
+          </div>
+        `;
+      })
+      .catch(err => {
+        document.getElementById("hava").innerHTML = "<p>Hava durumu verisi alınamadı.</p>";
+      });
   </script>
 
 </body>
