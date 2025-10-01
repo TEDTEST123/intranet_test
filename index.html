@@ -1,102 +1,60 @@
-<!doctype html>
+<!DOCTYPE html>
 <html lang="tr">
 <head>
-  <meta charset="utf-8" />
-  <meta name="viewport" content="width=device-width,initial-scale=1" />
-  <title>TEDU Intranet – Ana Sayfa</title>
-  <link rel="stylesheet" href="style.css" />
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>TED Üniversitesi Intranet</title>
+    <link rel="stylesheet" href="style.css">
 </head>
 <body>
-  <!-- HEADER -->
-  <header>
-    <div class="logo">
-      <img src="logo.png" alt="TED Üniversitesi Logosu">
-      <span>TED Üniversitesi</span>
-    </div>
-    <nav>
-      <a href="index.html" class="active">Ana Sayfa</a>
-      <a href="duyurular.html">Duyurular</a>
-      <a href="etkinlikler.html">Etkinlikler</a>
-      <a href="takvim.html">Akademik Takvim</a>
+    <!-- Navbar -->
+    <nav class="navbar">
+        <div class="logo">
+            <img src="logo.png" alt="TED Üniversitesi Logosu">
+            <span class="site-title">TED Üniversitesi</span>
+        </div>
+        <div class="menu">
+            <ul>
+                <li><a href="index.html" class="active">Ana Sayfa</a></li>
+                <li><a href="duyurular.html">Duyurular</a></li>
+                <li><a href="etkinlikler.html">Etkinlikler</a></li>
+                <li><a href="takvim.html">Akademik Takvim</a></li>
+            </ul>
+        </div>
     </nav>
-  </header>
 
-  <!-- ANA DÜZEN -->
-  <main class="container">
-    <!-- Sol Menü -->
-    <aside class="quick-links">
-      <a href="ik.html" class="ql">İnsan Kaynakları</a>
-      <a href="kutuphane.html" class="ql">Kütüphane</a>
-      <a href="takvim.html" class="ql">Akademik Takvim</a>
-      <a href="formlar.html" class="ql">Formlar</a>
-    </aside>
+    <!-- İçerik -->
+    <div class="container">
+        <aside class="sidebar">
+            <a href="#">İnsan Kaynakları</a>
+            <a href="#">Kütüphane</a>
+            <a href="#">Akademik Takvim</a>
+            <a href="#">Formlar</a>
+        </aside>
 
-    <!-- Orta Bölüm -->
-    <section class="card">
-      <h2>Son Duyurular</h2>
-      <div id="duyuru-list" class="list">
-        <!-- JS ile doldurulacak -->
-      </div>
-      <a class="more" href="duyurular.html">Tüm duyurular →</a>
-    </section>
+        <main class="main-content">
+            <section class="card">
+                <h2>Son Duyurular</h2>
+                <p>Duyuru seçiniz...</p>
+                <a href="duyurular.html" class="read-more">Tüm duyurular →</a>
+            </section>
 
-    <!-- Sağ Panel -->
-    <aside class="sidebar">
-      <div class="card">
-        <h2>Yaklaşan Etkinlikler</h2>
-        <div id="etkinlik-list" class="list"></div>
-        <a class="more" href="etkinlikler.html">Tüm etkinlikler →</a>
-      </div>
+            <section class="card">
+                <h2>Yaklaşan Etkinlikler</h2>
+                <p>Etkinlik seçiniz...</p>
+                <a href="etkinlikler.html" class="read-more">Tüm etkinlikler →</a>
+            </section>
 
-      <div class="card weather-card">
-        <h2>Hava Durumu</h2>
-        <p>19°C – parçalı az bulutlu</p>
-      </div>
-    </aside>
-  </main>
+            <section class="card weather">
+                <h2>Hava Durumu</h2>
+                <p>19°C – parçalı az bulutlu</p>
+            </section>
+        </main>
+    </div>
 
-  <!-- FOOTER -->
-  <footer>
-    © 2025 TED Üniversitesi • Tüm Hakları Saklıdır
-  </footer>
-
-  <!-- JS: Duyuru ve Etkinlikler JSON’dan -->
-  <script>
-    const trDate = d => new Date(d).toLocaleDateString('tr-TR', {year:'numeric', month:'short', day:'2-digit'});
-    const byDateDesc = (a,b) => new Date(b.tarih) - new Date(a.tarih);
-    const byDateAsc  = (a,b) => new Date(a.tarih) - new Date(b.tarih);
-
-    // Duyurular
-    fetch('duyurular.json')
-      .then(r => r.json())
-      .then(data => {
-        const duyurular = data.sort(byDateDesc).slice(0,3);
-        const dList = document.getElementById('duyuru-list');
-        duyurular.forEach(d => {
-          const el = document.createElement('article');
-          el.innerHTML = `
-            <div><span class="badge">${d.kategori}</span><strong>${d.baslik}</strong></div>
-            <div class="meta">${trDate(d.tarih)} • ${d.birim}</div>
-            <p style="margin:8px 0 0 0">${d.ozet}</p>`;
-          dList.appendChild(el);
-        });
-      });
-
-    // Etkinlikler
-    fetch('etkinlikler.json')
-      .then(r => r.json())
-      .then(data => {
-        const today = new Date().toISOString().slice(0,10);
-        const upcoming = data.filter(e => e.tarih >= today).sort(byDateAsc).slice(0,2);
-        const eList = document.getElementById('etkinlik-list');
-        upcoming.forEach(e => {
-          const el = document.createElement('article');
-          el.innerHTML = `
-            <strong>${e.baslik}</strong>
-            <div class="meta">${trDate(e.tarih)} • ${e.saat} • ${e.mekan} • ${e.birim}</div>`;
-          eList.appendChild(el);
-        });
-      });
-  </script>
+    <!-- Footer -->
+    <footer class="footer">
+        © 2025 TED Üniversitesi • Tüm Hakları Saklıdır
+    </footer>
 </body>
 </html>
