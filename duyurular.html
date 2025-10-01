@@ -7,78 +7,79 @@
     <link rel="stylesheet" href="style.css">
 </head>
 <body>
-
-    <!-- HEADER BAŞLANGIÇ -->
-    <header class="navbar">
+    <!-- Navbar -->
+    <nav class="navbar">
         <div class="logo">
             <img src="logo.png" alt="TED Üniversitesi Logosu">
             <span class="site-title">TED Üniversitesi</span>
         </div>
-        <nav class="menu">
+        <div class="menu">
             <ul>
                 <li><a href="index.html">Ana Sayfa</a></li>
                 <li><a href="duyurular.html" class="active">Duyurular</a></li>
                 <li><a href="etkinlikler.html">Etkinlikler</a></li>
                 <li><a href="takvim.html">Akademik Takvim</a></li>
             </ul>
-        </nav>
-    </header>
-    <!-- HEADER BİTİŞ -->
-
-    <!-- DUYURULAR BAŞLANGIÇ -->
-    <main class="container">
-        <h2><i class="fas fa-bullhorn"></i> Tüm Duyurular</h2>
-
-        <div class="announcement">
-            <h3>Sosyal Sorumluluk Projesi</h3>
-            <p class="meta">15 Nis 2025 • Toplumsal Katkı Koordinatörlüğü • Sosyal</p>
-            <p>Üniversitemiz öğrencileri için sosyal sorumluluk projelerine katılım çağrısı yapılmaktadır.</p>
-            <a href="#" class="read-more">Devamını Oku →</a>
         </div>
+    </nav>
 
-        <div class="announcement">
-            <h3>Bahar Şenlikleri Başlıyor</h3>
-            <p class="meta">10 Nis 2025 • Öğrenci Dekanlığı • Sosyal</p>
-            <p>Her yıl düzenlenen bahar şenlikleri bu yıl Nisan ayında gerçekleştirilecektir.</p>
-            <a href="#" class="read-more">Devamını Oku →</a>
-        </div>
+    <!-- İçerik -->
+    <div class="container">
+        <main class="main-content">
+            <section class="card">
+                <h2>📢 Duyurular</h2>
 
-        <div class="announcement">
-            <h3>Kampüs İçi Ulaşım Düzenlemesi</h3>
-            <p class="meta">28 Mar 2025 • İdari İşler • İdari</p>
-            <p>Kampüs içi ring seferlerinde güzergah ve saat değişiklikleri yapılmıştır.</p>
-            <a href="#" class="read-more">Devamını Oku →</a>
-        </div>
+                <!-- Akademik Duyurular -->
+                <h3 class="category">Akademik</h3>
+                <ul class="announcement-list">
+                    <li>
+                        <strong>Yeni Akademik Yayın Duyurusu</strong><br>
+                        05 Ekim 2025 – Rektörlük<br>
+                        Bu hafta yayımlanan akademik makaleler duyurulmuştur.
+                    </li>
+                    <li>
+                        <strong>Atama & Yükseltme Duyurusu</strong><br>
+                        02 Ekim 2025 – İnsan Kaynakları<br>
+                        Ekim ayı atama ve yükseltmeleri yayımlandı.
+                    </li>
+                </ul>
 
-        <div class="announcement">
-            <h3>Araştırma Projeleri Başvuru Çağrısı</h3>
-            <p class="meta">20 Mar 2025 • Bilimsel Araştırma Projeleri Ofisi • Akademik</p>
-            <p>2025 yılı BAP projeleri için başvuru süreci başlamıştır.</p>
-            <a href="#" class="read-more">Devamını Oku →</a>
-        </div>
+                <!-- İdari Duyurular -->
+                <h3 class="category">İdari</h3>
+                <ul class="announcement-list">
+                    <li>
+                        <strong>Yeni Personel Alımı</strong><br>
+                        01 Ekim 2025 – İnsan Kaynakları<br>
+                        Üniversitemize çeşitli pozisyonlar için personel alımı yapılacaktır.
+                    </li>
+                    <li>
+                        <strong>Kampüs İçi Ulaşım Düzenlemesi</strong><br>
+                        28 Eylül 2025 – İdari İşler<br>
+                        Kampüs içi ring seferlerinde güzergah değişiklikleri yapılmıştır.
+                    </li>
+                </ul>
 
-        <div class="announcement">
-            <h3>Yeni Personel Alımı</h3>
-            <p class="meta">01 Mar 2025 • İnsan Kaynakları • İdari</p>
-            <p>Üniversitemizde çeşitli pozisyonlar için yeni personel alımı yapılacaktır.</p>
-            <a href="#" class="read-more">Devamını Oku →</a>
-        </div>
+                <!-- Öğrenci Duyuruları -->
+                <h3 class="category">Öğrenci</h3>
+                <ul class="announcement-list">
+                    <li>
+                        <strong>Doğum Günü Kutlamaları</strong><br>
+                        01 Ekim 2025 – Kurumsal İletişim<br>
+                        Ekim ayı doğum günü listesi yayımlanmıştır.
+                    </li>
+                    <li>
+                        <strong>Yeni Öğrenci Kulüpleri</strong><br>
+                        15 Ekim 2025 – Öğrenci Dekanlığı<br>
+                        Yeni açılan kulüplerin tanıtım haftası başlamıştır.
+                    </li>
+                </ul>
+            </section>
+        </main>
+    </div>
 
-        <div class="announcement">
-            <h3>Akademik Takvim Yayınlandı</h3>
-            <p class="meta">25 Şub 2025 • Rektörlük • Akademik</p>
-            <p>2025-2026 akademik yılı için güncellenmiş akademik takvim duyuruldu.</p>
-            <a href="#" class="read-more">Devamını Oku →</a>
-        </div>
-    </main>
-    <!-- DUYURULAR BİTİŞ -->
-
-    <!-- FOOTER -->
+    <!-- Footer -->
     <footer class="footer">
-        <p>© 2025 TED Üniversitesi • Tüm Hakları Saklıdır</p>
+        © 2025 TED Üniversitesi • Tüm Hakları Saklıdır
     </footer>
-
-    <!-- ICONS -->
-    <script src="https://kit.fontawesome.com/a2e0e9a62c.js" crossorigin="anonymous"></script>
 </body>
 </html>
