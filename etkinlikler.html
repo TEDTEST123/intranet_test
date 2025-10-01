@@ -1,65 +1,68 @@
-<!doctype html>
+<!DOCTYPE html>
 <html lang="tr">
 <head>
-  <meta charset="utf-8" />
-  <meta name="viewport" content="width=device-width,initial-scale=1" />
-  <title>Etkinlikler – TEDU Intranet</title>
-  <link rel="stylesheet" href="style.css" />
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Tüm Etkinlikler - TED Üniversitesi</title>
+    <link rel="stylesheet" href="style.css">
 </head>
 <body>
-  <header>
-    <div class="wrap">
-      <div class="brand">
-        <img src="logo.png" alt="TED Üniversitesi Amblemi">
-        <span>TED Üniversitesi</span>
-      </div>
+    <!-- Navbar -->
+    <nav class="navbar">
+        <div class="logo">
+            <img src="logo.png" alt="TED Üniversitesi Logosu">
+            <span class="site-title">TED Üniversitesi</span>
+        </div>
+        <div class="menu">
+            <ul>
+                <li><a href="index.html">Ana Sayfa</a></li>
+                <li><a href="duyurular.html">Duyurular</a></li>
+                <li><a href="etkinlikler.html" class="active">Etkinlikler</a></li>
+                <li><a href="takvim.html">Akademik Takvim</a></li>
+            </ul>
+        </div>
+    </nav>
 
-      <button class="menu-toggle" id="menu-toggle">☰</button>
+    <!-- İçerik -->
+    <div class="container">
+        <main class="main-content">
+            <section class="card">
+                <h2>📅 Tüm Etkinlikler</h2>
 
-      <nav id="main-nav">
-        <a href="index.html">Ana Sayfa</a>
-        <a href="duyurular.html">Duyurular</a>
-        <a href="etkinlikler.html" class="active">Etkinlikler</a>
-        <a href="takvim.html">Akademik Takvim</a>
-      </nav>
+                <div class="announcement">
+                    <h3>Bilimsel Araştırma Semineri</h3>
+                    <p><small>15 Mar 2025 • 14:00 • Konferans Salonu A • Fen-Edebiyat Fakültesi • Akademik</small></p>
+                    <p>Akademik yılın ilk bilimsel araştırma semineri düzenlenecektir.</p>
+                    <a href="#" class="read-more">Detaylar →</a>
+                </div>
+
+                <div class="announcement">
+                    <h3>Personel Toplantısı</h3>
+                    <p><small>20 Mar 2025 • 10:00 • Senato Salonu • Rektörlük • İdari</small></p>
+                    <p>Tüm idari personel için toplantı yapılacaktır.</p>
+                    <a href="#" class="read-more">Detaylar →</a>
+                </div>
+
+                <div class="announcement">
+                    <h3>Kariyer Günleri 2025</h3>
+                    <p><small>05 Nis 2025 • 09:30 • Spor Salonu • Kariyer Merkezi • Öğrenci</small></p>
+                    <p>Öğrenciler için sektör temsilcilerinin katılımıyla Kariyer Günleri düzenlenecektir.</p>
+                    <a href="#" class="read-more">Detaylar →</a>
+                </div>
+
+                <div class="announcement">
+                    <h3>Akademik Kurul Toplantısı</h3>
+                    <p><small>18 Nis 2025 • 13:30 • Konferans Salonu B • Mühendislik Fakültesi • Akademik</small></p>
+                    <p>Akademik personelin katılacağı kurul toplantısı yapılacaktır.</p>
+                    <a href="#" class="read-more">Detaylar →</a>
+                </div>
+            </section>
+        </main>
     </div>
-  </header>
 
-  <main class="wrap">
-    <section class="card">
-      <h2>🎓 Tüm Etkinlikler</h2>
-      <div id="tum-etkinlikler"></div>
-    </section>
-  </main>
-
-  <footer>
-    © 2025 TED Üniversitesi • Tüm Hakları Saklıdır
-  </footer>
-
-  <script>
-    document.getElementById("menu-toggle").addEventListener("click", () => {
-      document.getElementById("main-nav").classList.toggle("show");
-    });
-  </script>
-
-  <script>
-    const trDate = d => new Date(d).toLocaleDateString('tr-TR',{year:'numeric',month:'short',day:'2-digit'});
-    fetch('etkinlikler.json')
-      .then(r => r.json())
-      .then(data => {
-        const today = new Date().toISOString().slice(0,10);
-        const list = document.getElementById('tum-etkinlikler');
-        data.sort((a,b)=> new Date(a.tarih)-new Date(b.tarih));
-        data.forEach(e => {
-          const el = document.createElement('article');
-          el.className = "etkinlik-item";
-          el.innerHTML = `
-            <strong>${e.baslik}</strong>
-            <div class="meta">${trDate(e.tarih)} • ${e.saat} • ${e.mekan} • ${e.birim}</div>
-          `;
-          list.appendChild(el);
-        });
-      });
-  </script>
+    <!-- Footer -->
+    <footer class="footer">
+        © 2025 TED Üniversitesi • Tüm Hakları Saklıdır
+    </footer>
 </body>
 </html>
