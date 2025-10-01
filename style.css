@@ -1,102 +1,144 @@
-:root{
-  --ted-blue:#002d72;
-  --ted-blue-2:#0043a3;
-  --ted-red:#c00;
-  --text:#222;
-  --bg:#f5f6f8;
-  --paper:#fff;
+/* GENEL */
+body {
+    font-family: Arial, Helvetica, sans-serif;
+    margin: 0;
+    padding: 0;
+    background-color: #f4f4f4;
+    color: #222;
 }
 
-/* ==== Sayfa iskeleti: footer hep altta ==== */
-html,body{
-  height:100%;
-  margin:0;
-  display:flex;
-  flex-direction:column;
-  font-family:Arial, Helvetica, sans-serif;
-  color:var(--text);
-  background:var(--bg);
-  font-size:16px;
-  line-height:1.6;
-}
-main{ flex:1; }
-
-/* ==== HEADER ==== */
-header{
-  background:var(--ted-blue);
-  color:#fff;
-  padding:10px 16px;
-  display:flex;
-  align-items:center;
-  justify-content:space-between;
-}
-header .logo{ display:flex; align-items:center; gap:10px; }
-header .logo img{ height:38px; }
-header .logo span{ font-weight:700; font-size:18px; }
-nav a{
-  color:#fff; text-decoration:none; margin-left:18px; font-weight:700;
-}
-nav a:hover, nav a.active{ text-decoration:underline; }
-
-/* ==== 3 sütunlu ana düzen ==== */
-.container{
-  max-width:1200px;
-  margin:20px auto;
-  padding:0 16px;
-  display:grid;
-  grid-template-columns:260px 1fr 340px;
-  gap:22px;
-  align-items:start;
+/* NAVBAR */
+.navbar {
+    background-color: #002b6b; /* TEDÜ kurumsal mavi */
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 10px 40px;
 }
 
-/* ==== Sol menü ===== */
-.quick-links{ display:flex; flex-direction:column; gap:12px; }
-.ql{
-  display:block; text-align:center;
-  background:var(--ted-blue); color:#fff;
-  padding:12px 14px; border-radius:10px;
-  text-decoration:none; font-weight:700; font-size:15px;
-  box-shadow:0 2px 6px rgba(0,0,0,.08);
-}
-.ql:hover{ background:var(--ted-blue-2); }
-
-/* ==== Kartlar ===== */
-.card{
-  background:var(--paper);
-  border-radius:12px;
-  padding:18px;
-  box-shadow:0 2px 8px rgba(0,0,0,.08);
-}
-.card h2{ margin:0 0 12px 0; color:var(--ted-blue); font-size:20px; }
-.more{ color:var(--ted-red); font-weight:700; text-decoration:none; }
-
-/* Duyuru listesi görselliği */
-.list article{ padding:10px 0; border-bottom:1px solid #eee; }
-.list article:last-child{ border-bottom:0; }
-.badge{
-  background:var(--ted-blue); color:#fff; border-radius:4px;
-  padding:2px 6px; font-size:12px; margin-right:6px;
-}
-.meta{ color:#666; font-size:14px; margin:4px 0; }
-
-/* Sağ panel sütunu: kartları dikey sırala */
-.sidebar{ display:flex; flex-direction:column; gap:20px; }
-
-/* Hava durumu kartı lacivert */
-.weather-card{ background:var(--ted-blue); color:#fff; }
-.weather-card h2{ color:#fff; }
-
-/* ==== FOOTER ==== */
-footer{
-  background:var(--ted-blue); color:#fff;
-  text-align:center; padding:12px; font-size:14px;
-  margin-top:auto;
+.logo {
+    display: flex;
+    align-items: center;
 }
 
-/* ==== Responsive ==== */
-@media (max-width: 992px){
-  .container{
-    grid-template-columns: 1fr;
-  }
-  .sidebar{ flex-direction:column; }
+.logo img {
+    height: 45px;
+    margin-right: 10px;
+}
+
+.site-title {
+    font-size: 20px;
+    font-weight: bold;
+    color: white;
+}
+
+.menu ul {
+    list-style: none;
+    margin: 0;
+    padding: 0;
+    display: flex;
+}
+
+.menu ul li {
+    margin-left: 20px;
+}
+
+.menu ul li a {
+    color: white;
+    text-decoration: none;
+    font-size: 15px;
+    font-weight: bold;
+    transition: color 0.3s ease;
+}
+
+.menu ul li a:hover,
+.menu ul li a.active {
+    color: #ffcc00; /* TEDÜ sarısı hover efekti */
+}
+
+/* DUYURULAR SAYFASI */
+.container {
+    max-width: 1100px;
+    margin: 30px auto;
+    padding: 20px;
+}
+
+.container h2 {
+    color: #002b6b;
+    border-bottom: 2px solid #ffcc00;
+    padding-bottom: 8px;
+    margin-bottom: 20px;
+}
+
+.announcement {
+    background: white;
+    border-radius: 8px;
+    padding: 20px;
+    margin-bottom: 15px;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+    transition: transform 0.2s ease;
+}
+
+.announcement:hover {
+    transform: translateY(-3px);
+}
+
+.announcement h3 {
+    margin: 0 0 8px;
+    color: #002b6b;
+}
+
+.meta {
+    font-size: 13px;
+    color: #666;
+    margin-bottom: 10px;
+}
+
+.read-more {
+    color: #c40000;
+    text-decoration: none;
+    font-weight: bold;
+    font-size: 14px;
+}
+
+.read-more:hover {
+    text-decoration: underline;
+}
+
+/* FOOTER */
+.footer {
+    background-color: #002b6b;
+    color: white;
+    text-align: center;
+    padding: 15px 0;
+    margin-top: 30px;
+    position: relative;
+    bottom: 0;
+    width: 100%;
+    font-size: 14px;
+}
+
+/* MOBİL UYUMLULUK */
+@media (max-width: 768px) {
+    .navbar {
+        flex-direction: column;
+        align-items: flex-start;
+    }
+
+    .menu ul {
+        flex-direction: column;
+        width: 100%;
+    }
+
+    .menu ul li {
+        margin: 10px 0;
+    }
+
+    .container {
+        padding: 15px;
+    }
+
+    .site-title {
+        font-size: 18px;
+    }
 }
