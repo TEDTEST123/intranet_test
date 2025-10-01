@@ -139,3 +139,23 @@ body {
         width: 100%;
     }
 }
+/* Footer sabit */
+html, body {
+    height: 100%;
+    margin: 0;
+    display: flex;
+    flex-direction: column;
+}
+
+.container {
+    flex: 1;
+}
+
+.footer {
+    background: #002147;
+    color: white;
+    text-align: center;
+    padding: 15px;
+    margin-top: auto; /* her zaman en alta sabitle */
+}
+
