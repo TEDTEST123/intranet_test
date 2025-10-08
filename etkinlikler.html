@@ -1,205 +1,212 @@
 <!DOCTYPE html>
 <html lang="tr">
 <head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
 <title>TED Üniversitesi | Etkinlik Takvimi</title>
 <style>
-    body {
-        margin: 0;
-        font-family: "Segoe UI", sans-serif;
-        background: #f5f7fa;
-        color: #002855;
-    }
-    header {
-        background: #002855;
-        color: white;
-        padding: 10px 40px;
-        display: flex;
-        align-items: center;
-        justify-content: space-between;
-    }
-    header h1 {
-        margin: 0;
-        font-size: 20px;
-    }
-    main {
-        display: flex;
-        justify-content: space-between;
-        padding: 30px 60px;
-        gap: 40px;
-    }
+  /* ——— Temel kurumsal renkler ——— */
+  :root{
+    --ted-navy:#002855;
+    --ted-red:#C8102E;
+    --bg:#f5f7fa;
+    --ink:#002855;
+  }
 
-    /* Sol etkinlik listesi */
-    #event-list {
-        flex: 2;
-        background: white;
-        border-radius: 8px;
-        padding: 20px;
-        box-shadow: 0 0 8px rgba(0,0,0,0.1);
-    }
-    .event {
-        border-left: 5px solid #C8102E;
-        padding: 10px 15px;
-        margin-bottom: 15px;
-        background: #f9f9f9;
-        border-radius: 5px;
-    }
-    .event h3 {
-        margin: 0;
-        color: #002855;
-    }
-    .event span {
-        font-size: 13px;
-        color: #555;
-    }
+  /* ——— Sticky footer için sayfa iskeleti ——— */
+  html, body { height:100%; }
+  body{
+    margin:0;
+    font-family:"Segoe UI", sans-serif;
+    background:var(--bg);
+    color:var(--ink);
+    display:flex;
+    flex-direction:column;   /* footer’ı alta itmek için */
+    min-height:100vh;
+  }
 
-    /* Sağ takvim */
-    #calendar {
-        flex: 1;
-        background: white;
-        border-radius: 8px;
-        padding: 20px;
-        box-shadow: 0 0 8px rgba(0,0,0,0.1);
-        text-align: center;
-    }
-    .month {
-        display: flex;
-        justify-content: space-between;
-        align-items: center;
-        margin-bottom: 10px;
-    }
-    .month button {
-        background: #002855;
-        color: white;
-        border: none;
-        padding: 5px 10px;
-        border-radius: 5px;
-        cursor: pointer;
-    }
-    .month button:hover {
-        background: #C8102E;
-    }
-    table {
-        width: 100%;
-        border-collapse: collapse;
-    }
-    th, td {
-        padding: 10px;
-        text-align: center;
-        cursor: pointer;
-    }
-    th {
-        color: #C8102E;
-    }
-    td:hover {
-        background: #e6eefc;
-        border-radius: 50%;
-    }
-    .selected {
-        background: #002855;
-        color: white;
-        border-radius: 50%;
-    }
+  /* ——— Üst başlık ——— */
+  header{
+    background:var(--ted-navy);
+    color:#fff;
+    padding:10px 40px;
+    display:flex;
+    align-items:center;
+    justify-content:space-between;
+  }
+  header h1{ margin:0; font-size:20px; }
+
+  /* ——— Ana içerik ——— */
+  main{
+    flex:1;                   /* footer’ı alta iter */
+    display:flex;
+    justify-content:space-between;
+    gap:40px;
+    padding:30px 60px;
+  }
+
+  /* Sol: etkinlik listesi */
+  #event-list{
+    flex:2;
+    background:#fff;
+    border-radius:8px;
+    padding:20px;
+    box-shadow:0 0 8px rgba(0,0,0,0.1);
+  }
+  #event-list h2{ margin-top:0; }
+  .event{
+    border-left:5px solid var(--ted-red);
+    padding:10px 15px;
+    margin-bottom:15px;
+    background:#f9f9f9;
+    border-radius:5px;
+  }
+  .event h3{ margin:0; color:var(--ink); }
+  .event span{ font-size:13px; color:#555; }
+
+  /* Sağ: takvim */
+  #calendar{
+    flex:1;
+    background:#fff;
+    border-radius:8px;
+    padding:20px;
+    box-shadow:0 0 8px rgba(0,0,0,0.1);
+    text-align:center;
+  }
+  .month{
+    display:flex;
+    justify-content:space-between;
+    align-items:center;
+    margin-bottom:10px;
+  }
+  .month button{
+    background:var(--ted-navy);
+    color:#fff;
+    border:none;
+    padding:5px 10px;
+    border-radius:5px;
+    cursor:pointer;
+  }
+  .month button:hover{ background:var(--ted-red); }
+
+  table{ width:100%; border-collapse:collapse; }
+  th, td{ padding:10px; text-align:center; cursor:pointer; }
+  th{ color:var(--ted-red); }
+  td:hover{ background:#e6eefc; border-radius:50%; }
+  .selected{ background:var(--ted-navy); color:#fff; border-radius:50%; }
+
+  /* ——— Sabit footer ——— */
+  .ted-footer{
+    background:var(--ted-navy);
+    color:#fff;
+    text-align:center;
+    padding:12px 10px;
+    font-size:13px;
+    margin-top:auto;   /* daima en altta */
+  }
 </style>
 </head>
 <body>
 
-<header>
+  <header>
     <h1>🎓 TED Üniversitesi Etkinlik Takvimi</h1>
-</header>
+  </header>
 
-<main>
+  <main>
+    <!-- Sol: Etkinlikler -->
     <section id="event-list">
-        <h2>Etkinlikler</h2>
-        <div id="events-container">
-            <p>Bir tarih seçiniz.</p>
-        </div>
+      <h2>Etkinlikler</h2>
+      <div id="events-container">
+        <p>Bir tarih seçiniz.</p>
+      </div>
     </section>
 
+    <!-- Sağ: Takvim -->
     <aside id="calendar">
-        <div class="month">
-            <button id="prev">&#8592;</button>
-            <h3 id="month-year"></h3>
-            <button id="next">&#8594;</button>
-        </div>
-        <table id="calendar-table">
-            <thead>
-                <tr>
-                    <th>P</th><th>S</th><th>Ç</th><th>P</th><th>C</th><th>C</th><th>P</th>
-                </tr>
-            </thead>
-            <tbody id="calendar-body"></tbody>
-        </table>
+      <div class="month">
+        <button id="prev" aria-label="Önceki Ay">&#8592;</button>
+        <h3 id="month-year"></h3>
+        <button id="next" aria-label="Sonraki Ay">&#8594;</button>
+      </div>
+      <table id="calendar-table" aria-label="Aylık Takvim">
+        <thead>
+          <tr><th>P</th><th>S</th><th>Ç</th><th>P</th><th>C</th><th>C</th><th>P</th></tr>
+        </thead>
+        <tbody id="calendar-body"></tbody>
+      </table>
     </aside>
-</main>
+  </main>
+
+  <footer class="ted-footer">
+    © 2025 TED Üniversitesi • Tüm Hakları Saklıdır
+  </footer>
 
 <script>
-// --- Etkinlik verisi ---
-const events = [
-  { date: "2025-10-08", title: "Bilimsel Araştırma Semineri", type: "Akademik", time: "14:00" },
-  { date: "2025-10-09", title: "Öğrenci Topluluk Fuarı", type: "Öğrenci", time: "10:00" },
-  { date: "2025-10-10", title: "Kariyer Günleri", type: "İdari", time: "09:30" },
-  { date: "2025-10-15", title: "Python Atölyesi", type: "Akademik", time: "16:00" },
-];
+  // ——— Örnek etkinlik verisi (ileride JSON’dan besleyebiliriz) ———
+  const events = [
+    { date: "2025-10-08", title: "Bilimsel Araştırma Semineri", type: "Akademik", time: "14:00" },
+    { date: "2025-10-09", title: "Öğrenci Topluluk Fuarı",     type: "Öğrenci",  time: "10:00" },
+    { date: "2025-10-10", title: "Kariyer Günleri",            type: "İdari",    time: "09:30" },
+    { date: "2025-10-15", title: "Python Atölyesi",            type: "Akademik", time: "16:00" },
+  ];
 
-// --- Takvim oluşturma ---
-const calendarBody = document.getElementById("calendar-body");
-const monthYear = document.getElementById("month-year");
-let current = new Date();
+  // ——— Takvim oluşturma ———
+  const calendarBody = document.getElementById("calendar-body");
+  const monthYear = document.getElementById("month-year");
+  let current = new Date();
 
-function renderCalendar() {
-  const year = current.getFullYear();
-  const month = current.getMonth();
-  monthYear.textContent = current.toLocaleString("tr-TR", { month: "long", year: "numeric" });
+  function renderCalendar(){
+    const year = current.getFullYear();
+    const month = current.getMonth();
+    monthYear.textContent = current.toLocaleString("tr-TR", { month:"long", year:"numeric" });
 
-  const firstDay = new Date(year, month, 1).getDay() || 7;
-  const daysInMonth = new Date(year, month + 1, 0).getDate();
-  calendarBody.innerHTML = "";
+    const firstDay = new Date(year, month, 1).getDay() || 7;  // Pzt=1 olacak şekilde
+    const daysInMonth = new Date(year, month+1, 0).getDate();
+    calendarBody.innerHTML = "";
 
-  let date = 1;
-  for (let i = 0; i < 6; i++) {
-    const row = document.createElement("tr");
-    for (let j = 1; j <= 7; j++) {
-      const cell = document.createElement("td");
-      if ((i === 0 && j < firstDay) || date > daysInMonth) {
-        cell.textContent = "";
-      } else {
-        cell.textContent = date;
-        const thisDate = `${year}-${String(month+1).padStart(2,"0")}-${String(date).padStart(2,"0")}`;
-        cell.onclick = () => selectDate(thisDate, cell);
-        date++;
+    let date = 1;
+    for(let i=0;i<6;i++){
+      const row = document.createElement("tr");
+      for(let j=1;j<=7;j++){
+        const cell = document.createElement("td");
+        if((i===0 && j<firstDay) || date>daysInMonth){
+          cell.textContent = "";
+        }else{
+          cell.textContent = date;
+          const d = `${year}-${String(month+1).padStart(2,"0")}-${String(date).padStart(2,"0")}`;
+          cell.addEventListener("click",()=>selectDate(d, cell));
+          date++;
+        }
+        row.appendChild(cell);
       }
-      row.appendChild(cell);
+      calendarBody.appendChild(row);
     }
-    calendarBody.appendChild(row);
   }
-}
 
-let selectedCell = null;
-function selectDate(date, cell) {
-  if (selectedCell) selectedCell.classList.remove("selected");
-  cell.classList.add("selected");
-  selectedCell = cell;
+  let selectedCell=null;
+  function selectDate(date, cell){
+    if(selectedCell) selectedCell.classList.remove("selected");
+    cell.classList.add("selected");
+    selectedCell = cell;
 
-  const todaysEvents = events.filter(e => e.date === date);
-  const container = document.getElementById("events-container");
-  if (todaysEvents.length === 0) {
-    container.innerHTML = `<p>${date} tarihinde etkinlik yok.</p>`;
-  } else {
-    container.innerHTML = todaysEvents.map(e => `
-      <div class="event">
-        <h3>${e.title}</h3>
-        <span>${e.time} • ${e.type}</span>
-      </div>
-    `).join("");
+    const todays = events.filter(e=>e.date===date);
+    const box = document.getElementById("events-container");
+    if(todays.length===0){
+      box.innerHTML = `<p>${date} tarihinde etkinlik yok.</p>`;
+    }else{
+      box.innerHTML = todays.map(e=>`
+        <div class="event">
+          <h3>${e.title}</h3>
+          <span>${e.time} • ${e.type}</span>
+        </div>
+      `).join("");
+    }
   }
-}
 
-document.getElementById("prev").onclick = () => { current.setMonth(current.getMonth() - 1); renderCalendar(); };
-document.getElementById("next").onclick = () => { current.setMonth(current.getMonth() + 1); renderCalendar(); };
+  document.getElementById("prev").onclick = ()=>{ current.setMonth(current.getMonth()-1); renderCalendar(); };
+  document.getElementById("next").onclick = ()=>{ current.setMonth(current.getMonth()+1); renderCalendar(); };
 
-renderCalendar();
+  renderCalendar();
 </script>
 
 </body>
