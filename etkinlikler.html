@@ -1,68 +1,206 @@
 <!DOCTYPE html>
 <html lang="tr">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Tüm Etkinlikler - TED Üniversitesi</title>
-    <link rel="stylesheet" href="style.css">
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>TED Üniversitesi | Etkinlik Takvimi</title>
+<style>
+    body {
+        margin: 0;
+        font-family: "Segoe UI", sans-serif;
+        background: #f5f7fa;
+        color: #002855;
+    }
+    header {
+        background: #002855;
+        color: white;
+        padding: 10px 40px;
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+    }
+    header h1 {
+        margin: 0;
+        font-size: 20px;
+    }
+    main {
+        display: flex;
+        justify-content: space-between;
+        padding: 30px 60px;
+        gap: 40px;
+    }
+
+    /* Sol etkinlik listesi */
+    #event-list {
+        flex: 2;
+        background: white;
+        border-radius: 8px;
+        padding: 20px;
+        box-shadow: 0 0 8px rgba(0,0,0,0.1);
+    }
+    .event {
+        border-left: 5px solid #C8102E;
+        padding: 10px 15px;
+        margin-bottom: 15px;
+        background: #f9f9f9;
+        border-radius: 5px;
+    }
+    .event h3 {
+        margin: 0;
+        color: #002855;
+    }
+    .event span {
+        font-size: 13px;
+        color: #555;
+    }
+
+    /* Sağ takvim */
+    #calendar {
+        flex: 1;
+        background: white;
+        border-radius: 8px;
+        padding: 20px;
+        box-shadow: 0 0 8px rgba(0,0,0,0.1);
+        text-align: center;
+    }
+    .month {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        margin-bottom: 10px;
+    }
+    .month button {
+        background: #002855;
+        color: white;
+        border: none;
+        padding: 5px 10px;
+        border-radius: 5px;
+        cursor: pointer;
+    }
+    .month button:hover {
+        background: #C8102E;
+    }
+    table {
+        width: 100%;
+        border-collapse: collapse;
+    }
+    th, td {
+        padding: 10px;
+        text-align: center;
+        cursor: pointer;
+    }
+    th {
+        color: #C8102E;
+    }
+    td:hover {
+        background: #e6eefc;
+        border-radius: 50%;
+    }
+    .selected {
+        background: #002855;
+        color: white;
+        border-radius: 50%;
+    }
+</style>
 </head>
 <body>
-    <!-- Navbar -->
-    <nav class="navbar">
-        <div class="logo">
-            <img src="logo.png" alt="TED Üniversitesi Logosu">
-            <span class="site-title">TED Üniversitesi</span>
+
+<header>
+    <h1>🎓 TED Üniversitesi Etkinlik Takvimi</h1>
+</header>
+
+<main>
+    <section id="event-list">
+        <h2>Etkinlikler</h2>
+        <div id="events-container">
+            <p>Bir tarih seçiniz.</p>
         </div>
-        <div class="menu">
-            <ul>
-                <li><a href="index.html">Ana Sayfa</a></li>
-                <li><a href="duyurular.html">Duyurular</a></li>
-                <li><a href="etkinlikler.html" class="active">Etkinlikler</a></li>
-                <li><a href="takvim.html">Akademik Takvim</a></li>
-            </ul>
+    </section>
+
+    <aside id="calendar">
+        <div class="month">
+            <button id="prev">&#8592;</button>
+            <h3 id="month-year"></h3>
+            <button id="next">&#8594;</button>
         </div>
-    </nav>
+        <table id="calendar-table">
+            <thead>
+                <tr>
+                    <th>P</th><th>S</th><th>Ç</th><th>P</th><th>C</th><th>C</th><th>P</th>
+                </tr>
+            </thead>
+            <tbody id="calendar-body"></tbody>
+        </table>
+    </aside>
+</main>
 
-    <!-- İçerik -->
-    <div class="container">
-        <main class="main-content">
-            <section class="card">
-                <h2>📅 Tüm Etkinlikler</h2>
+<script>
+// --- Etkinlik verisi ---
+const events = [
+  { date: "2025-10-08", title: "Bilimsel Araştırma Semineri", type: "Akademik", time: "14:00" },
+  { date: "2025-10-09", title: "Öğrenci Topluluk Fuarı", type: "Öğrenci", time: "10:00" },
+  { date: "2025-10-10", title: "Kariyer Günleri", type: "İdari", time: "09:30" },
+  { date: "2025-10-15", title: "Python Atölyesi", type: "Akademik", time: "16:00" },
+];
 
-                <div class="announcement">
-                    <h3>Bilimsel Araştırma Semineri</h3>
-                    <p><small>15 Mar 2025 • 14:00 • Konferans Salonu A • Fen-Edebiyat Fakültesi • Akademik</small></p>
-                    <p>Akademik yılın ilk bilimsel araştırma semineri düzenlenecektir.</p>
-                    <a href="#" class="read-more">Detaylar →</a>
-                </div>
+// --- Takvim oluşturma ---
+const calendarBody = document.getElementById("calendar-body");
+const monthYear = document.getElementById("month-year");
+let current = new Date();
 
-                <div class="announcement">
-                    <h3>Personel Toplantısı</h3>
-                    <p><small>20 Mar 2025 • 10:00 • Senato Salonu • Rektörlük • İdari</small></p>
-                    <p>Tüm idari personel için toplantı yapılacaktır.</p>
-                    <a href="#" class="read-more">Detaylar →</a>
-                </div>
+function renderCalendar() {
+  const year = current.getFullYear();
+  const month = current.getMonth();
+  monthYear.textContent = current.toLocaleString("tr-TR", { month: "long", year: "numeric" });
 
-                <div class="announcement">
-                    <h3>Kariyer Günleri 2025</h3>
-                    <p><small>05 Nis 2025 • 09:30 • Spor Salonu • Kariyer Merkezi • Öğrenci</small></p>
-                    <p>Öğrenciler için sektör temsilcilerinin katılımıyla Kariyer Günleri düzenlenecektir.</p>
-                    <a href="#" class="read-more">Detaylar →</a>
-                </div>
+  const firstDay = new Date(year, month, 1).getDay() || 7;
+  const daysInMonth = new Date(year, month + 1, 0).getDate();
+  calendarBody.innerHTML = "";
 
-                <div class="announcement">
-                    <h3>Akademik Kurul Toplantısı</h3>
-                    <p><small>18 Nis 2025 • 13:30 • Konferans Salonu B • Mühendislik Fakültesi • Akademik</small></p>
-                    <p>Akademik personelin katılacağı kurul toplantısı yapılacaktır.</p>
-                    <a href="#" class="read-more">Detaylar →</a>
-                </div>
-            </section>
-        </main>
-    </div>
+  let date = 1;
+  for (let i = 0; i < 6; i++) {
+    const row = document.createElement("tr");
+    for (let j = 1; j <= 7; j++) {
+      const cell = document.createElement("td");
+      if ((i === 0 && j < firstDay) || date > daysInMonth) {
+        cell.textContent = "";
+      } else {
+        cell.textContent = date;
+        const thisDate = `${year}-${String(month+1).padStart(2,"0")}-${String(date).padStart(2,"0")}`;
+        cell.onclick = () => selectDate(thisDate, cell);
+        date++;
+      }
+      row.appendChild(cell);
+    }
+    calendarBody.appendChild(row);
+  }
+}
 
-    <!-- Footer -->
-    <footer class="footer">
-        © 2025 TED Üniversitesi • Tüm Hakları Saklıdır
-    </footer>
+let selectedCell = null;
+function selectDate(date, cell) {
+  if (selectedCell) selectedCell.classList.remove("selected");
+  cell.classList.add("selected");
+  selectedCell = cell;
+
+  const todaysEvents = events.filter(e => e.date === date);
+  const container = document.getElementById("events-container");
+  if (todaysEvents.length === 0) {
+    container.innerHTML = `<p>${date} tarihinde etkinlik yok.</p>`;
+  } else {
+    container.innerHTML = todaysEvents.map(e => `
+      <div class="event">
+        <h3>${e.title}</h3>
+        <span>${e.time} • ${e.type}</span>
+      </div>
+    `).join("");
+  }
+}
+
+document.getElementById("prev").onclick = () => { current.setMonth(current.getMonth() - 1); renderCalendar(); };
+document.getElementById("next").onclick = () => { current.setMonth(current.getMonth() + 1); renderCalendar(); };
+
+renderCalendar();
+</script>
+
 </body>
 </html>
