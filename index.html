@@ -1,60 +1,167 @@
 <!DOCTYPE html>
 <html lang="tr">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>TED Üniversitesi Intranet</title>
-    <link rel="stylesheet" href="style.css">
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>TED Üniversitesi Intranet</title>
+  <link rel="stylesheet" href="style.css" />
 </head>
 <body>
-    <!-- Navbar -->
-    <nav class="navbar">
-        <div class="logo">
-            <img src="logo.png" alt="TED Üniversitesi Logosu">
-            <span class="site-title">TED Üniversitesi</span>
-        </div>
-        <div class="menu">
-            <ul>
-                <li><a href="index.html" class="active">Ana Sayfa</a></li>
-                <li><a href="duyurular.html">Duyurular</a></li>
-                <li><a href="etkinlikler.html">Etkinlikler</a></li>
-                <li><a href="takvim.html">Akademik Takvim</a></li>
-            </ul>
-        </div>
-    </nav>
 
-    <!-- İçerik -->
-    <div class="container">
-        <aside class="sidebar">
-            <a href="#">İnsan Kaynakları</a>
-            <a href="#">Kütüphane</a>
-            <a href="#">Akademik Takvim</a>
-            <a href="#">Formlar</a>
-        </aside>
-
-        <main class="main-content">
-            <section class="card">
-                <h2>Son Duyurular</h2>
-                <p>Duyuru seçiniz...</p>
-                <a href="duyurular.html" class="read-more">Tüm duyurular →</a>
-            </section>
-
-            <section class="card">
-                <h2>Yaklaşan Etkinlikler</h2>
-                <p>Etkinlik seçiniz...</p>
-                <a href="etkinlikler.html" class="read-more">Tüm etkinlikler →</a>
-            </section>
-
-            <section class="card weather">
-                <h2>Hava Durumu</h2>
-                <p>19°C – parçalı az bulutlu</p>
-            </section>
-        </main>
+  <!-- Üst Menü -->
+  <nav class="ted-nav">
+    <div class="ted-nav__inner">
+      <div class="ted-brand">
+        <img src="logo.png" alt="TED Üniversitesi Logosu" />
+        <span>TED Üniversitesi</span>
+      </div>
+      <ul class="ted-menu">
+        <li><a href="index.html" class="active">Ana Sayfa</a></li>
+        <li><a href="duyurular.html">Duyurular</a></li>
+        <li><a href="etkinlikler.html">Etkinlikler</a></li>
+        <li><a href="takvim.html">Akademik Takvim</a></li>
+      </ul>
     </div>
+  </nav>
 
-    <!-- Footer -->
-    <footer class="footer">
-        © 2025 TED Üniversitesi • Tüm Hakları Saklıdır
-    </footer>
+  <!-- Sayfa İçeriği -->
+  <main class="page">
+    <div class="home-grid">
+
+      <!-- Sol: Hızlı Link Butonları -->
+      <aside class="card">
+        <div class="quick-links">
+          <a href="#" class="ql">İnsan Kaynakları</a>
+          <a href="#" class="ql">Kütüphane</a>
+          <a href="takvim.html" class="ql">Akademik Takvim</a>
+          <a href="#" class="ql">Formlar</a>
+        </div>
+      </aside>
+
+      <!-- Orta: Duyurular ve Etkinlikler -->
+      <section>
+        <div class="card">
+          <h2>Son Duyurular</h2>
+          <select>
+            <option>Duyuru seçiniz...</option>
+            <option>Sosyal Sorumluluk Projesi</option>
+            <option>Bahar Şenlikleri Başlıyor</option>
+            <option>Kampüs İçin Ulaşım Düzenlemesi</option>
+          </select>
+          <p style="margin-top:10px;"><a href="duyurular.html">Tüm duyurular →</a></p>
+        </div>
+
+        <div class="card" style="margin-top: 25px;">
+          <h2>Yaklaşan Etkinlikler</h2>
+          <select>
+            <option>Etkinlik seçiniz...</option>
+            <option>Bilimsel Araştırma Semineri</option>
+            <option>Kariyer Günleri</option>
+          </select>
+          <p style="margin-top:10px;"><a href="etkinlikler.html">Tüm etkinlikler →</a></p>
+        </div>
+      </section>
+
+      <!-- Sağ: Otomatik Hava Durumu -->
+      <a id="weatherLink" href="https://www.mgm.gov.tr/" target="_blank" class="weather-link" rel="noopener">
+        <aside class="weather" id="weatherBox">
+          <h2>Hava Durumu</h2>
+          <p id="weatherCity">Konum tespit ediliyor...</p>
+          <p id="weatherInfo">Yükleniyor...</p>
+        </aside>
+      </a>
+
+    </div>
+  </main>
+
+  <!-- Footer -->
+  <footer class="ted-footer">
+    © 2025 TED Üniversitesi • Tüm Hakları Saklıdır
+  </footer>
+
+  <!-- 🌦️ Hava Durumu Scripti -->
+  <script>
+    const weatherText = {
+      0: "Açık",
+      1: "Az bulutlu",
+      2: "Parçalı bulutlu",
+      3: "Bulutlu",
+      45: "Sisli",
+      48: "Kırağılı sis",
+      51: "Hafif çiseleme",
+      53: "Çiseleme",
+      55: "Kuvvetli çiseleme",
+      61: "Hafif yağmur",
+      63: "Yağmur",
+      65: "Kuvvetli yağmur",
+      71: "Hafif kar",
+      73: "Kar",
+      75: "Kuvvetli kar",
+      80: "Hafif sağanak",
+      81: "Sağanak",
+      82: "Kuvvetli sağanak",
+      95: "Gök gürültülü fırtına"
+    };
+
+    async function getCoordinates() {
+      return new Promise((resolve) => {
+        if (navigator.geolocation) {
+          navigator.geolocation.getCurrentPosition(
+            (pos) => resolve({ lat: pos.coords.latitude, lon: pos.coords.longitude }),
+            () => resolve({ lat: 39.93, lon: 32.85 }) // Ankara fallback
+          );
+        } else {
+          resolve({ lat: 39.93, lon: 32.85 });
+        }
+      });
+    }
+
+    async function detectCity(lat, lon) {
+      try {
+        const res = await fetch(`https://nominatim.openstreetmap.org/reverse?lat=${lat}&lon=${lon}&format=json`);
+        const data = await res.json();
+        return (
+          data.address.city ||
+          data.address.town ||
+          data.address.village ||
+          "Ankara"
+        );
+      } catch {
+        return "Ankara";
+      }
+    }
+
+    async function loadWeather() {
+      const cityEl = document.getElementById("weatherCity");
+      const infoEl = document.getElementById("weatherInfo");
+      const linkEl = document.getElementById("weatherLink");
+
+      const { lat, lon } = await getCoordinates();
+      const city = await detectCity(lat, lon);
+      cityEl.textContent = city;
+
+      try {
+        const url = `https://api.open-meteo.com/v1/forecast?latitude=${lat}&longitude=${lon}&current_weather=true&timezone=auto`;
+        const wRes = await fetch(url);
+        const wData = await wRes.json();
+        const cw = wData.current_weather;
+
+        if (cw) {
+          const temp = Math.round(cw.temperature);
+          const desc = weatherText[cw.weathercode] || "Durum yok";
+          infoEl.textContent = `${temp}°C – ${desc.toLowerCase()}`;
+        } else {
+          infoEl.textContent = "Veri alınamadı.";
+        }
+      } catch {
+        infoEl.textContent = "Bağlantı hatası.";
+      }
+
+      linkEl.href = `https://www.mgm.gov.tr/tahmin/il-ve-ilceler.aspx?il=${encodeURIComponent(city)}`;
+    }
+
+    loadWeather();
+  </script>
+
 </body>
 </html>
