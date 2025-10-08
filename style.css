@@ -1,161 +1,301 @@
-/* GENEL */
+/* === Genel Renk Teması === */
+:root {
+  --ted-blue: #002b5c;
+  --ted-yellow: #fdb913;
+  --ted-red: #d71920;
+  --bg-light: #f5f7fa;
+  --text-dark: #222;
+  --shadow: 0 2px 6px rgba(0, 0, 0, 0.1);
+  --radius: 8px;
+}
+
+/* === Genel === */
 body {
-    font-family: Arial, Helvetica, sans-serif;
-    margin: 0;
-    padding: 0;
-    background-color: #f4f4f4;
-    color: #222;
+  margin: 0;
+  font-family: "Segoe UI", sans-serif;
+  background-color: var(--bg-light);
+  color: var(--text-dark);
 }
 
-/* NAVBAR */
-.navbar {
-    background-color: #002b6b;
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    padding: 10px 40px;
+/* === Üst Menü === */
+.ted-nav {
+  background: var(--ted-blue);
+  color: white;
+  padding: 10px 0;
 }
 
-.logo {
-    display: flex;
-    align-items: center;
+.ted-nav__inner {
+  width: 90%;
+  margin: 0 auto;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
 }
 
-.logo img {
-    height: 45px;
-    margin-right: 10px;
+.ted-brand {
+  display: flex;
+  align-items: center;
+  gap: 10px;
 }
 
-.site-title {
-    font-size: 20px;
-    font-weight: bold;
-    color: white;
+.ted-brand img {
+  width: 36px;
+  height: 36px;
 }
 
-.menu ul {
-    list-style: none;
-    margin: 0;
-    padding: 0;
-    display: flex;
+.ted-menu {
+  list-style: none;
+  display: flex;
+  gap: 25px;
+  margin: 0;
+  padding: 0;
 }
 
-.menu ul li {
-    margin-left: 20px;
+.ted-menu a {
+  color: white;
+  text-decoration: none;
+  font-size: 14px;
 }
 
-.menu ul li a {
-    color: white;
-    text-decoration: none;
-    font-size: 15px;
-    font-weight: bold;
-    transition: color 0.3s ease;
+.ted-menu a.active {
+  color: var(--ted-yellow);
+  font-weight: 600;
 }
 
-.menu ul li a:hover,
-.menu ul li a.active {
-    color: #ffcc00;
+/* === Sayfa Düzeni === */
+.page {
+  width: 90%;
+  margin: 40px auto;
 }
 
-/* LAYOUT */
-.container {
-    display: flex;
-    max-width: 1200px;
-    margin: 30px auto;
-    gap: 20px;
+.home-grid {
+  display: grid;
+  grid-template-columns: 1fr 2fr 1fr;
+  gap: 25px;
+  align-items: flex-start;
 }
 
-.sidebar {
-    width: 220px;
-    display: flex;
-    flex-direction: column;
-    gap: 10px;
-}
-
-.sidebar a {
-    display: block;
-    padding: 12px;
-    background-color: #002b6b;
-    color: white;
-    text-align: center;
-    border-radius: 6px;
-    text-decoration: none;
-    font-weight: bold;
-    transition: background 0.3s;
-}
-
-.sidebar a:hover {
-    background-color: #004aad;
-}
-
-.main-content {
-    flex: 1;
-    display: flex;
-    flex-direction: column;
-    gap: 20px;
-}
-
+/* === Kartlar === */
 .card {
-    background: white;
-    border-radius: 8px;
-    padding: 20px;
-    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+  background: white;
+  padding: 20px;
+  border-radius: var(--radius);
+  box-shadow: var(--shadow);
 }
 
 .card h2 {
-    color: #002b6b;
+  margin-top: 0;
+  color: var(--ted-blue);
+  border-bottom: 2px solid var(--ted-blue);
+  padding-bottom: 5px;
 }
 
-.read-more {
-    color: #c40000;
-    text-decoration: none;
-    font-weight: bold;
+/* === Hızlı Linkler === */
+.quick-links {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
 }
 
-.read-more:hover {
-    text-decoration: underline;
+.quick-links .ql {
+  background: var(--ted-blue);
+  color: white;
+  text-align: center;
+  padding: 10px 0;
+  border-radius: var(--radius);
+  text-decoration: none;
+  font-weight: 500;
+  transition: background 0.2s ease;
 }
 
-/* FOOTER */
-.footer {
-    background-color: #002b6b;
-    color: white;
-    text-align: center;
-    padding: 15px 0;
-    margin-top: 30px;
-    position: relative;
-    bottom: 0;
-    width: 100%;
-    font-size: 14px;
+.quick-links .ql:hover {
+  background: var(--ted-red);
 }
 
-/* MOBİL */
-@media (max-width: 768px) {
-    .container {
-        flex-direction: column;
-        padding: 0 15px;
-    }
-
-    .sidebar {
-        width: 100%;
-    }
+/* === Hava Durumu === */
+.weather {
+  background: var(--ted-blue);
+  color: white;
+  padding: 25px;
+  border-radius: var(--radius);
+  box-shadow: var(--shadow);
+  text-align: center;
+  transition: 0.3s;
 }
-/* Footer sabit */
+
+.weather:hover {
+  background: var(--ted-red);
+  transform: scale(1.02);
+  cursor: pointer;
+}
+
+#weatherCity {
+  font-size: 18px;
+  font-weight: 600;
+  margin-bottom: 5px;
+}
+
+#weatherInfo {
+  font-size: 16px;
+}
+
+/* === Footer === */
+.ted-footer {
+  background: var(--ted-blue);
+  color: white;
+  text-align: center;
+  padding: 10px 0;
+  margin-top: 40px;
+  font-size: 13px;
+}
+/* === Footer Sabitleme === */
 html, body {
-    height: 100%;
-    margin: 0;
-    display: flex;
-    flex-direction: column;
+  height: 100%;
+  display: flex;
+  flex-direction: column;
 }
 
-.container {
-    flex: 1;
+.page {
+  flex: 1;
 }
 
-.footer {
-    background: #002147;
-    color: white;
-    text-align: center;
-    padding: 15px;
-    margin-top: auto; /* her zaman en alta sabitle */
+.ted-footer {
+  position: relative;
+  bottom: 0;
+  width: 100%;
+  background: var(--ted-blue);
+  color: white;
+  text-align: center;
+  padding: 10px 0;
+  font-size: 13px;
+  margin-top: auto;
+}
+/* === Genel Yazı Boyutu ve Oranlar === */
+body {
+  font-size: 15px; /* eskisinden biraz daha büyük */
+  line-height: 1.6;
 }
 
+.card h2 {
+  font-size: 17px;
+  color: var(--ted-blue);
+  margin-bottom: 10px;
+}
+
+/* === Hızlı Link Butonları === */
+.quick-links {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start; /* sola hizala */
+  padding-left: 5px;
+}
+
+.quick-links .ql {
+  width: 220px; /* tam hizalanma için sabit genişlik */
+  text-align: left; /* yazı sola hizalı */
+  padding: 10px 14px;
+  background-color: var(--ted-blue);
+  color: white;
+  border-radius: 4px;
+  margin-bottom: 10px;
+  font-weight: 500;
+  font-size: 14.5px;
+  transition: background 0.3s ease;
+}
+
+.quick-links .ql:hover {
+  background-color: #002b5b; /* koyu ton hover */
+}
+
+/* === Hava Durumu Kartı === */
+.weather h2 {
+  font-size: 17px;
+}
+
+.weather p {
+  font-size: 14.5px;
+}
+
+/* === Başlıklar ve Menü === */
+.ted-nav__inner span {
+  font-size: 16px;
+  font-weight: 600;
+}
+.ted-menu a {
+  font-size: 14px;
+}
+
+/* === Footer === */
+.ted-footer {
+  font-size: 13.5px;
+}
+/* === Etkinlikler Sayfası === */
+.events-page {
+  max-width: 1200px;
+  margin: 40px auto;
+  padding: 0 20px;
+}
+
+.events-page h1 {
+  color: var(--ted-blue);
+  font-size: 28px;
+  margin-bottom: 10px;
+}
+
+.subtext {
+  font-size: 15px;
+  color: #444;
+  margin-bottom: 30px;
+}
+
+.events-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(350px, 1fr));
+  gap: 25px;
+}
+
+.event-card {
+  background: white;
+  border-radius: 8px;
+  padding: 20px;
+  box-shadow: 0 3px 8px rgba(0,0,0,0.07);
+  border-top: 5px solid var(--ted-blue);
+  transition: transform 0.2s ease, box-shadow 0.2s ease;
+}
+
+.event-card:hover {
+  transform: translateY(-3px);
+  box-shadow: 0 6px 12px rgba(0,0,0,0.12);
+}
+
+.event-date {
+  background: var(--ted-blue);
+  color: white;
+  display: inline-block;
+  padding: 4px 10px;
+  border-radius: 4px;
+  font-size: 13px;
+  margin-bottom: 8px;
+}
+
+.event-meta {
+  color: #666;
+  font-size: 14px;
+  margin-bottom: 8px;
+}
+
+.event-desc {
+  font-size: 14.5px;
+  margin-bottom: 10px;
+  color: #333;
+}
+
+.event-link {
+  color: var(--ted-blue);
+  text-decoration: none;
+  font-weight: 600;
+}
+
+.event-link:hover {
+  text-decoration: underline;
+}
