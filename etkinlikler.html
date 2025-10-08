@@ -11,7 +11,6 @@
   --bg:#f5f7fa;
   --ink:#002855;
 }
-html,body{height:100%;}
 body{
   margin:0;
   font-family:"Segoe UI",sans-serif;
@@ -22,7 +21,7 @@ body{
   min-height:100vh;
 }
 
-/* Üst şerit */
+/* Üst bar */
 header{
   background:var(--ted-navy);
   color:#fff;
@@ -32,15 +31,9 @@ header{
   justify-content:space-between;
 }
 header h1{margin:0;font-size:20px;}
-nav a{
-  color:#fff;
-  text-decoration:none;
-  margin-left:25px;
-  font-weight:500;
-}
+nav a{color:#fff;text-decoration:none;margin-left:25px;font-weight:500;}
 nav a:hover{text-decoration:underline;}
 
-/* İçerik düzeni */
 main{
   flex:1;
   display:flex;
@@ -49,18 +42,10 @@ main{
   padding:30px 60px;
 }
 
-/* Üst bölüm: etkinlikler + takvim */
-.top-section{
-  display:flex;
-  justify-content:space-between;
-  gap:40px;
-}
+/* Üst bölüm */
+.top-section{display:flex;justify-content:space-between;gap:40px;}
 #event-list{
-  flex:2;
-  background:#fff;
-  border-radius:8px;
-  padding:20px;
-  box-shadow:0 0 8px rgba(0,0,0,0.1);
+  flex:2;background:#fff;border-radius:8px;padding:20px;box-shadow:0 0 8px rgba(0,0,0,0.1);
 }
 #event-list h2{margin-top:0;}
 .event{
@@ -74,54 +59,63 @@ main{
 .event span{font-size:13px;color:#555;display:block;margin-top:4px;}
 
 #calendar{
-  flex:1;
-  background:#fff;
-  border-radius:8px;
-  padding:20px;
-  box-shadow:0 0 8px rgba(0,0,0,0.1);
+  flex:1;background:#fff;border-radius:8px;padding:20px;box-shadow:0 0 8px rgba(0,0,0,0.1);
   text-align:center;
 }
-.month{
-  display:flex;
-  justify-content:space-between;
-  align-items:center;
-  margin-bottom:10px;
-}
-.month button{
-  background:var(--ted-navy);
-  color:#fff;
-  border:none;
-  padding:5px 10px;
-  border-radius:5px;
-  cursor:pointer;
-}
+.month{display:flex;justify-content:space-between;align-items:center;margin-bottom:10px;}
+.month button{background:var(--ted-navy);color:#fff;border:none;padding:5px 10px;border-radius:5px;cursor:pointer;}
 .month button:hover{background:var(--ted-red);}
 table{width:100%;border-collapse:collapse;}
 th,td{padding:10px;text-align:center;cursor:pointer;}
 th{color:var(--ted-red);}
 td:hover{background:#e6eefc;border-radius:50%;}
-.selected{background:var(--ted-navy);color:#fff;border-radius:50%;}
+.selected{outline:2px solid var(--ted-red);border-radius:50%;}
+td.past-event{background:#d4edda !important;color:#155724;}
+td.upcoming-event{background:#fff3cd !important;color:#856404;}
+td.updated-event{background:#f8d7da !important;color:#721c24;}
+td.birthday{background:#cce5ff !important;color:#004085;}
 
-/* === İki Seviyeli Accordion Galeri === */
+/* Renk açıklamaları */
+.legend{
+  margin-top:14px;
+  font-size:12px;
+  color:#333;
+  display:flex;
+  justify-content:center;
+  gap:14px;
+  flex-wrap:wrap;
+}
+.legend-item{display:flex;align-items:center;gap:6px;}
+.legend-dot{width:12px;height:12px;border-radius:3px;}
+.legend .past .legend-dot{background:#d4edda;border:1px solid #155724;}
+.legend .upcoming .legend-dot{background:#fff3cd;border:1px solid #856404;}
+.legend .updated .legend-dot{background:#f8d7da;border:1px solid #721c24;}
+.legend .birthday .legend-dot{background:#cce5ff;border:1px solid #004085;}
+
+/* Alt bölüm - Galeri */
+.bottom-section{
+  display:flex;
+  justify-content:flex-start;
+  padding-right:300px; /* sağdan boşluk eklenerek sol hizalı görünüm */
+}
 .gallery-section{
   background:#fff;
   padding:20px;
   border-radius:8px;
   box-shadow:0 0 8px rgba(0,0,0,0.1);
+  flex:0.8; /* sola hizalı, daraltılmış */
 }
 .gallery-section h2{
   margin-top:0;
   border-bottom:2px solid var(--ted-navy);
   padding-bottom:5px;
+  display:flex;
+  align-items:center;
+  gap:8px;
 }
+.gallery-section h2::before{content:"📷";font-size:20px;}
 
-/* 1. seviye: Yıllar */
-.year-item{
-  margin-bottom:14px;
-  border:1px solid var(--ted-navy);
-  border-radius:6px;
-  overflow:hidden;
-}
+.year-item{margin-bottom:14px;border:1px solid var(--ted-navy);border-radius:6px;overflow:hidden;}
 .year-header{
   background:var(--ted-navy);
   color:#fff;
@@ -133,15 +127,8 @@ td:hover{background:#e6eefc;border-radius:50%;}
   font-weight:600;
 }
 .year-header:hover{background:var(--ted-red);}
-.year-content{display:none; background:#f9f9f9; padding:12px 15px;}
-
-/* 2. seviye: Etkinlikler */
-.event-item{
-  margin:8px 0;
-  border:1px solid #cbd4e1;
-  border-radius:6px;
-  overflow:hidden;
-}
+.year-content{display:none;background:#f9f9f9;padding:12px 15px;}
+.event-item{margin:8px 0;border:1px solid #cbd4e1;border-radius:6px;overflow:hidden;}
 .event-header{
   background:#eef3fb;
   color:#1d2a44;
@@ -153,17 +140,15 @@ td:hover{background:#e6eefc;border-radius:50%;}
   font-weight:600;
 }
 .event-header:hover{background:#e2ecff;}
-.event-content{display:none; padding:10px 12px; background:#fff;}
-
-/* Thumbnail grid */
+.event-content{display:none;padding:10px 12px;background:#fff;}
 .thumb-grid{
   display:grid;
-  grid-template-columns:repeat(auto-fill,minmax(120px,1fr));
-  gap:10px;
+  grid-template-columns:repeat(auto-fill,minmax(100px,1fr));
+  gap:8px;
 }
 .thumb-grid img{
   width:100%;
-  height:90px;
+  height:80px;
   object-fit:cover;
   border-radius:5px;
   cursor:pointer;
@@ -172,15 +157,8 @@ td:hover{background:#e6eefc;border-radius:50%;}
 }
 .thumb-grid img:hover{transform:scale(1.05);}
 
-/* Modal (görüntüleyici + indir) */
-.modal{
-  position:fixed; inset:0;
-  background:rgba(0,0,0,0.7);
-  display:none;
-  align-items:center;
-  justify-content:center;
-  z-index:1000;
-}
+/* Modal */
+.modal{position:fixed;inset:0;background:rgba(0,0,0,0.7);display:none;align-items:center;justify-content:center;z-index:1000;}
 .modal-content{
   background:#fff;
   padding:10px;
@@ -190,39 +168,19 @@ td:hover{background:#e6eefc;border-radius:50%;}
   text-align:center;
   position:relative;
 }
-.modal-content img{
-  width:100%;
-  max-height:450px;
-  object-fit:contain;
-  border-radius:6px;
-}
-.close-btn, .nav-btn, .download-btn{
-  position:absolute;
-  top:50%;
-  transform:translateY(-50%);
-  background:var(--ted-navy);
-  color:#fff;
-  border:none;
-  padding:10px 14px;
-  cursor:pointer;
-  border-radius:6px;
-}
-.close-btn{top:10px;right:15px;transform:none;}
-#prevPhoto{left:10px;}
-#nextPhoto{right:10px;}
-.download-btn{
-  top:10px; left:15px; transform:none; font-size:14px;
-}
-.close-btn:hover, .nav-btn:hover, .download-btn:hover{background:var(--ted-red);}
+.modal-content img{width:100%;max-height:450px;object-fit:contain;border-radius:6px;}
+.close-btn{position:absolute;top:10px;right:15px;background:var(--ted-navy);color:#fff;border:none;padding:10px 14px;border-radius:6px;cursor:pointer;}
+.close-btn:hover{background:var(--ted-red);}
 
-.ted-footer{
-  background:var(--ted-navy);
-  color:#fff;
-  text-align:center;
-  padding:12px 10px;
-  font-size:13px;
-  margin-top:auto;
-}
+/* Pop-up */
+.popup{position:fixed;inset:0;background:rgba(0,0,0,0.6);display:none;align-items:center;justify-content:center;z-index:999;}
+.popup-content{background:#fff;border-radius:10px;padding:25px 40px;text-align:center;box-shadow:0 0 15px rgba(0,0,0,0.3);}
+.popup h2{color:var(--ted-red);}
+.popup button{margin-top:20px;padding:8px 18px;background:var(--ted-navy);color:#fff;border:none;border-radius:6px;cursor:pointer;}
+.popup button:hover{background:var(--ted-red);}
+
+/* Footer */
+.ted-footer{background:var(--ted-navy);color:#fff;text-align:center;padding:12px;font-size:13px;margin-top:auto;}
 </style>
 </head>
 <body>
@@ -238,7 +196,6 @@ td:hover{background:#e6eefc;border-radius:50%;}
 </header>
 
 <main>
-  <!-- Üst bölüm: etkinlik listesi (placeholder) + takvim -->
   <div class="top-section">
     <section id="event-list">
       <h2>Etkinlikler</h2>
@@ -255,37 +212,49 @@ td:hover{background:#e6eefc;border-radius:50%;}
         <thead><tr><th>P</th><th>S</th><th>Ç</th><th>P</th><th>C</th><th>C</th><th>P</th></tr></thead>
         <tbody id="calendar-body"></tbody>
       </table>
+      <div class="legend">
+        <div class="legend-item past"><div class="legend-dot"></div>Geçmiş Etkinlik</div>
+        <div class="legend-item upcoming"><div class="legend-dot"></div>Yaklaşan Etkinlik</div>
+        <div class="legend-item updated"><div class="legend-dot"></div>Güncellenen Etkinlik</div>
+        <div class="legend-item birthday"><div class="legend-dot"></div>Doğum Günü</div>
+      </div>
     </aside>
   </div>
 
-  <!-- Alt bölüm: İki seviyeli galeri -->
-  <section class="gallery-section">
-    <h2>📸 Etkinlik Fotoğraf Galerisi</h2>
-    <div id="years"></div>
-  </section>
+  <div class="bottom-section">
+    <section class="gallery-section">
+      <h2>Etkinlik Fotoğraf Galerisi</h2>
+      <div id="years"></div>
+    </section>
+  </div>
 </main>
 
 <footer class="ted-footer">
   © 2025 TED Üniversitesi • Tüm Hakları Saklıdır
 </footer>
 
-<!-- Modal -->
-<div id="modal" class="modal">
-  <div class="modal-content">
-    <button class="close-btn" id="closeModal">X</button>
-    <button class="download-btn" id="downloadPhoto">📥 İndir</button>
-    <button class="nav-btn" id="prevPhoto">&#10094;</button>
-    <img id="modalImage" src="" alt="Etkinlik fotoğrafı">
-    <button class="nav-btn" id="nextPhoto">&#10095;</button>
-    <h3 id="photoTitle"></h3>
+<!-- 🎂 Doğum günü popup -->
+<div class="popup" id="birthdayPopup">
+  <div class="popup-content">
+    <h2>🎉 Doğum Günü Kutlu Olsun!</h2>
+    <p id="birthdayMessage">Bugün birinin doğum günü!</p>
+    <button onclick="closePopup()">Kapat</button>
   </div>
 </div>
 
 <script>
-/* ——— Takvim (üst kısım) ——— */
+/* === Takvim verisi === */
+const eventsData=[
+  {date:"2025-10-05",type:"birthday",person:"Ahmet Yılmaz",description:"Ahmet Yılmaz'ın doğum günü 🎂"},
+  {date:"2025-09-28",type:"event",title:"Mezuniyet Töreni",status:"past"},
+  {date:"2025-10-09",type:"event",title:"Bilimsel Araştırma Semineri",status:"upcoming"},
+  {date:"2025-10-14",type:"event",title:"Kariyer Günleri (Güncellendi)",status:"updated"}
+];
+
 const calendarBody=document.getElementById("calendar-body");
 const monthYear=document.getElementById("month-year");
-let current=new Date();
+let current=new Date(),selectedCell=null;
+
 function renderCalendar(){
   const y=current.getFullYear(),m=current.getMonth();
   monthYear.textContent=current.toLocaleString("tr-TR",{month:"long",year:"numeric"});
@@ -293,165 +262,120 @@ function renderCalendar(){
   const daysInMonth=new Date(y,m+1,0).getDate();
   calendarBody.innerHTML="";
   let d=1;
+
   for(let i=0;i<6;i++){
     const row=document.createElement("tr");
     for(let j=1;j<=7;j++){
       const cell=document.createElement("td");
-      if((i===0&&j<firstDay)||d>daysInMonth) cell.textContent="";
-      else{cell.textContent=d;const date=`${y}-${String(m+1).padStart(2,"0")}-${String(d).padStart(2,"0")}`;
-      cell.onclick=()=>selectDate(date,cell);d++;}
+      if((i===0&&j<firstDay)||d>daysInMonth){
+        cell.textContent="";
+      }else{
+        const date=`${y}-${String(m+1).padStart(2,"0")}-${String(d).padStart(2,"0")}`;
+        cell.textContent=d;
+        const event=eventsData.find(e=>e.date===date);
+        if(event){
+          if(event.type==="birthday") cell.classList.add("birthday");
+          else if(event.status==="past") cell.classList.add("past-event");
+          else if(event.status==="upcoming") cell.classList.add("upcoming-event");
+          else if(event.status==="updated") cell.classList.add("updated-event");
+          cell.onclick=()=>showEventDetail(event,cell);
+        }else{
+          cell.onclick=()=>selectDate(date,cell);
+        }
+        d++;
+      }
       row.appendChild(cell);
     }
     calendarBody.appendChild(row);
   }
 }
-let selectedCell=null;
 function selectDate(date,cell){
   if(selectedCell) selectedCell.classList.remove("selected");
   cell.classList.add("selected");
   selectedCell=cell;
-  document.getElementById("events-container").innerHTML=`<p>${date} tarihine ait etkinlik bulunamadı.</p>`;
+  document.getElementById("events-container").innerHTML=`<p>${date} tarihinde etkinlik bulunamadı.</p>`;
+}
+function showEventDetail(event,cell){
+  if(selectedCell) selectedCell.classList.remove("selected");
+  cell.classList.add("selected");
+  selectedCell=cell;
+  const container=document.getElementById("events-container");
+  if(event.type==="birthday"){
+    container.innerHTML=`<div class="event"><h3>🎂 ${event.person}'ın Doğum Günü</h3><span>${event.date}</span><p>${event.description}</p></div>`;
+  }else{
+    const colorLabel=event.status==="past"?"Geçmiş Etkinlik":event.status==="updated"?"Güncellenen Etkinlik":"Yaklaşan Etkinlik";
+    container.innerHTML=`<div class="event"><h3>${event.title}</h3><span>${event.date}</span><p>Durum: <b>${colorLabel}</b></p></div>`;
+  }
 }
 document.getElementById("prev").onclick=()=>{current.setMonth(current.getMonth()-1);renderCalendar();};
 document.getElementById("next").onclick=()=>{current.setMonth(current.getMonth()+1);renderCalendar();};
 renderCalendar();
 
-/* ——— İki seviyeli galeri veri modeli ——— */
-const galleryData = [
-  {
-    year: "2024-2025 Akademik Yılı",
-    events: [
-      {
-        title: "Bilimsel Araştırma Semineri",
-        folder: "galeri/2024-2025 Akademik Yılı/Bilimsel Araştırma Semineri",
-        images: ["1.jpg","2.jpg","3.jpg"]
-      },
-      {
-        title: "Kariyer Günleri",
-        folder: "galeri/2024-2025 Akademik Yılı/Kariyer Günleri",
-        images: ["1.jpg","2.jpg"]
-      },
-      {
-        title: "Öğrenci Topluluk Fuarı",
-        folder: "galeri/2024-2025 Akademik Yılı/Öğrenci Topluluk Fuarı",
-        images: ["1.jpg","2.jpg","3.jpg","4.jpg"]
-      }
-    ]
-  },
-  {
-    year: "2023-2024 Akademik Yılı",
-    events: [
-      {
-        title: "Mezuniyet Töreni",
-        folder: "galeri/2023-2024 Akademik Yılı/Mezuniyet Töreni",
-        images: ["1.jpg","2.jpg"]
-      },
-      {
-        title: "Tanıtım Günleri",
-        folder: "galeri/2023-2024 Akademik Yılı/Tanıtım Günleri",
-        images: ["1.jpg","2.jpg"]
-      }
-    ]
+/* 🎂 Doğum günü popup */
+function checkBirthdayToday(){
+  const today=new Date().toISOString().split("T")[0];
+  const birthday=eventsData.find(e=>e.type==="birthday"&&e.date===today);
+  if(birthday){
+    const popup=document.getElementById("birthdayPopup");
+    document.getElementById("birthdayMessage").textContent=`Bugün ${birthday.person}'ın doğum günü 🎉`;
+    popup.style.display="flex";
   }
+}
+function closePopup(){
+  document.getElementById("birthdayPopup").style.display="none";
+}
+checkBirthdayToday();
+
+/* === Galeri === */
+const galleryData=[
+  {year:"2024-2025 Akademik Yılı",events:[{title:"Bilimsel Araştırma Semineri",images:["1.jpg","2.jpg","3.jpg"]},{title:"Kariyer Günleri",images:["1.jpg","2.jpg"]}]},
+  {year:"2023-2024 Akademik Yılı",events:[{title:"Mezuniyet Töreni",images:["1.jpg","2.jpg"]},{title:"Tanıtım Günleri",images:["1.jpg","2.jpg"]}]}
 ];
-
-/* ——— Yılları ve etkinlikleri DOM’a bas ——— */
-const yearsEl = document.getElementById("years");
-yearsEl.innerHTML = galleryData.map((y, yi) => `
-  <div class="year-item">
-    <div class="year-header" data-yi="${yi}">
-      ${y.year} <span>+</span>
-    </div>
-    <div class="year-content" id="year-${yi}">
-      ${y.events.map((ev, ei) => `
-        <div class="event-item">
-          <div class="event-header" data-yi="${yi}" data-ei="${ei}">
-            ${ev.title} <span>+</span>
-          </div>
-          <div class="event-content" id="event-${yi}-${ei}">
-            <div class="thumb-grid">
-              ${ev.images.map((img, ii) => `
-                <img src="${ev.folder}/${img}" 
-                     data-yi="${yi}" data-ei="${ei}" data-ii="${ii}" 
-                     alt="${ev.title} fotoğrafı">
-              `).join("")}
-            </div>
-          </div>
-        </div>
-      `).join("")}
-    </div>
-  </div>
-`).join("");
-
-/* ——— Accordion davranışı: yıl ve etkinlik başlıkları ——— */
-document.querySelectorAll(".year-header").forEach(header => {
-  header.addEventListener("click", () => {
-    const yi = header.dataset.yi;
-    const content = document.getElementById(`year-${yi}`);
-    const expanded = content.style.display === "block";
-    // diğer yılları kapat
-    document.querySelectorAll(".year-content").forEach(c => c.style.display = "none");
-    document.querySelectorAll(".year-header span").forEach(s => s.textContent = "+");
-    if (!expanded) { content.style.display = "block"; header.querySelector("span").textContent = "−"; }
+const yearsContainer=document.getElementById("years");
+galleryData.forEach((y)=>{
+  const yItem=document.createElement("div");
+  yItem.className="year-item";
+  const yHeader=document.createElement("div");
+  yHeader.className="year-header";
+  yHeader.textContent=y.year;
+  const yContent=document.createElement("div");
+  yContent.className="year-content";
+  yHeader.onclick=()=>yContent.style.display=yContent.style.display==="block"?"none":"block";
+  y.events.forEach((ev)=>{
+    const eItem=document.createElement("div");
+    eItem.className="event-item";
+    const eHeader=document.createElement("div");
+    eHeader.className="event-header";
+    eHeader.textContent=ev.title;
+    const eContent=document.createElement("div");
+    eContent.className="event-content";
+    const grid=document.createElement("div");
+    grid.className="thumb-grid";
+    ev.images.forEach(img=>{
+      const im=document.createElement("img");
+      im.src=img;
+      im.onclick=()=>openModal(img);
+      grid.appendChild(im);
+    });
+    eContent.appendChild(grid);
+    eHeader.onclick=()=>eContent.style.display=eContent.style.display==="block"?"none":"block";
+    eItem.appendChild(eHeader);
+    eItem.appendChild(eContent);
+    yContent.appendChild(eItem);
   });
+  yItem.appendChild(yHeader);
+  yItem.appendChild(yContent);
+  yearsContainer.appendChild(yItem);
 });
 
-document.querySelectorAll(".event-header").forEach(header => {
-  header.addEventListener("click", () => {
-    const yi = header.dataset.yi, ei = header.dataset.ei;
-    const content = document.getElementById(`event-${yi}-${ei}`);
-    const expanded = content.style.display === "block";
-    // aynı yıl içindeki diğer etkinlikleri kapat
-    header.closest(".year-content").querySelectorAll(".event-content").forEach(c => c.style.display = "none");
-    header.closest(".year-content").querySelectorAll(".event-header span").forEach(s => s.textContent = "+");
-    if (!expanded) { content.style.display = "block"; header.querySelector("span").textContent = "−"; }
-  });
-});
-
-/* ——— Modal görüntüleyici + indir ——— */
-const modal = document.getElementById("modal");
-const modalImage = document.getElementById("modalImage");
-const photoTitle = document.getElementById("photoTitle");
-let gY = 0, gE = 0, gI = 0; // aktif: year index, event index, image index
-
-function openModal(yearIdx, eventIdx, imgIdx) {
-  gY = yearIdx; gE = eventIdx; gI = imgIdx;
-  showPhoto();
-  modal.style.display = "flex";
+/* Modal kontrolü */
+function openModal(src){
+  const modal=document.createElement("div");
+  modal.className="modal";
+  modal.style.display="flex";
+  modal.innerHTML=`<div class="modal-content"><button class='close-btn' onclick='this.parentElement.parentElement.remove()'>X</button><img src='${src}'></div>`;
+  document.body.appendChild(modal);
 }
-function showPhoto() {
-  const ev = galleryData[gY].events[gE];
-  const src = `${ev.folder}/${ev.images[gI]}`;
-  modalImage.src = src;
-  photoTitle.textContent = `${galleryData[gY].year} • ${ev.title} (${gI+1}/${ev.images.length})`;
-}
-document.getElementById("closeModal").onclick = () => modal.style.display = "none";
-document.getElementById("nextPhoto").onclick = () => { 
-  const ev = galleryData[gY].events[gE];
-  gI = (gI + 1) % ev.images.length; showPhoto();
-};
-document.getElementById("prevPhoto").onclick = () => { 
-  const ev = galleryData[gY].events[gE];
-  gI = (gI - 1 + ev.images.length) % ev.images.length; showPhoto();
-};
-document.getElementById("downloadPhoto").onclick = () => {
-  const ev = galleryData[gY].events[gE];
-  const src = `${ev.folder}/${ev.images[gI]}`;
-  const a = document.createElement("a");
-  a.href = src;
-  a.download = ev.images[gI]; // dosya adıyla indir
-  document.body.appendChild(a);
-  a.click();
-  a.remove();
-};
-window.onclick = (e) => { if (e.target === modal) modal.style.display = "none"; };
-
-/* Thumbnail click → modal aç */
-document.querySelectorAll(".thumb-grid img").forEach(img => {
-  img.addEventListener("click", () => {
-    openModal(parseInt(img.dataset.yi), parseInt(img.dataset.ei), parseInt(img.dataset.ii));
-  });
-});
 </script>
 </body>
 </html>
