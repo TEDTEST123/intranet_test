@@ -1,8 +1,8 @@
 <!DOCTYPE html>
 <html lang="tr">
 <head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
 <title>TED Üniversitesi | Etkinlik Takvimi</title>
 <style>
 :root{
@@ -21,6 +21,8 @@ body{
   flex-direction:column;
   min-height:100vh;
 }
+
+/* Üst şerit */
 header{
   background:var(--ted-navy);
   color:#fff;
@@ -38,6 +40,7 @@ nav a{
 }
 nav a:hover{text-decoration:underline;}
 
+/* İçerik düzeni */
 main{
   flex:1;
   display:flex;
@@ -46,14 +49,12 @@ main{
   padding:30px 60px;
 }
 
-/* Üst kısım (etkinlikler + takvim) */
+/* Üst bölüm: etkinlikler + takvim */
 .top-section{
   display:flex;
   justify-content:space-between;
   gap:40px;
 }
-
-/* Etkinlikler listesi */
 #event-list{
   flex:2;
   background:#fff;
@@ -72,7 +73,6 @@ main{
 .event h3{margin:0;color:var(--ink);}
 .event span{font-size:13px;color:#555;display:block;margin-top:4px;}
 
-/* Takvim */
 #calendar{
   flex:1;
   background:#fff;
@@ -102,7 +102,7 @@ th{color:var(--ted-red);}
 td:hover{background:#e6eefc;border-radius:50%;}
 .selected{background:var(--ted-navy);color:#fff;border-radius:50%;}
 
-/* === Fotoğraf Galerisi === */
+/* === İki Seviyeli Accordion Galeri === */
 .gallery-section{
   background:#fff;
   padding:20px;
@@ -114,34 +114,72 @@ td:hover{background:#e6eefc;border-radius:50%;}
   border-bottom:2px solid var(--ted-navy);
   padding-bottom:5px;
 }
-.gallery-grid{
-  display:grid;
-  grid-template-columns:repeat(auto-fill,minmax(200px,1fr));
-  gap:15px;
-  margin-top:15px;
-}
-.gallery-item{
-  background:var(--bg);
-  border:2px solid var(--ted-navy);
+
+/* 1. seviye: Yıllar */
+.year-item{
+  margin-bottom:14px;
+  border:1px solid var(--ted-navy);
   border-radius:6px;
-  text-align:center;
-  padding:20px 10px;
-  cursor:pointer;
-  transition:0.2s;
+  overflow:hidden;
 }
-.gallery-item:hover{
+.year-header{
   background:var(--ted-navy);
   color:#fff;
+  padding:12px 15px;
+  cursor:pointer;
+  display:flex;
+  justify-content:space-between;
+  align-items:center;
+  font-weight:600;
 }
+.year-header:hover{background:var(--ted-red);}
+.year-content{display:none; background:#f9f9f9; padding:12px 15px;}
 
-/* Modal (galeri görünümü) */
+/* 2. seviye: Etkinlikler */
+.event-item{
+  margin:8px 0;
+  border:1px solid #cbd4e1;
+  border-radius:6px;
+  overflow:hidden;
+}
+.event-header{
+  background:#eef3fb;
+  color:#1d2a44;
+  padding:10px 12px;
+  cursor:pointer;
+  display:flex;
+  justify-content:space-between;
+  align-items:center;
+  font-weight:600;
+}
+.event-header:hover{background:#e2ecff;}
+.event-content{display:none; padding:10px 12px; background:#fff;}
+
+/* Thumbnail grid */
+.thumb-grid{
+  display:grid;
+  grid-template-columns:repeat(auto-fill,minmax(120px,1fr));
+  gap:10px;
+}
+.thumb-grid img{
+  width:100%;
+  height:90px;
+  object-fit:cover;
+  border-radius:5px;
+  cursor:pointer;
+  transition:0.2s;
+  border:1px solid #e2e8f0;
+}
+.thumb-grid img:hover{transform:scale(1.05);}
+
+/* Modal (görüntüleyici + indir) */
 .modal{
-  position:fixed;
-  top:0;left:0;width:100%;height:100%;
-  background:rgba(0,0,0,0.6);
+  position:fixed; inset:0;
+  background:rgba(0,0,0,0.7);
   display:none;
   align-items:center;
   justify-content:center;
+  z-index:1000;
 }
 .modal-content{
   background:#fff;
@@ -158,21 +196,24 @@ td:hover{background:#e6eefc;border-radius:50%;}
   object-fit:contain;
   border-radius:6px;
 }
-.close-btn, .nav-btn{
+.close-btn, .nav-btn, .download-btn{
   position:absolute;
   top:50%;
   transform:translateY(-50%);
   background:var(--ted-navy);
   color:#fff;
   border:none;
-  padding:10px 15px;
+  padding:10px 14px;
   cursor:pointer;
-  border-radius:5px;
+  border-radius:6px;
 }
 .close-btn{top:10px;right:15px;transform:none;}
-.nav-btn:hover, .close-btn:hover{background:var(--ted-red);}
 #prevPhoto{left:10px;}
 #nextPhoto{right:10px;}
+.download-btn{
+  top:10px; left:15px; transform:none; font-size:14px;
+}
+.close-btn:hover, .nav-btn:hover, .download-btn:hover{background:var(--ted-red);}
 
 .ted-footer{
   background:var(--ted-navy);
@@ -197,7 +238,7 @@ td:hover{background:#e6eefc;border-radius:50%;}
 </header>
 
 <main>
-  <!-- Üst kısım -->
+  <!-- Üst bölüm: etkinlik listesi (placeholder) + takvim -->
   <div class="top-section">
     <section id="event-list">
       <h2>Etkinlikler</h2>
@@ -217,10 +258,10 @@ td:hover{background:#e6eefc;border-radius:50%;}
     </aside>
   </div>
 
-  <!-- Alt kısım: Fotoğraf Galerisi -->
+  <!-- Alt bölüm: İki seviyeli galeri -->
   <section class="gallery-section">
     <h2>📸 Etkinlik Fotoğraf Galerisi</h2>
-    <div class="gallery-grid" id="gallery-grid"></div>
+    <div id="years"></div>
   </section>
 </main>
 
@@ -232,6 +273,7 @@ td:hover{background:#e6eefc;border-radius:50%;}
 <div id="modal" class="modal">
   <div class="modal-content">
     <button class="close-btn" id="closeModal">X</button>
+    <button class="download-btn" id="downloadPhoto">📥 İndir</button>
     <button class="nav-btn" id="prevPhoto">&#10094;</button>
     <img id="modalImage" src="" alt="Etkinlik fotoğrafı">
     <button class="nav-btn" id="nextPhoto">&#10095;</button>
@@ -240,7 +282,7 @@ td:hover{background:#e6eefc;border-radius:50%;}
 </div>
 
 <script>
-// --- takvim kısmı ---
+/* ——— Takvim (üst kısım) ——— */
 const calendarBody=document.getElementById("calendar-body");
 const monthYear=document.getElementById("month-year");
 let current=new Date();
@@ -274,39 +316,142 @@ document.getElementById("prev").onclick=()=>{current.setMonth(current.getMonth()
 document.getElementById("next").onclick=()=>{current.setMonth(current.getMonth()+1);renderCalendar();};
 renderCalendar();
 
-// --- galeri kısmı ---
-const galleries=[
-  {title:"Bilimsel Araştırma Semineri", folder:"galeri/akademik", images:["1.jpg","2.jpg","3.jpg"]},
-  {title:"Kariyer Günleri", folder:"galeri/kariyer", images:["1.jpg","2.jpg"]},
-  {title:"Öğrenci Topluluk Fuarı", folder:"galeri/ogrenci", images:["1.jpg","2.jpg","3.jpg","4.jpg"]}
+/* ——— İki seviyeli galeri veri modeli ——— */
+const galleryData = [
+  {
+    year: "2024-2025 Akademik Yılı",
+    events: [
+      {
+        title: "Bilimsel Araştırma Semineri",
+        folder: "galeri/2024-2025 Akademik Yılı/Bilimsel Araştırma Semineri",
+        images: ["1.jpg","2.jpg","3.jpg"]
+      },
+      {
+        title: "Kariyer Günleri",
+        folder: "galeri/2024-2025 Akademik Yılı/Kariyer Günleri",
+        images: ["1.jpg","2.jpg"]
+      },
+      {
+        title: "Öğrenci Topluluk Fuarı",
+        folder: "galeri/2024-2025 Akademik Yılı/Öğrenci Topluluk Fuarı",
+        images: ["1.jpg","2.jpg","3.jpg","4.jpg"]
+      }
+    ]
+  },
+  {
+    year: "2023-2024 Akademik Yılı",
+    events: [
+      {
+        title: "Mezuniyet Töreni",
+        folder: "galeri/2023-2024 Akademik Yılı/Mezuniyet Töreni",
+        images: ["1.jpg","2.jpg"]
+      },
+      {
+        title: "Tanıtım Günleri",
+        folder: "galeri/2023-2024 Akademik Yılı/Tanıtım Günleri",
+        images: ["1.jpg","2.jpg"]
+      }
+    ]
+  }
 ];
-const galleryGrid=document.getElementById("gallery-grid");
-galleryGrid.innerHTML=galleries.map((g,i)=>`
-  <div class="gallery-item" data-index="${i}">
-    <strong>${g.title}</strong>
-  </div>`).join("");
 
-const modal=document.getElementById("modal");
-const modalImage=document.getElementById("modalImage");
-const photoTitle=document.getElementById("photoTitle");
-let currentGallery=0,currentIndex=0;
+/* ——— Yılları ve etkinlikleri DOM’a bas ——— */
+const yearsEl = document.getElementById("years");
+yearsEl.innerHTML = galleryData.map((y, yi) => `
+  <div class="year-item">
+    <div class="year-header" data-yi="${yi}">
+      ${y.year} <span>+</span>
+    </div>
+    <div class="year-content" id="year-${yi}">
+      ${y.events.map((ev, ei) => `
+        <div class="event-item">
+          <div class="event-header" data-yi="${yi}" data-ei="${ei}">
+            ${ev.title} <span>+</span>
+          </div>
+          <div class="event-content" id="event-${yi}-${ei}">
+            <div class="thumb-grid">
+              ${ev.images.map((img, ii) => `
+                <img src="${ev.folder}/${img}" 
+                     data-yi="${yi}" data-ei="${ei}" data-ii="${ii}" 
+                     alt="${ev.title} fotoğrafı">
+              `).join("")}
+            </div>
+          </div>
+        </div>
+      `).join("")}
+    </div>
+  </div>
+`).join("");
 
-function openGallery(i){
-  currentGallery=i;currentIndex=0;
+/* ——— Accordion davranışı: yıl ve etkinlik başlıkları ——— */
+document.querySelectorAll(".year-header").forEach(header => {
+  header.addEventListener("click", () => {
+    const yi = header.dataset.yi;
+    const content = document.getElementById(`year-${yi}`);
+    const expanded = content.style.display === "block";
+    // diğer yılları kapat
+    document.querySelectorAll(".year-content").forEach(c => c.style.display = "none");
+    document.querySelectorAll(".year-header span").forEach(s => s.textContent = "+");
+    if (!expanded) { content.style.display = "block"; header.querySelector("span").textContent = "−"; }
+  });
+});
+
+document.querySelectorAll(".event-header").forEach(header => {
+  header.addEventListener("click", () => {
+    const yi = header.dataset.yi, ei = header.dataset.ei;
+    const content = document.getElementById(`event-${yi}-${ei}`);
+    const expanded = content.style.display === "block";
+    // aynı yıl içindeki diğer etkinlikleri kapat
+    header.closest(".year-content").querySelectorAll(".event-content").forEach(c => c.style.display = "none");
+    header.closest(".year-content").querySelectorAll(".event-header span").forEach(s => s.textContent = "+");
+    if (!expanded) { content.style.display = "block"; header.querySelector("span").textContent = "−"; }
+  });
+});
+
+/* ——— Modal görüntüleyici + indir ——— */
+const modal = document.getElementById("modal");
+const modalImage = document.getElementById("modalImage");
+const photoTitle = document.getElementById("photoTitle");
+let gY = 0, gE = 0, gI = 0; // aktif: year index, event index, image index
+
+function openModal(yearIdx, eventIdx, imgIdx) {
+  gY = yearIdx; gE = eventIdx; gI = imgIdx;
   showPhoto();
-  modal.style.display="flex";
+  modal.style.display = "flex";
 }
-function showPhoto(){
-  const g=galleries[currentGallery];
-  const src=`${g.folder}/${g.images[currentIndex]}`;
-  modalImage.src=src;
-  photoTitle.textContent=g.title+` (${currentIndex+1}/${g.images.length})`;
+function showPhoto() {
+  const ev = galleryData[gY].events[gE];
+  const src = `${ev.folder}/${ev.images[gI]}`;
+  modalImage.src = src;
+  photoTitle.textContent = `${galleryData[gY].year} • ${ev.title} (${gI+1}/${ev.images.length})`;
 }
-document.getElementById("closeModal").onclick=()=>modal.style.display="none";
-document.getElementById("nextPhoto").onclick=()=>{currentIndex=(currentIndex+1)%galleries[currentGallery].images.length;showPhoto();};
-document.getElementById("prevPhoto").onclick=()=>{currentIndex=(currentIndex-1+galleries[currentGallery].images.length)%galleries[currentGallery].images.length;showPhoto();};
-window.onclick=e=>{if(e.target===modal) modal.style.display="none";};
-document.querySelectorAll(".gallery-item").forEach((el,i)=>el.onclick=()=>openGallery(i));
+document.getElementById("closeModal").onclick = () => modal.style.display = "none";
+document.getElementById("nextPhoto").onclick = () => { 
+  const ev = galleryData[gY].events[gE];
+  gI = (gI + 1) % ev.images.length; showPhoto();
+};
+document.getElementById("prevPhoto").onclick = () => { 
+  const ev = galleryData[gY].events[gE];
+  gI = (gI - 1 + ev.images.length) % ev.images.length; showPhoto();
+};
+document.getElementById("downloadPhoto").onclick = () => {
+  const ev = galleryData[gY].events[gE];
+  const src = `${ev.folder}/${ev.images[gI]}`;
+  const a = document.createElement("a");
+  a.href = src;
+  a.download = ev.images[gI]; // dosya adıyla indir
+  document.body.appendChild(a);
+  a.click();
+  a.remove();
+};
+window.onclick = (e) => { if (e.target === modal) modal.style.display = "none"; };
+
+/* Thumbnail click → modal aç */
+document.querySelectorAll(".thumb-grid img").forEach(img => {
+  img.addEventListener("click", () => {
+    openModal(parseInt(img.dataset.yi), parseInt(img.dataset.ei), parseInt(img.dataset.ii));
+  });
+});
 </script>
 </body>
 </html>
