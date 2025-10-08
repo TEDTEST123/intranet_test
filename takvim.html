@@ -1,68 +1,172 @@
 <!DOCTYPE html>
 <html lang="tr">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Akademik Takvim - TED Üniversitesi</title>
-    <link rel="stylesheet" href="style.css">
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>Akademik Takvim | TED Üniversitesi</title>
+<style>
+:root {
+  --ted-navy: #002855;
+  --ted-red: #c8102e;
+  --bg: #f5f7fa;
+  --ink: #002855;
+  --font-main: "Segoe UI", sans-serif;
+}
+
+/* GENEL YAPI */
+body {
+  margin: 0;
+  font-family: var(--font-main);
+  background: var(--bg);
+  color: var(--ink);
+  display: flex;
+  flex-direction: column;
+  min-height: 100vh;
+}
+
+/* ÜST MENÜ */
+header {
+  background: var(--ted-navy);
+  color: #fff;
+  padding: 12px 40px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+header h1 {
+  margin: 0;
+  font-size: 20px;
+}
+nav a {
+  color: #fff;
+  text-decoration: none;
+  margin-left: 25px;
+  font-weight: 500;
+  font-size: 15px;
+}
+nav a:hover {
+  text-decoration: underline;
+}
+
+/* SAYFA DÜZENİ */
+main {
+  flex: 1;
+  padding: 40px 80px;
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+}
+
+/* BAŞLIKLAR */
+h1, h2, h3 {
+  font-weight: 600;
+  color: var(--ted-navy);
+}
+h1 { font-size: 22px; margin-bottom: 10px; }
+h2 { font-size: 18px; margin-bottom: 6px; }
+h3 { font-size: 16px; }
+
+/* TAKVİM TABLOSU */
+.calendar-container {
+  background: #fff;
+  border-radius: 8px;
+  box-shadow: 0 0 8px rgba(0,0,0,0.1);
+  padding: 25px 30px;
+}
+.calendar-container table {
+  width: 100%;
+  border-collapse: collapse;
+  font-size: 14px;
+}
+.calendar-container th {
+  background: var(--ted-navy);
+  color: #fff;
+  padding: 8px;
+  text-align: left;
+}
+.calendar-container td {
+  border-bottom: 1px solid #e0e6ee;
+  padding: 8px;
+  vertical-align: top;
+}
+.calendar-container tr:hover {
+  background: #f1f4f8;
+}
+.calendar-container span {
+  font-size: 13px;
+  color: #666;
+}
+
+/* FOOTER */
+footer {
+  background: var(--ted-navy);
+  color: #fff;
+  text-align: center;
+  padding: 12px;
+  font-size: 13px;
+}
+</style>
 </head>
 <body>
-    <!-- Navbar -->
-    <nav class="navbar">
-        <div class="logo">
-            <img src="logo.png" alt="TED Üniversitesi Logosu">
-            <span class="site-title">TED Üniversitesi</span>
-        </div>
-        <div class="menu">
-            <ul>
-                <li><a href="index.html">Ana Sayfa</a></li>
-                <li><a href="duyurular.html">Duyurular</a></li>
-                <li><a href="etkinlikler.html">Etkinlikler</a></li>
-                <li><a href="takvim.html" class="active">Akademik Takvim</a></li>
-            </ul>
-        </div>
-    </nav>
+<header>
+  <h1>🎓 TED Üniversitesi</h1>
+  <nav>
+    <a href="index.html">Ana Sayfa</a>
+    <a href="duyurular.html">Duyurular</a>
+    <a href="etkinlikler.html">Etkinlikler</a>
+    <a href="akademik_takvim.html">Akademik Takvim</a>
+  </nav>
+</header>
 
-    <!-- İçerik -->
-    <div class="container">
-        <main class="main-content">
-            <section class="card">
-                <h2>📘 Akademik Takvim</h2>
-                <p>Bu sayfada dönem içindeki önemli tarihleri görebilirsiniz.</p>
+<main>
+  <h1>Akademik Takvim</h1>
+  <div class="calendar-container">
+    <table>
+      <thead>
+        <tr>
+          <th>Tarih</th>
+          <th>Etkinlik</th>
+          <th>Açıklama</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td>02 Eylül 2025</td>
+          <td>Ders Kayıtları Başlangıcı</td>
+          <td>Güz yarıyılı için ders kayıt işlemleri başlar.</td>
+        </tr>
+        <tr>
+          <td>09 Eylül 2025</td>
+          <td>Derslerin Başlangıcı</td>
+          <td>Güz yarıyılı dersleri başlar.</td>
+        </tr>
+        <tr>
+          <td>28 Ekim 2025</td>
+          <td>Resmî Tatil</td>
+          <td>Cumhuriyet Bayramı Arifesi, yarım gün.</td>
+        </tr>
+        <tr>
+          <td>29 Ekim 2025</td>
+          <td>Cumhuriyet Bayramı</td>
+          <td>Tüm gün resmi tatil.</td>
+        </tr>
+        <tr>
+          <td>12 Ocak 2026</td>
+          <td>Final Sınavları Başlangıcı</td>
+          <td>Güz dönemi final sınavları başlar.</td>
+        </tr>
+        <tr>
+          <td>26 Ocak 2026</td>
+          <td>Yarıyıl Tatili</td>
+          <td>Final sınavlarının ardından yarıyıl tatili başlar.</td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+</main>
 
-                <table class="calendar">
-                    <thead>
-                        <tr>
-                            <th>Tarih</th>
-                            <th>Etkinlik</th>
-                        </tr>
-                    </thead>
-                    <tbody>
-                        <tr>
-                            <td>17 Şubat 2025</td>
-                            <td>Bahar Dönemi Başlangıcı</td>
-                        </tr>
-                        <tr>
-                            <td>15 Mart 2025</td>
-                            <td>Ara Sınav Haftası</td>
-                        </tr>
-                        <tr>
-                            <td>02 Haziran 2025</td>
-                            <td>Final Haftası Başlangıcı</td>
-                        </tr>
-                        <tr>
-                            <td>16 Haziran 2025</td>
-                            <td>Final Haftası Bitişi</td>
-                        </tr>
-                    </tbody>
-                </table>
-            </section>
-        </main>
-    </div>
-
-    <!-- Footer -->
-    <footer class="footer">
-        © 2025 TED Üniversitesi • Tüm Hakları Saklıdır
-    </footer>
+<footer>
+  © 2025 TED Üniversitesi • Tüm Hakları Saklıdır
+</footer>
 </body>
 </html>
