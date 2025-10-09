@@ -4,6 +4,7 @@
 <meta charset="UTF-8" />
 <meta name="viewport" content="width=device-width, initial-scale=1.0" />
 <title>Akademik Takvim | TED Üniversitesi</title>
+<link rel="stylesheet" href="style.css" />
 <style>
 :root {
   --ted-navy: #002855;
@@ -11,41 +12,6 @@
   --bg: #f5f7fa;
   --ink: #002855;
   --font-main: "Segoe UI", sans-serif;
-}
-
-/* GENEL YAPI */
-body {
-  margin: 0;
-  font-family: var(--font-main);
-  background: var(--bg);
-  color: var(--ink);
-  display: flex;
-  flex-direction: column;
-  min-height: 100vh;
-}
-
-/* ÜST MENÜ */
-header {
-  background: var(--ted-navy);
-  color: #fff;
-  padding: 12px 40px;
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-}
-header h1 {
-  margin: 0;
-  font-size: 20px;
-}
-nav a {
-  color: #fff;
-  text-decoration: none;
-  margin-left: 25px;
-  font-weight: 500;
-  font-size: 15px;
-}
-nav a:hover {
-  text-decoration: underline;
 }
 
 /* SAYFA DÜZENİ */
@@ -96,27 +62,25 @@ h3 { font-size: 16px; }
   font-size: 13px;
   color: #666;
 }
-
-/* FOOTER */
-footer {
-  background: var(--ted-navy);
-  color: #fff;
-  text-align: center;
-  padding: 12px;
-  font-size: 13px;
-}
 </style>
 </head>
 <body>
-<header>
-  <h1>🎓 TED Üniversitesi</h1>
-  <nav>
-    <a href="index.html">Ana Sayfa</a>
-    <a href="duyurular.html">Duyurular</a>
-    <a href="etkinlikler.html">Etkinlikler</a>
-    <a href="akademik_takvim.html">Akademik Takvim</a>
-  </nav>
-</header>
+
+<!-- Üst Menü (diğer sayfalarla birebir aynı) -->
+<nav class="ted-nav">
+  <div class="ted-nav__inner">
+    <div class="ted-brand">
+      <img src="logo.png" alt="TED Üniversitesi Logosu" />
+      <span>TED Üniversitesi</span>
+    </div>
+    <ul class="ted-menu">
+      <li><a href="index.html">Ana Sayfa</a></li>
+      <li><a href="duyurular.html">Duyurular</a></li>
+      <li><a href="etkinlikler.html">Etkinlikler</a></li>
+      <li><a href="akademik_takvim.html" class="active">Akademik Takvim</a></li>
+    </ul>
+  </div>
+</nav>
 
 <main>
   <h1>Akademik Takvim</h1>
@@ -165,8 +129,9 @@ footer {
   </div>
 </main>
 
-<footer>
+<footer class="ted-footer">
   © 2025 TED Üniversitesi • Tüm Hakları Saklıdır
 </footer>
+
 </body>
 </html>
