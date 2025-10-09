@@ -4,6 +4,7 @@
 <meta charset="UTF-8" />
 <meta name="viewport" content="width=device-width, initial-scale=1.0" />
 <title>TED Üniversitesi | Etkinlik Takvimi</title>
+<link rel="stylesheet" href="style.css" />
 <style>
 :root {
   --ted-navy: #002855;
@@ -19,29 +20,6 @@ body {
   display: flex;
   flex-direction: column;
   min-height: 100vh;
-}
-
-/* Üst Menü */
-header {
-  background: var(--ted-navy);
-  color: #fff;
-  padding: 12px 40px;
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-}
-header h1 {
-  margin: 0;
-  font-size: 20px;
-}
-nav a {
-  color: #fff;
-  text-decoration: none;
-  margin-left: 25px;
-  font-weight: 500;
-}
-nav a:hover {
-  text-decoration: underline;
 }
 
 /* Ana düzen */
@@ -231,28 +209,25 @@ td.birthday { background: #cce5ff !important; color: #004085; }
   display: block;
   margin-top: 4px;
 }
-
-/* Footer */
-.ted-footer {
-  background: var(--ted-navy);
-  color: #fff;
-  text-align: center;
-  padding: 12px;
-  font-size: 13px;
-  margin-top: auto;
-}
 </style>
 </head>
 <body>
-<header>
-  <h1>🎓 TED Üniversitesi Etkinlik Takvimi</h1>
-  <nav>
-    <a href="index.html">Ana Sayfa</a>
-    <a href="duyurular.html">Duyurular</a>
-    <a href="etkinlikler.html">Etkinlikler</a>
-    <a href="takvim.html">Akademik Takvim</a>
-  </nav>
-</header>
+
+<!-- Üst Menü (Sadece bu kısım değişti) -->
+<nav class="ted-nav">
+  <div class="ted-nav__inner">
+    <div class="ted-brand">
+      <img src="logo.png" alt="TED Üniversitesi Logosu" />
+      <span>TED Üniversitesi</span>
+    </div>
+    <ul class="ted-menu">
+      <li><a href="index.html">Ana Sayfa</a></li>
+      <li><a href="duyurular.html">Duyurular</a></li>
+      <li><a href="etkinlikler.html" class="active">Etkinlikler</a></li>
+      <li><a href="takvim.html">Akademik Takvim</a></li>
+    </ul>
+  </div>
+</nav>
 
 <main>
   <div class="layout">
