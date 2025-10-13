@@ -3,239 +3,44 @@
 <head>
 <meta charset="UTF-8" />
 <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-<title>TED Üniversitesi | Etkinlik Takvimi</title>
-<link rel="stylesheet" href="style.css" />
-<style>
-:root {
-  --ted-navy: #002855;
-  --ted-red: #C8102E;
-  --bg: #f5f7fa;
-  --ink: #002855;
-}
-body {
-  margin: 0;
-  font-family: "Segoe UI", sans-serif;
-  background: var(--bg);
-  color: var(--ink);
-  display: flex;
-  flex-direction: column;
-  min-height: 100vh;
-}
-
-/* Ana düzen */
-main {
-  flex: 1;
-  display: flex;
-  flex-direction: column;
-  gap: 40px;
-  padding: 30px 60px;
-}
-.layout {
-  display: flex;
-  justify-content: space-between;
-  align-items: flex-start;
-  gap: 40px;
-}
-
-/* Sol: Galeri */
-.gallery-section {
-  flex: 0.8;
-  background: #fff;
-  padding: 20px;
-  border-radius: 8px;
-  box-shadow: 0 0 8px rgba(0, 0, 0, 0.1);
-  margin-left: -30px;
-}
-.gallery-section h2 {
-  margin-top: 0;
-  border-bottom: 2px solid var(--ted-navy);
-  padding-bottom: 5px;
-  display: flex;
-  align-items: center;
-  gap: 8px;
-}
-.gallery-section h2::before {
-  content: "📷";
-  font-size: 20px;
-}
-.year-item {
-  margin-bottom: 14px;
-  border: 1px solid var(--ted-navy);
-  border-radius: 6px;
-  overflow: hidden;
-}
-.year-header {
-  background: var(--ted-navy);
-  color: #fff;
-  padding: 12px 15px;
-  cursor: pointer;
-  font-weight: 600;
-}
-.year-header:hover { background: var(--ted-red); }
-.year-content {
-  display: none;
-  background: #f9f9f9;
-  padding: 12px 15px;
-}
-.event-item {
-  margin: 8px 0;
-  border: 1px solid #cbd4e1;
-  border-radius: 6px;
-  overflow: hidden;
-}
-.event-header {
-  background: #eef3fb;
-  color: #1d2a44;
-  padding: 10px 12px;
-  cursor: pointer;
-  font-weight: 600;
-}
-.event-header:hover { background: #e2ecff; }
-.event-content {
-  display: none;
-  padding: 10px 12px;
-  background: #fff;
-}
-.thumb-grid {
-  display: grid;
-  grid-template-columns: repeat(auto-fill, minmax(100px, 1fr));
-  gap: 8px;
-}
-.thumb-grid img {
-  width: 100%;
-  height: 80px;
-  object-fit: cover;
-  border-radius: 5px;
-  cursor: pointer;
-  transition: 0.2s;
-  border: 1px solid #e2e8f0;
-}
-.thumb-grid img:hover { transform: scale(1.05); }
-
-/* Sağ: Takvim + Etkinlikler */
-.right-column {
-  flex: 1.2;
-  display: flex;
-  flex-direction: column;
-  gap: 25px;
-}
-
-/* Takvim */
-#calendar {
-  background: #fff;
-  border-radius: 8px;
-  padding: 20px;
-  box-shadow: 0 0 8px rgba(0, 0, 0, 0.1);
-  text-align: center;
-}
-.month {
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  margin-bottom: 10px;
-}
-.month button {
-  background: var(--ted-navy);
-  color: #fff;
-  border: none;
-  padding: 5px 10px;
-  border-radius: 5px;
-  cursor: pointer;
-}
-.month button:hover { background: var(--ted-red); }
-table {
-  width: 100%;
-  border-collapse: collapse;
-}
-th, td {
-  padding: 10px;
-  text-align: center;
-  cursor: pointer;
-}
-th { color: var(--ted-red); }
-td:hover { background: #e6eefc; border-radius: 50%; }
-.selected {
-  outline: 2px solid var(--ted-red);
-  border-radius: 50%;
-}
-td.past-event { background: #d4edda !important; color: #155724; }
-td.upcoming-event { background: #fff3cd !important; color: #856404; }
-td.updated-event { background: #f8d7da !important; color: #721c24; }
-td.birthday { background: #cce5ff !important; color: #004085; }
-
-.legend {
-  margin-top: 14px;
-  font-size: 12px;
-  color: #333;
-  display: flex;
-  justify-content: center;
-  gap: 14px;
-  flex-wrap: wrap;
-}
-.legend-item {
-  display: flex;
-  align-items: center;
-  gap: 6px;
-}
-.legend-dot {
-  width: 12px;
-  height: 12px;
-  border-radius: 3px;
-}
-.legend .past .legend-dot { background: #d4edda; border: 1px solid #155724; }
-.legend .upcoming .legend-dot { background: #fff3cd; border: 1px solid #856404; }
-.legend .updated .legend-dot { background: #f8d7da; border: 1px solid #721c24; }
-.legend .birthday .legend-dot { background: #cce5ff; border: 1px solid #004085; }
-
-/* Etkinlikler */
-#event-list {
-  background: #fff;
-  border-radius: 8px;
-  padding: 20px;
-  box-shadow: 0 0 8px rgba(0, 0, 0, 0.1);
-}
-#event-list h2 { margin-top: 0; }
-.event {
-  border-left: 5px solid var(--ted-red);
-  padding: 10px 15px;
-  margin-bottom: 15px;
-  background: #f9f9f9;
-  border-radius: 5px;
-}
-.event h3 { margin: 0; color: var(--ink); }
-.event span {
-  font-size: 13px;
-  color: #555;
-  display: block;
-  margin-top: 4px;
-}
-</style>
+<title>Etkinlikler | TED Üniversitesi</title>
+<link rel="stylesheet" href="style.css">
 </head>
 <body>
 
-<!-- Üst Menü (Sadece bu kısım değişti) -->
-<nav class="ted-nav">
-  <div class="ted-nav__inner">
-    <div class="ted-brand">
-      <img src="logo.png" alt="TED Üniversitesi Logosu" />
-      <span>TED Üniversitesi</span>
-    </div>
-    <ul class="ted-menu">
-      <li><a href="index.html">Ana Sayfa</a></li>
-      <li><a href="duyurular.html">Duyurular</a></li>
-      <li><a href="etkinlikler.html" class="active">Etkinlikler</a></li>
-      <li><a href="takvim.html">Akademik Takvim</a></li>
-    </ul>
+<!-- === ÜST MENÜ === -->
+<header>
+  <div class="header-left">
+    <img src="logo.png" alt="TED Üniversitesi Logosu" />
+    <span>TED Üniversitesi</span>
   </div>
-</nav>
+  <div class="header-right">
+    <a href="ogrenci.html">Öğrenci</a>
+    <a href="akademik.html">Akademik Personel</a>
+    <a href="idari.html">İdari Personel</a>
+    <a href="mezun.html">Mezun</a>
+    <a href="aday.html">Aday Öğrenci</a>
+    <a href="etkinlikler.html" class="active">Etkinlikler</a>
+    <a href="#">İletişim</a>
+    <a href="#">EN</a>
+  </div>
+</header>
 
+<!-- === SAYFA BAŞLIĞI === -->
+<section class="page-banner">
+  <h1>🎓 Etkinlikler</h1>
+</section>
+
+<!-- === ANA İÇERİK === -->
 <main>
   <div class="layout">
+    <!-- Sol: Galeri -->
     <section class="gallery-section">
-      <h2>Etkinlik Fotoğraf Galerisi</h2>
+      <h2>📷 Etkinlik Fotoğraf Galerisi</h2>
       <div id="years"></div>
     </section>
 
+    <!-- Sağ: Takvim ve Etkinlikler -->
     <div class="right-column">
       <aside id="calendar">
         <div class="month">
@@ -265,10 +70,11 @@ td.birthday { background: #cce5ff !important; color: #004085; }
   </div>
 </main>
 
-<footer class="ted-footer">
+<footer>
   © 2025 TED Üniversitesi • Tüm Hakları Saklıdır
 </footer>
 
+<!-- === SCRIPT === -->
 <script>
 const eventsData = [
   { date: "2025-10-05", type: "birthday", person: "Ahmet Yılmaz", description: "Ahmet Yılmaz'ın doğum günü 🎂" },
@@ -345,7 +151,7 @@ document.getElementById("prev").onclick = () => { current.setMonth(current.getMo
 document.getElementById("next").onclick = () => { current.setMonth(current.getMonth() + 1); renderCalendar(); };
 renderCalendar();
 
-/* Galeri */
+/* === GALERİ === */
 const galleryData = [
   { year: "2024-2025 Akademik Yılı", events: [{ title: "Bilimsel Araştırma Semineri", images: ["1.jpg", "2.jpg"] }] },
   { year: "2023-2024 Akademik Yılı", events: [{ title: "Mezuniyet Töreni", images: ["1.jpg", "2.jpg"] }] }
