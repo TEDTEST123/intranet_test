@@ -4,126 +4,342 @@
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>TED Üniversitesi | Etkinlikler</title>
+  <link rel="stylesheet" href="common.css" />
 
-  <!-- 🔥 Cache temizleyici meta etiketler -->
-  <meta http-equiv="Cache-Control" content="no-cache, no-store, must-revalidate" />
-  <meta http-equiv="Pragma" content="no-cache" />
-  <meta http-equiv="Expires" content="0" />
+  <style>
+    /* Genel düzen */
+    .layout {
+      display: grid;
+      grid-template-columns: 360px 1fr 420px;
+      grid-template-rows: auto auto;
+      grid-gap: 40px;
+      justify-content: center;
+      padding: 50px 60px;
+    }
 
-  <!-- 🎨 CSS dosyası - versiyon etiketi ile -->
-  <link rel="stylesheet" href="style.css?v=20251013" />
+    .card {
+      background: #fff;
+      border-radius: 10px;
+      box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+      overflow: hidden;
+    }
+
+    .card .head {
+      background: #002855;
+      color: #fff;
+      font-weight: 600;
+      padding: 10px 14px;
+      border-radius: 10px 10px 0 0;
+      display: flex;
+      align-items: center;
+      gap: 8px;
+    }
+
+    .card .body { padding: 16px; }
+
+    /* Accordion yapısı */
+    .accordion-section { border-bottom: 1px solid #ddd; }
+    .accordion-header {
+      background: #f7f9fc;
+      padding: 8px 10px;
+      cursor: pointer;
+      font-weight: 600;
+      color: #002855;
+      transition: background 0.2s;
+    }
+    .accordion-header:hover { background: #e9eff8; }
+    .accordion-header::after {
+      content: '▾';
+      float: right;
+      color: #002855;
+      transition: transform 0.3s;
+    }
+    .accordion-header.active::after { transform: rotate(180deg); }
+
+    .accordion-content {
+      display: none;
+      padding: 10px 12px;
+      border-left: 3px solid #002855;
+      background: #fafbfe;
+    }
+
+    .event-title {
+      margin: 8px 0;
+      color: #c8102e;
+      font-weight: 500;
+      cursor: pointer;
+    }
+
+    .event-images {
+      display: none;
+      grid-template-columns: repeat(auto-fill, minmax(100px, 1fr));
+      gap: 8px;
+      margin-top: 8px;
+    }
+
+    .event-images img {
+      width: 100%;
+      border-radius: 6px;
+      cursor: pointer;
+      transition: transform 0.2s;
+    }
+
+    .event-images img:hover { transform: scale(1.05); }
+
+    .download-btn {
+      display: inline-block;
+      margin-top: 4px;
+      font-size: 13px;
+      background: #002855;
+      color: white;
+      padding: 3px 7px;
+      border-radius: 4px;
+      text-decoration: none;
+    }
+
+    /* Takvim kısmı */
+    .calendar { grid-column: 3; grid-row: 1; width: 420px; }
+    .recent-events { grid-column: 3; grid-row: 2; width: 420px; }
+
+    table.cal { width:100%; border-collapse:collapse; text-align:center; }
+    .cal th { background:#f0f4f8; color:#002855; padding:8px; }
+    .cal td { padding:7px; border-radius:6px; cursor:default; }
+    .ev-past { background:#d4edda; color:#155724; }
+    .ev-upcoming { background:#fff3cd; color:#856404; }
+    .ev-updated { background:#f8d7da; color:#721c24; }
+    .ev-birthday { background:#cce5ff; color:#004085; }
+    .selected { outline:2px solid #f5a623; }
+
+    /* Lightbox */
+    .lightbox {
+      display:none; position:fixed; top:0; left:0; width:100%; height:100%;
+      background:rgba(0,0,0,0.8); justify-content:center; align-items:center; z-index:1000;
+    }
+    .lightbox img {
+      max-width:90%; max-height:85%; border-radius:10px; box-shadow:0 0 20px rgba(255,255,255,0.3);
+    }
+  </style>
 </head>
 
 <body>
-  <!-- ÜST MENÜ -->
   <header>
-    <div class="header-left">
+    <a href="index.html" class="home-link">
       <img src="logo.png" alt="TED Üniversitesi Logosu" />
       <span>TED Üniversitesi</span>
-    </div>
-    <div class="header-right">
-      <a href="index.html">Öğrenci</a>
+    </a>
+    <nav>
+      <a href="ogrenci.html">Öğrenci</a>
       <a href="akademik.html">Akademik Personel</a>
       <a href="idari.html">İdari Personel</a>
-      <a href="mezun.html">Mezun</a>
-      <a href="aday.html">Aday Öğrenci</a>
       <a href="etkinlikler.html" class="active">Etkinlikler</a>
-      <a href="iletisim.html">İletişim</a>
-      <a href="#">EN</a>
-    </div>
+      <a href="#">İletişim</a>
+    </nav>
   </header>
 
-  <!-- SAYFA BAŞLIĞI -->
-  <section class="page-banner">
-    <h1>🎓 Etkinlikler</h1>
-  </section>
+  <section class="hero"><h1>Etkinlikler</h1></section>
 
-  <!-- ANA İÇERİK -->
   <main>
-    <div class="layout">
-      <!-- Sol: Fotoğraf Galerisi -->
-      <section class="gallery-section">
-        <h2>📸 Etkinlik Fotoğraf Galerisi</h2>
-        <div class="year-header">2024-2025 Akademik Yılı</div>
-        <div class="year-header">2023-2024 Akademik Yılı</div>
-      </section>
-
-      <!-- Sağ: Takvim -->
-      <div class="right-column">
-        <aside id="calendar">
-          <div class="month">
-            <button id="prev">&#8592;</button>
-            <h3 id="month-year">Ekim 2025</h3>
-            <button id="next">&#8594;</button>
-          </div>
-          <table>
-            <thead>
-              <tr><th>P</th><th>S</th><th>Ç</th><th>P</th><th>C</th><th>C</th><th>P</th></tr>
-            </thead>
-            <tbody id="calendar-body">
-              <!-- Günler JS ile eklenecek -->
-            </tbody>
-          </table>
-
-          <div class="legend">
-            <div class="legend-item past"><div class="legend-dot"></div>Geçmiş Etkinlik</div>
-            <div class="legend-item upcoming"><div class="legend-dot"></div>Yaklaşan Etkinlik</div>
-            <div class="legend-item updated"><div class="legend-dot"></div>Güncellenen Etkinlik</div>
-            <div class="legend-item birthday"><div class="legend-dot"></div>Doğum Günü</div>
-          </div>
-        </aside>
-
-        <section id="event-list">
-          <h2>Etkinlikler</h2>
-          <p>Bir tarih seçiniz.</p>
-        </section>
+    <section class="layout">
+      <!-- SOL GALERİ -->
+      <div class="card" style="grid-column:1;grid-row:1/span 2;">
+        <div class="head">📷 Etkinlik Fotoğraf Galerisi</div>
+        <div class="body" id="galleryContainer"></div>
       </div>
-    </div>
+
+      <!-- TAKVİM -->
+      <div class="card calendar">
+        <div class="head">📅 Etkinlik Takvimi</div>
+        <div class="body">
+          <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:8px;">
+            <button id="prev" class="cal-btn">←</button>
+            <h3 id="monthYear" style="margin:0;color:#002855;"></h3>
+            <button id="next" class="cal-btn">→</button>
+          </div>
+          <table class="cal">
+            <thead><tr><th>P</th><th>S</th><th>Ç</th><th>P</th><th>C</th><th>C</th><th>P</th></tr></thead>
+            <tbody id="calBody"></tbody>
+          </table>
+          <div style="margin-top:10px;font-size:13px;color:#002855;">
+            <span style="background:#d4edda;padding:2px 6px;border-radius:4px;">Geçmiş</span>
+            <span style="background:#fff3cd;padding:2px 6px;border-radius:4px;">Yaklaşan</span>
+            <span style="background:#f8d7da;padding:2px 6px;border-radius:4px;">Güncellenen</span>
+            <span style="background:#cce5ff;padding:2px 6px;border-radius:4px;">Doğum Günü</span>
+          </div>
+        </div>
+      </div>
+
+      <!-- GÜNCEL ETKİNLİKLER -->
+      <div class="card recent-events">
+        <div class="head">🗓️ Etkinlik Açıklama</div>
+        <div class="body">
+          <ul id="eventList" style="list-style:none;padding:0;margin:0;"></ul>
+        </div>
+      </div>
+    </section>
   </main>
 
-  <footer>
-    © 2025 TED Üniversitesi • Tüm Hakları Saklıdır
-  </footer>
+  <footer>© 2025 TED Üniversitesi • Tüm Hakları Saklıdır</footer>
+
+  <!-- Lightbox -->
+  <div class="lightbox" id="lightbox"><img src="" alt="Büyütülmüş" id="lightbox-img"></div>
 
   <script>
-    // Basit örnek JS: takvim oluşturma
-    const calendarBody = document.getElementById("calendar-body");
-    const monthYear = document.getElementById("month-year");
-    let current = new Date(2025, 9);
+    // === GALERİ VERİLERİ ===
+    const galleryData = {
+      "2024–2025 Akademik Yılı": {
+        "Bilim Şenliği": [
+          { src: "images/bilim1.jpg", file: "bilim1.jpg" },
+          { src: "images/bilim2.jpg", file: "bilim2.jpg" }
+        ],
+        "Kariyer Günleri": [
+          { src: "images/kariyer1.jpg", file: "kariyer1.jpg" },
+          { src: "images/kariyer2.jpg", file: "kariyer2.jpg" }
+        ]
+      },
+      "2023–2024 Akademik Yılı": {
+        "Mezuniyet Töreni": [
+          { src: "images/mezun1.jpg", file: "mezun1.jpg" },
+          { src: "images/mezun2.jpg", file: "mezun2.jpg" }
+        ]
+      }
+    };
 
-    function renderCalendar() {
-      const y = current.getFullYear(), m = current.getMonth();
-      monthYear.textContent = current.toLocaleString("tr-TR", { month: "long", year: "numeric" });
-      const firstDay = (new Date(y, m, 1).getDay() || 7);
-      const daysInMonth = new Date(y, m + 1, 0).getDate();
-      calendarBody.innerHTML = "";
-      let d = 1;
+    const galleryContainer = document.getElementById("galleryContainer");
 
-      for (let i = 0; i < 6; i++) {
-        const row = document.createElement("tr");
-        for (let j = 1; j <= 7; j++) {
-          const cell = document.createElement("td");
-          if ((i === 0 && j < firstDay) || d > daysInMonth) {
-            cell.textContent = "";
-          } else {
-            cell.textContent = d;
+    // Dönemleri oluştur
+    Object.entries(galleryData).forEach(([year, events]) => {
+      const section = document.createElement("div");
+      section.classList.add("accordion-section");
+
+      const header = document.createElement("div");
+      header.classList.add("accordion-header");
+      header.textContent = year;
+
+      const content = document.createElement("div");
+      content.classList.add("accordion-content");
+
+      // Etkinlikler
+      Object.entries(events).forEach(([eventName, images]) => {
+        const eventTitle = document.createElement("div");
+        eventTitle.className = "event-title";
+        eventTitle.textContent = "• " + eventName;
+
+        const imgGrid = document.createElement("div");
+        imgGrid.className = "event-images";
+
+        images.forEach(img => {
+          const wrap = document.createElement("div");
+          const image = document.createElement("img");
+          image.src = img.src;
+          image.onclick = () => openLightbox(img.src);
+          const dl = document.createElement("a");
+          dl.href = img.src;
+          dl.download = img.file;
+          dl.className = "download-btn";
+          dl.textContent = "İndir";
+          wrap.appendChild(image);
+          wrap.appendChild(dl);
+          imgGrid.appendChild(wrap);
+        });
+
+        // etkinlik aç/kapa
+        eventTitle.onclick = () => {
+          const visible = imgGrid.style.display === "grid";
+          imgGrid.style.display = visible ? "none" : "grid";
+        };
+
+        content.appendChild(eventTitle);
+        content.appendChild(imgGrid);
+      });
+
+      // dönem aç/kapa
+      header.onclick = () => {
+        const isActive = header.classList.contains("active");
+        document.querySelectorAll(".accordion-header").forEach(h => {
+          h.classList.remove("active");
+          h.nextElementSibling.style.display = "none";
+        });
+        if (!isActive) {
+          header.classList.add("active");
+          content.style.display = "block";
+        }
+      };
+
+      section.appendChild(header);
+      section.appendChild(content);
+      galleryContainer.appendChild(section);
+    });
+
+    // Lightbox
+    const lightbox = document.getElementById("lightbox");
+    const lightboxImg = document.getElementById("lightbox-img");
+    function openLightbox(src) {
+      lightboxImg.src = src;
+      lightbox.style.display = "flex";
+    }
+    lightbox.onclick = () => lightbox.style.display = "none";
+
+    // === TAKVİM ===
+    const events = [
+      { date: "2025-10-05", status: "birthday", title: "Ahmet Yılmaz'ın Doğum Günü 🎂" },
+      { date: "2025-10-09", status: "upcoming", title: "Bilimsel Araştırma Semineri" },
+      { date: "2025-10-14", status: "updated", title: "Kariyer Günleri (Güncellendi)" },
+      { date: "2025-09-28", status: "past", title: "Mezuniyet Töreni" }
+    ];
+
+    const monthYearEl = document.getElementById("monthYear");
+    const calBody = document.getElementById("calBody");
+    const eventList = document.getElementById("eventList");
+    let current = new Date();
+
+    function fmt(d){return `${d.getFullYear()}-${String(d.getMonth()+1).padStart(2,"0")}-${String(d.getDate()).padStart(2,"0")}`;}
+
+    function renderList(sel=null){
+      eventList.innerHTML="";
+      const rel = events.filter(e=>!sel||e.date===sel);
+      (rel.length?rel:events).forEach(e=>{
+        const li=document.createElement("li");
+        li.innerHTML=`<a href="#" style="color:#c8102e;text-decoration:none;">${e.title} – ${e.date}</a>`;
+        eventList.appendChild(li);
+      });
+    }
+
+    function renderCal(){
+      const y=current.getFullYear(), m=current.getMonth();
+      monthYearEl.textContent=current.toLocaleString("tr-TR",{month:"long",year:"numeric"});
+      const fd=(new Date(y,m,1).getDay()||7);
+      const days=new Date(y,m+1,0).getDate();
+      calBody.innerHTML=""; let d=1;
+      for(let i=0;i<6;i++){
+        const r=document.createElement("tr");
+        for(let j=1;j<=7;j++){
+          const c=document.createElement("td");
+          if((i===0&&j<fd)||d>days)c.textContent="";
+          else{
+            c.textContent=d;
+            const ds=`${y}-${String(m+1).padStart(2,"0")}-${String(d).padStart(2,"0")}`;
+            const ev=events.find(e=>e.date===ds);
+            if(ev){
+              c.classList.add(`ev-${ev.status}`);
+              c.style.cursor="pointer";
+              c.title=ev.title;
+              c.onclick=()=>{
+                document.querySelectorAll(".selected").forEach(el=>el.classList.remove("selected"));
+                c.classList.add("selected");
+                renderList(ds);
+              };
+            }
             d++;
           }
-          row.appendChild(cell);
+          r.appendChild(c);
         }
-        calendarBody.appendChild(row);
+        calBody.appendChild(r);
       }
     }
 
-    document.getElementById("prev").onclick = () => {
-      current.setMonth(current.getMonth() - 1);
-      renderCalendar();
-    };
-    document.getElementById("next").onclick = () => {
-      current.setMonth(current.getMonth() + 1);
-      renderCalendar();
-    };
-    renderCalendar();
+    document.getElementById("prev").onclick=()=>{current.setMonth(current.getMonth()-1);renderCal();};
+    document.getElementById("next").onclick=()=>{current.setMonth(current.getMonth()+1);renderCal();};
+    renderCal(); renderList();
   </script>
 </body>
 </html>
