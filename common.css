@@ -1,0 +1,92 @@
+:root {
+  --ted-navy: #002855;
+  --ted-blue: #294a7d;
+  --ted-red: #c8102e;
+  --ted-orange: #f5a623;
+  --font-main: "Segoe UI", sans-serif;
+}
+
+/* Sayfa genel yapısı */
+html, body {
+  margin: 0;
+  padding: 0;
+  height: 100%;
+  font-family: var(--font-main);
+  background-color: #f5f7fa;
+  color: var(--ted-navy);
+  display: flex;
+  flex-direction: column;
+}
+
+/* Üst Menü (header) */
+header {
+  background: var(--ted-navy);
+  color: #fff;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 10px 40px;
+  height: 60px;
+  flex-shrink: 0;
+}
+
+/* Logo ve TED yazısı */
+.home-link {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  text-decoration: none;
+  color: #fff;
+  font-weight: 600;
+  font-size: 18px;
+}
+
+.home-link img {
+  height: 35px;
+}
+
+/* Menü linkleri */
+nav a {
+  color: #fff;
+  text-decoration: none;
+  margin-left: 25px;
+  font-weight: 500;
+  font-size: 15px;
+  transition: color 0.2s;
+}
+
+/* Hover ve aktif durum */
+nav a:hover { color: var(--ted-orange); }
+nav a.active { color: var(--ted-orange); }
+
+/* Başlık alanı (daha dar) */
+.hero {
+  background: linear-gradient(to right, var(--ted-navy), var(--ted-blue));
+  color: white;
+  text-align: center;
+  padding: 60px 20px 70px; /* ⬅︎ daraltıldı */
+}
+
+.hero h1 {
+  font-size: 32px;
+  margin: 0;
+}
+
+.hero p {
+  font-size: 15px;
+  opacity: 0.9;
+  margin-top: 8px;
+}
+
+/* Ana içerik alanı sayfayı doldursun */
+main { flex: 1; }
+
+/* Footer sabit altta */
+footer {
+  background: var(--ted-navy);
+  color: white;
+  text-align: center;
+  padding: 12px;
+  font-size: 13px;
+  margin-top: auto;
+}

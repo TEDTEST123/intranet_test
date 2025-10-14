@@ -1,0 +1,170 @@
+<!DOCTYPE html>
+<html lang="tr">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>TED Üniversitesi | İdari Personel Portalı</title>
+  <link rel="stylesheet" href="common.css" />
+  <style>
+    /* Ortak düzen */
+    .portal-container {
+      display: flex;
+      justify-content: center;
+      flex-wrap: wrap;
+      gap: 2rem;
+      max-width: 1200px;
+      margin: 3rem auto;
+    }
+
+    .portal-card {
+      background: #fff;
+      border-radius: 10px;
+      box-shadow: 0 4px 8px rgba(0,0,0,0.1);
+      width: 350px;
+      padding: 1.5rem 2rem;
+      transition: 0.3s ease;
+    }
+
+    .portal-card:hover {
+      transform: translateY(-5px);
+      box-shadow: 0 6px 15px rgba(0,0,0,0.2);
+    }
+
+    .portal-card h2 {
+      font-size: 1.2rem;
+      margin-bottom: 1rem;
+      color: #002b5c;
+      border-bottom: 2px solid #0a3b79;
+      padding-bottom: 0.5rem;
+    }
+
+    .portal-card ul {
+      list-style: none;
+      padding-left: 0;
+    }
+
+    .portal-card ul li {
+      margin: 0.6rem 0;
+    }
+
+    .portal-card a {
+      color: #002b5c;
+      text-decoration: none;
+      transition: 0.2s;
+    }
+
+    .portal-card a:hover {
+      color: #e5a00d;
+    }
+
+    .hero {
+      height: 200px;
+      background: linear-gradient(90deg, #0a3b79, #184b92);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      color: white;
+    }
+
+    .hero h1 {
+      font-size: 2rem;
+      font-weight: 700;
+    }
+
+    footer {
+      position: relative;
+      bottom: 0;
+      width: 100%;
+    }
+  </style>
+</head>
+<body>
+  <!-- ÜST MENÜ -->
+  <header>
+    <a href="index.html" class="home-link">
+      <img src="logo.png" alt="TED Üniversitesi Logosu" />
+      <span>TED Üniversitesi</span>
+    </a>
+    <nav>
+      <a href="ogrenci.html">Öğrenci</a>
+      <a href="akademik.html">Akademik Personel</a>
+      <a href="idari.html" class="active">İdari Personel</a>
+      <a href="etkinlikler.html">Etkinlikler</a>
+      <a href="#">İletişim</a>
+    </nav>
+  </header>
+
+  <!-- ÜST BAŞLIK ALANI -->
+  <section class="hero">
+    <h1>İdari Personel Portalı</h1>
+  </section>
+
+  <!-- PORTAL BLOKLARI -->
+  <main class="portal-container">
+
+    <div class="portal-card">
+      <h2>Hızlı Bağlantılar</h2>
+      <ul>
+        <li><a href="#">Personel Bilgi Sistemi</a></li>
+        <li><a href="#">E-Posta Girişi</a></li>
+        <li><a href="#">İç Yazışma ve Evrak Takip</a></li>
+        <li><a href="#">Duyurular</a></li>
+      </ul>
+    </div>
+
+    <div class="portal-card">
+      <h2>İnsan Kaynakları</h2>
+      <ul>
+        <li><a href="#">İzin ve Görev Formları</a></li>
+        <li><a href="#">Performans Değerlendirme</a></li>
+        <li><a href="#">Personel Yönergeleri</a></li>
+        <li><a href="#">SGK ve Özlük Bilgileri</a></li>
+      </ul>
+    </div>
+
+    <div class="portal-card">
+      <h2>İdari Süreçler</h2>
+      <ul>
+        <li><a href="#">Satın Alma İşlemleri</a></li>
+        <li><a href="#">Demirbaş Takip Sistemi</a></li>
+        <li><a href="#">Yazı İşleri ve Arşiv</a></li>
+        <li><a href="#">İç Kontrol ve Kalite Yönetimi</a></li>
+      </ul>
+    </div>
+
+    <div class="portal-card">
+      <h2>Destek Hizmetleri</h2>
+      <ul>
+        <li><a href="#">Teknik Hizmet Talebi</a></li>
+        <li><a href="#">Ulaşım ve Araç Talebi</a></li>
+        <li><a href="#">Güvenlik ve Sağlık Birimi</a></li>
+        <li><a href="#">Temizlik ve Lojistik</a></li>
+      </ul>
+    </div>
+
+    <div class="portal-card">
+      <h2>Bilgi-İşlem Hizmetleri</h2>
+      <ul>
+        <li><a href="#">Ağ ve VPN Erişimi</a></li>
+        <li><a href="#">Yazılım Lisansları</a></li>
+        <li><a href="#">Teknik Destek Portalı</a></li>
+      </ul>
+    </div>
+
+    <div class="portal-card">
+      <h2>Faydalı Belgeler</h2>
+      <ul>
+        <li><a href="#">Yönergeler ve Formlar</a></li>
+        <li><a href="#">Personel Rehberi (PDF)</a></li>
+        <li><a href="#">İdari Takvim</a></li>
+      </ul>
+    </div>
+
+  </main>
+
+  <!-- ALT BİLGİ -->
+  <footer>
+    © 2025 TED Üniversitesi • Tüm Hakları Saklıdır
+  </footer>
+</body>
+</html>
