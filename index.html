@@ -3,263 +3,70 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Öğrenci Portalı | TED Üniversitesi</title>
-  <style>
-    :root {
-      --ted-blue: #002855;
-      --ted-red: #C8102E;
-      --ted-yellow: #FDB913;
-      --bg: #f5f7fa;
-      --ink: #002855;
-      --font-main: "Segoe UI", sans-serif;
-    }
+  <title>TED Üniversitesi | Haberler ve Duyurular</title>
 
-    body {
-      margin: 0;
-      font-family: var(--font-main);
-      background: var(--bg);
-      color: var(--ink);
-      display: flex;
-      flex-direction: column;
-      min-height: 100vh;
-    }
-
-    /* === Üst Menü (Kurumsal Bar) === */
-    header {
-      background: var(--ted-blue);
-      color: #fff;
-      display: flex;
-      justify-content: space-between;
-      align-items: center;
-      padding: 8px 40px;
-      box-shadow: 0 2px 6px rgba(0, 0, 0, 0.1);
-      position: sticky;
-      top: 0;
-      z-index: 100;
-    }
-
-    .header-left {
-      display: flex;
-      align-items: center;
-      gap: 10px;
-    }
-
-    .header-left img {
-      height: 32px;
-    }
-
-    .header-left span {
-      font-size: 16px;
-      font-weight: 600;
-    }
-
-    .header-right a {
-      color: #fff;
-      text-decoration: none;
-      margin-left: 15px;
-      font-size: 14px;
-      position: relative;
-      font-weight: 500;
-      transition: color 0.25s ease;
-    }
-
-    .header-right a:hover {
-      color: var(--ted-yellow);
-    }
-
-    .header-right a.active {
-      color: var(--ted-yellow);
-    }
-
-    /* === Portal Başlık Alanı === */
-    .portal-banner {
-      background: linear-gradient(to right, rgba(0, 40, 85, 0.9), rgba(0, 40, 85, 0.7)),
-                  url('campus.jpg') center/cover no-repeat;
-      color: white;
-      text-align: center;
-      padding: 70px 20px;
-    }
-
-    .portal-banner h1 {
-      font-size: 36px;
-      margin: 0;
-      font-weight: 700;
-      letter-spacing: 1px;
-    }
-
-    .portal-banner p {
-      font-size: 16px;
-      opacity: 0.9;
-    }
-
-    /* === Ana İçerik === */
-    main {
-      flex: 1;
-      padding: 40px 60px;
-    }
-
-    .links-grid {
-      display: grid;
-      grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
-      gap: 25px;
-    }
-
-    .link-card {
-      background: #fff;
-      border: 1px solid #dce3eb;
-      border-radius: 8px;
-      box-shadow: 0 2px 6px rgba(0, 0, 0, 0.05);
-      transition: transform 0.2s ease, box-shadow 0.2s ease;
-    }
-
-    .link-card:hover {
-      transform: translateY(-3px);
-      box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
-    }
-
-    .link-card h2 {
-      background: var(--ted-blue);
-      color: white;
-      font-size: 16px;
-      margin: 0;
-      padding: 10px 16px;
-      border-radius: 8px 8px 0 0;
-    }
-
-    .link-card ul {
-      list-style: none;
-      margin: 0;
-      padding: 12px 16px 18px;
-    }
-
-    .link-card ul li {
-      margin-bottom: 8px;
-    }
-
-    .link-card a {
-      text-decoration: none;
-      color: var(--ted-blue);
-      font-size: 14.5px;
-      transition: color 0.2s ease;
-    }
-
-    .link-card a:hover {
-      color: var(--ted-red);
-      text-decoration: underline;
-    }
-
-    footer {
-      background: var(--ted-blue);
-      color: white;
-      text-align: center;
-      padding: 12px;
-      font-size: 13px;
-      margin-top: 40px;
-    }
-  </style>
+  <!-- Ortak stil dosyası -->
+  <link rel="stylesheet" href="common.css" />
 </head>
-<body>
 
-  <!-- === HEADER === -->
+<body>
+  <!-- ÜST MENÜ -->
   <header>
-    <div class="header-left">
+    <a href="index.html" class="home-link">
       <img src="logo.png" alt="TED Üniversitesi Logosu" />
       <span>TED Üniversitesi</span>
-    </div>
-    <div class="header-right">
-      <a href="ogrenci.html" class="active">Öğrenci</a>
+    </a>
+
+    <nav>
+      <a href="ogrenci.html">Öğrenci</a>
       <a href="akademik.html">Akademik Personel</a>
       <a href="idari.html">İdari Personel</a>
-      <a href="mezun.html">Mezun</a>
-      <a href="aday.html">Aday Öğrenci</a>
       <a href="etkinlikler.html">Etkinlikler</a>
       <a href="#">İletişim</a>
-      <a href="#">EN</a>
-    </div>
+    </nav>
   </header>
 
-  <!-- === PORTAL BANNER === -->
-  <section class="portal-banner">
-    <h1>Öğrenci Portalı</h1>
-    <p>TED Üniversitesi öğrencileri için önemli bağlantılar ve kaynaklar</p>
+  <!-- BAŞLIK ALANI -->
+  <section class="hero">
+    <h1>Haberler ve Duyurular</h1>
   </section>
 
-  <!-- === ANA İÇERİK === -->
-  <main>
-    <div class="links-grid">
+  <!-- ANA İÇERİK -->
+  <main style="display: grid; grid-template-columns: repeat(auto-fit, minmax(350px, 1fr)); gap: 30px; padding: 50px 80px;">
+    <!-- Duyurular -->
+    <div style="background: white; border-radius: 10px; padding: 20px; box-shadow: 0 2px 8px rgba(0,0,0,0.1);">
+      <h2 style="color:#002855; border-bottom:2px solid #002855; padding-bottom:8px;">📢 Duyurular</h2>
+      <ul style="list-style:none; padding:0;">
+        <li><a href="#" style="color:#c8102e; text-decoration:none;">Güz dönemi ders kayıtları başladı</a></li>
+        <li><a href="#" style="color:#c8102e; text-decoration:none;">Yeni öğrenci kulübü başvuruları açıldı</a></li>
+        <li><a href="#" style="color:#c8102e; text-decoration:none;">Kütüphane çalışma saatleri güncellendi</a></li>
+      </ul>
+    </div>
 
-      <div class="link-card">
-        <h2>Hızlı Bağlantılar</h2>
-        <ul>
-          <li><a href="#">Öğrenci Bilgi Sistemi (BİLSİS)</a></li>
-          <li><a href="#">E-Posta Girişi</a></li>
-          <li><a href="#">Öğrenci Duyuruları</a></li>
-        </ul>
-      </div>
+    <!-- Haberler -->
+    <div style="background: white; border-radius: 10px; padding: 20px; box-shadow: 0 2px 8px rgba(0,0,0,0.1);">
+      <h2 style="color:#002855; border-bottom:2px solid #002855; padding-bottom:8px;">📰 Haberler</h2>
+      <ul style="list-style:none; padding:0;">
+        <li><a href="#" style="color:#c8102e; text-decoration:none;">TED IEEE ekibi yarışmada birinci oldu</a></li>
+        <li><a href="#" style="color:#c8102e; text-decoration:none;">Yeni araştırma merkezimiz faaliyete geçti</a></li>
+        <li><a href="#" style="color:#c8102e; text-decoration:none;">Rektörümüz uluslararası konferansta konuştu</a></li>
+      </ul>
+    </div>
 
-      <div class="link-card">
-        <h2>Akademik Süreçler</h2>
-        <ul>
-          <li><a href="#">Akademik Takvim</a></li>
-          <li><a href="#">Ders Kataloğu</a></li>
-          <li><a href="#">Yönetmelikler</a></li>
-        </ul>
-      </div>
-
-      <div class="link-card">
-        <h2>Uzaktan Eğitim</h2>
-        <ul>
-          <li><a href="#">Uzaktan Eğitim Portalı</a></li>
-          <li><a href="#">Blackboard Girişi</a></li>
-        </ul>
-      </div>
-
-      <div class="link-card">
-        <h2>Kütüphane Hizmetleri</h2>
-        <ul>
-          <li><a href="#">Kütüphane Kataloğu</a></li>
-          <li><a href="#">E-Kaynaklar</a></li>
-        </ul>
-      </div>
-
-      <div class="link-card">
-        <h2>Değişim Programları</h2>
-        <ul>
-          <li><a href="#">Erasmus+</a></li>
-          <li><a href="#">Farabi</a></li>
-        </ul>
-      </div>
-
-      <div class="link-card">
-        <h2>Bilgi-İşlem Hizmetleri</h2>
-        <ul>
-          <li><a href="#">Kablosuz Ağ Erişimi</a></li>
-          <li><a href="#">Yazılım Lisansları</a></li>
-        </ul>
-      </div>
-
-      <div class="link-card">
-        <h2>Sağlık, Kültür ve Spor</h2>
-        <ul>
-          <li><a href="#">Spor Tesisleri</a></li>
-          <li><a href="#">Psikolojik Danışmanlık</a></li>
-        </ul>
-      </div>
-
-      <div class="link-card">
-        <h2>Faydalı Dosyalar</h2>
-        <ul>
-          <li><a href="#">Formlar ve Kılavuzlar</a></li>
-          <li><a href="#">Akademik Takvim PDF</a></li>
-        </ul>
-      </div>
-
+    <!-- Etkinlikler -->
+    <div style="background: white; border-radius: 10px; padding: 20px; box-shadow: 0 2px 8px rgba(0,0,0,0.1);">
+      <h2 style="color:#002855; border-bottom:2px solid #002855; padding-bottom:8px;">🎓 Etkinlikler</h2>
+      <ul style="list-style:none; padding:0;">
+        <li><a href="#" style="color:#c8102e; text-decoration:none;">Akademik Gelişim Semineri – 15 Ekim</a></li>
+        <li><a href="#" style="color:#c8102e; text-decoration:none;">Kariyer Günleri – 22 Ekim</a></li>
+        <li><a href="#" style="color:#c8102e; text-decoration:none;">Bilim Şenliği – 30 Ekim</a></li>
+      </ul>
     </div>
   </main>
 
-  <footer>
+  <!-- ALT KISIM -->
+  <footer style="background:#002855; color:white; text-align:center; padding:12px; font-size:13px;">
     © 2025 TED Üniversitesi • Tüm Hakları Saklıdır
   </footer>
-
 </body>
 </html>
