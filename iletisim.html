@@ -1,0 +1,225 @@
+<!DOCTYPE html>
+<html lang="tr">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>TED Üniversitesi | İletişim</title>
+
+  <!-- Cache Engelleyici -->
+  <meta http-equiv="Cache-Control" content="no-cache, no-store, must-revalidate" />
+  <meta http-equiv="Pragma" content="no-cache" />
+  <meta http-equiv="Expires" content="0" />
+
+  <link rel="stylesheet" href="common.css?v=2025-10-15-3" />
+
+  <style>
+    body {
+      font-family: 'Segoe UI', sans-serif;
+      background-color: #f5f7fa;
+      margin: 0;
+    }
+
+    .hero {
+      height: 180px;
+      background: linear-gradient(90deg, #0a3b79, #184b92);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      color: white;
+    }
+
+    .hero h1 {
+      font-size: 2rem;
+      font-weight: 700;
+    }
+
+    .contact-container {
+      max-width: 1100px;
+      margin: 3rem auto;
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: space-between;
+      gap: 2rem;
+      background: #fff;
+      padding: 2.5rem 3rem;
+      border-radius: 12px;
+      box-shadow: 0 6px 18px rgba(0, 0, 0, 0.08);
+    }
+
+    .contact-info {
+      flex: 1;
+      min-width: 320px;
+    }
+
+    .contact-info h2 {
+      color: #002b5c;
+      margin-bottom: 1rem;
+    }
+
+    .contact-info p {
+      line-height: 1.8;
+      color: #333;
+      font-size: 0.95rem;
+    }
+
+    .contact-info a {
+      color: #0a3b79;
+      text-decoration: none;
+    }
+
+    .contact-info a:hover {
+      color: #e5a00d;
+    }
+
+    .contact-buttons {
+      margin-top: 1.5rem;
+      display: flex;
+      flex-wrap: wrap;
+      gap: 0.8rem;
+    }
+
+    .contact-buttons a {
+      background: #0a3b79;
+      color: white;
+      padding: 0.6rem 1.2rem;
+      border-radius: 5px;
+      text-decoration: none;
+      font-size: 0.95rem;
+      font-weight: 500;
+      flex: 1;
+      text-align: center;
+      transition: 0.3s ease;
+    }
+
+    .contact-buttons a:hover {
+      background: #e5a00d;
+      color: #002b5c;
+    }
+
+    iframe {
+      width: 100%;
+      height: 250px;
+      border: none;
+      border-radius: 8px;
+      margin-top: 1.5rem;
+    }
+
+    /* FORM ALANI */
+    .contact-form {
+      flex: 1;
+      min-width: 320px;
+    }
+
+    .contact-form h2 {
+      color: #002b5c;
+      margin-bottom: 1rem;
+    }
+
+    form {
+      display: flex;
+      flex-direction: column;
+      gap: 1rem;
+    }
+
+    input, textarea {
+      padding: 0.8rem;
+      border: 1px solid #ccc;
+      border-radius: 6px;
+      font-size: 1rem;
+      font-family: inherit;
+    }
+
+    textarea {
+      resize: none;
+      height: 120px;
+    }
+
+    button {
+      background: #0a3b79;
+      color: white;
+      padding: 0.8rem;
+      border: none;
+      border-radius: 6px;
+      cursor: pointer;
+      font-size: 1rem;
+      transition: 0.3s;
+    }
+
+    button:hover {
+      background: #e5a00d;
+      color: #002b5c;
+    }
+
+    footer {
+      margin-top: 3rem;
+      text-align: center;
+      padding: 1rem;
+      background: #002b5c;
+      color: white;
+    }
+  </style>
+</head>
+<body>
+  <!-- ÜST MENÜ -->
+  <header>
+    <a href="index.html?v=2025-10-15-3" class="home-link">
+      <img src="logo.png?v=2025-10-15-3" alt="TED Üniversitesi Logosu" />
+      <span>TED Üniversitesi</span>
+    </a>
+    <nav>
+      <a href="ogrenci.html?v=2025-10-15-3">Öğrenci</a>
+      <a href="akademik.html?v=2025-10-15-3">Akademik Personel</a>
+      <a href="idari.html?v=2025-10-15-3">İdari Personel</a>
+      <a href="etkinlikler.html?v=2025-10-15-3">Etkinlikler</a>
+      <a href="iletisim.html?v=2025-10-15-3" class="active">İletişim</a>
+    </nav>
+  </header>
+
+  <!-- BAŞLIK -->
+  <section class="hero">
+    <h1>İletişim</h1>
+  </section>
+
+  <!-- İÇERİK -->
+  <main class="contact-container">
+    <div class="contact-info">
+      <h2>TED Üniversitesi</h2>
+      <p>
+        Ziya Gökalp Caddesi No:48 06420, Kolej Çankaya ANKARA<br />
+        <strong>E-posta:</strong> <a href="mailto:info@tedu.edu.tr">info@tedu.edu.tr</a><br />
+        <strong>KEP Adresi:</strong> tedu@hs02.kep.tr<br />
+        <strong>Telefon:</strong> +90 (312) 585 0000<br />
+        <strong>Faks:</strong> +90 (312) 418 4148
+      </p>
+
+      <div class="contact-buttons">
+        <a href="https://tedu.edu.tr/tr/tedu-departments" target="_blank">Tüm Birimler</a>
+        <a href="https://goo.gl/maps/GRZ6tM2nRTD2" target="_blank">Haritada TEDÜ</a>
+        <a href="https://tedu.edu.tr/tr/ulasim" target="_blank">Ulaşım</a>
+      </div>
+
+      <iframe 
+        src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3038.727692952511!2d32.861347015725116!3d39.92120597942559!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x14d34f344134d9cb%3A0x1c1f0c0f2a1f31c!2sTED%20University!5e0!3m2!1sen!2str!4v1666688821711!5m2!1sen!2str"
+        allowfullscreen=""
+        loading="lazy">
+      </iframe>
+    </div>
+
+    <div class="contact-form">
+      <h2>Bize Mesaj Gönderin</h2>
+      <!-- 💌 Formspree entegrasyonu -->
+      <form action="https://formspree.io/f/mvgpnwno" method="POST">
+        <input type="text" name="Ad Soyad" placeholder="Ad Soyad" required />
+        <input type="email" name="E-posta" placeholder="E-posta Adresi" required />
+        <textarea name="Mesaj" placeholder="Mesajınız..." required></textarea>
+        <button type="submit">Gönder</button>
+      </form>
+    </div>
+  </main>
+
+  <!-- ALT BİLGİ -->
+  <footer>
+    © 2025 TED Üniversitesi • Tüm Hakları Saklıdır
+  </footer>
+</body>
+</html>
