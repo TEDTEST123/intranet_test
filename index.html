@@ -1,284 +1,172 @@
 <!DOCTYPE html>
 <html lang="tr">
 <head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>TED Üniversitesi</title>
-  <link rel="stylesheet" href="common.css" />
-  <!-- PDF için kütüphaneler -->
-  <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
-  <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf-autotable/3.5.25/jspdf.plugin.autotable.min.js"></script>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>TED Üniversitesi</title>
+<link rel="stylesheet" href="common.css">
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf-autotable/3.5.25/jspdf.plugin.autotable.min.js"></script>
 
-  <style>
-    .card {
-      background: #fff;
-      border-radius: 10px;
-      padding: 18px;
-      box-shadow: 0 2px 6px rgba(0,0,0,0.08);
-      border-top: 4px solid var(--ted-navy);
-      margin-bottom: 20px;
-    }
-    .card h2 {
-      font-size: 17px;
-      color: var(--ted-navy);
-      border-bottom: 1px solid #e3e7ee;
-      padding-bottom: 5px;
-      margin-bottom: 10px;
-      display: flex;
-      align-items: center;
-      gap: 6px;
-    }
+<style>
+body{font-family:"Segoe UI",sans-serif;margin:0;background:#f5f8fb}
+header{background:#0a326f;color:#fff;display:flex;justify-content:space-between;align-items:center;padding:10px 40px}
+header a{color:#fff;text-decoration:none;margin-right:20px}
+header a:hover{text-decoration:underline}
+.hero{background:linear-gradient(90deg,#0a326f,#113c85);color:#fff;text-align:center;padding:30px 0;font-size:24px;font-weight:600}
+main{display:grid;grid-template-columns:0.9fr 2.4fr 1.2fr;gap:25px;padding:40px 70px}
+@media(max-width:1100px){main{grid-template-columns:1fr;padding:25px}}
+footer{background:#0a326f;color:#fff;text-align:center;padding:10px 0;font-size:14px;margin-top:30px}
+.card{background:#fff;border-radius:10px;padding:18px;box-shadow:0 2px 6px rgba(0,0,0,.08);border-top:4px solid #1a365d;margin-bottom:20px}
+.card h2{font-size:17px;color:#1a365d;border-bottom:1px solid #e3e7ee;padding-bottom:5px;margin-bottom:10px;display:flex;align-items:center;gap:6px}
 
-    main {
-      display: grid;
-      grid-template-columns: 0.9fr 2.4fr 1.2fr;
-      gap: 25px;
-      padding: 40px 70px;
-    }
-    @media (max-width: 1100px) {
-      main { grid-template-columns: 1fr; padding: 25px; }
-    }
+/* hızlı erişim */
+.quick-links a{display:flex;align-items:center;gap:6px;background:#f4f6f8;padding:8px 10px;border-radius:6px;margin-bottom:6px;color:#1a365d;text-decoration:none;font-size:14px;transition:background .2s}
+.quick-links a:hover{background:#d44b26;color:#fff}
 
-    .quick-links a {
-      display: block;
-      background: #f4f6f8;
-      padding: 6px 8px;
-      border-radius: 6px;
-      margin-bottom: 6px;
-      color: var(--ted-navy);
-      text-decoration: none;
-      font-size: 14px;
-      transition: background 0.2s;
-    }
-    .quick-links a:hover {
-      background: var(--ted-orange);
-      color: white;
-    }
+/* kayan kartlar */
+.news-strip{overflow-x:auto;scroll-snap-type:x mandatory;display:flex;gap:16px;padding-bottom:10px;-webkit-overflow-scrolling:touch}
+.news-card{flex:0 0 280px;background:#fff;border-radius:10px;box-shadow:0 2px 8px rgba(0,0,0,.1);overflow:hidden;scroll-snap-align:start;border:1px solid #e5e7eb;transition:transform .2s,box-shadow .2s;text-decoration:none;color:inherit}
+.news-card:hover{transform:translateY(-3px);box-shadow:0 6px 14px rgba(0,0,0,.15)}
+.news-card img{width:100%;height:150px;object-fit:cover;display:block}
+.news-body{padding:10px}
+.news-title{font-weight:600;font-size:15px;margin:0 0 4px;color:#1a365d}
+.news-meta{font-size:12px;color:#6b7280}
 
-    .menu-box {
-      display: none;
-      background: #f9fafc;
-      border-radius: 8px;
-      padding: 10px 12px;
-      animation: fadeIn 0.3s ease-in-out;
-    }
-    .menu-box p { margin: 4px 0; font-size: 14px; }
-
-    @keyframes fadeIn {
-      from { opacity: 0; transform: translateY(-5px); }
-      to { opacity: 1; transform: translateY(0); }
-    }
-
-    .empty-message {
-      color: #777;
-      text-align: center;
-      padding: 8px;
-      font-size: 13px;
-    }
-
-    .pdf-btn {
-      background: var(--ted-navy);
-      color: white;
-      border: none;
-      padding: 6px 10px;
-      border-radius: 5px;
-      cursor: pointer;
-      font-size: 13px;
-      transition: background 0.2s;
-      margin-top: 8px;
-      width: 100%;
-    }
-    .pdf-btn:hover { background: var(--ted-blue); }
-
-    /* Haftalık tablo gizli */
-    #mealTable {
-      display: none;
-    }
-
-    table { width: 100%; border-collapse: collapse; font-size: 13px; }
-    th, td { padding: 5px; text-align: left; }
-    thead { background: #f4f6f8; }
-  </style>
+/* yemek */
+.menu-box{display:none;background:#f9fafc;border-radius:8px;padding:10px 12px;animation:fadeIn .3s ease-in-out}
+.menu-box p{margin:4px 0;font-size:14px}
+.empty-message{color:#777;text-align:center;padding:8px;font-size:13px}
+.pdf-btn{background:#1a365d;color:#fff;border:none;padding:6px 10px;border-radius:5px;cursor:pointer;font-size:13px;transition:background .2s;margin-top:8px;width:100%}
+.pdf-btn:hover{background:#2a4d9c}
+#mealTable{display:none}
+table{width:100%;border-collapse:collapse;font-size:13px}
+th,td{padding:5px;text-align:left}
+thead{background:#f4f6f8}
+</style>
 </head>
 
 <body>
-  <header>
-    <a href="index.html" class="home-link">
-      <img src="logo.png" alt="TED Üniversitesi Logosu" />
-      <span>TED Üniversitesi</span>
-    </a>
+<header>
+  <a href="index.html"><img src="logo.png" alt="TED Üniversitesi" height="35" style="vertical-align:middle;margin-right:8px;"><span style="font-weight:600;font-size:18px;">TED Üniversitesi</span></a>
+  <nav>
+    <a href="ogrenci.html">Öğrenci</a>
+    <a href="akademik.html">Akademik Personel</a>
+    <a href="idari.html">İdari Personel</a>
+    <a href="etkinlikler.html">Etkinlikler</a>
+    <a href="iletisim.html">İletişim</a>
+  </nav>
+</header>
 
-    <nav>
-      <a href="ogrenci.html">Öğrenci</a>
-      <a href="akademik.html">Akademik Personel</a>
-      <a href="idari.html">İdari Personel</a>
-      <a href="etkinlikler.html">Etkinlikler</a>
-      <a href="iletisim.html">İletişim</a>
-    </nav>
-  </header>
+<section class="hero">TED Üniversitesi</section>
 
-  <section class="hero">
-    <h1>TED Üniversitesi</h1>
-  </section>
+<main>
+  <!-- SOL SÜTUN -->
+  <div>
+    <div class="card quick-links">
+      <h2>🔗 Hızlı Erişim</h2>
+      <div id="quickLinksContainer"></div>
+    </div>
+  </div>
 
-  <main>
-    <!-- Sol sütun -->
-    <div>
-      <div class="card quick-links">
-        <h2>🔗 Hızlı Erişim</h2>
-        <a href="#">📧 E-posta</a>
-        <a href="#">📘 Moodle</a>
-        <a href="#">📄 EBYS</a>
-        <a href="#">🗓️ Akademik Takvim</a>
+  <!-- ORTA SÜTUN -->
+  <div>
+    <!-- Duyurular -->
+    <div class="card">
+      <h2>📢 Duyurular</h2>
+      <div class="news-strip">
+        <a class="news-card" href="#"><img src="https://picsum.photos/seed/d1/400/250"><div class="news-body"><div class="news-title">Güz dönemi ders kayıtları başladı</div><div class="news-meta">15.10.2025 • Öğrenci İşleri</div></div></a>
+        <a class="news-card" href="#"><img src="https://picsum.photos/seed/d2/400/250"><div class="news-body"><div class="news-title">Yeni öğrenci kulübü başvuruları açıldı</div><div class="news-meta">13.10.2025 • Öğrenci Dekanlığı</div></div></a>
+        <a class="news-card" href="#"><img src="https://picsum.photos/seed/d3/400/250"><div class="news-body"><div class="news-title">Kütüphane çalışma saatleri güncellendi</div><div class="news-meta">10.10.2025 • Kütüphane Dairesi</div></div></a>
       </div>
     </div>
 
-    <!-- Orta sütun -->
-    <div>
-      <div class="card">
-        <h2>📢 Duyurular</h2>
-        <ul style="list-style:none; padding:0;">
-          <li><a href="#">Güz dönemi ders kayıtları başladı</a></li>
-          <li><a href="#">Yeni öğrenci kulübü başvuruları açıldı</a></li>
-          <li><a href="#">Kütüphane çalışma saatleri güncellendi</a></li>
-        </ul>
-      </div>
-
-      <div class="card">
-        <h2>📰 Haberler</h2>
-        <ul style="list-style:none; padding:0;">
-          <li><a href="#">TED IEEE ekibi yarışmada birinci oldu</a></li>
-          <li><a href="#">Yeni araştırma merkezimiz faaliyete geçti</a></li>
-          <li><a href="#">Rektörümüz uluslararası konferansta konuştu</a></li>
-        </ul>
-      </div>
-
-      <div class="card">
-        <h2>🎓 Etkinlikler</h2>
-        <ul style="list-style:none; padding:0;">
-          <li><a href="#">Akademik Gelişim Semineri – 15 Ekim</a></li>
-          <li><a href="#">Kariyer Günleri – 22 Ekim</a></li>
-          <li><a href="#">Bilim Şenliği – 30 Ekim</a></li>
-        </ul>
+    <!-- Haberler -->
+    <div class="card">
+      <h2>📰 Haberler</h2>
+      <div class="news-strip">
+        <a class="news-card" href="#"><img src="https://picsum.photos/seed/h1/400/250"><div class="news-body"><div class="news-title">TED IEEE ekibi yarışmada birinci oldu</div><div class="news-meta">09.10.2025 • Araştırma</div></div></a>
+        <a class="news-card" href="#"><img src="https://picsum.photos/seed/h2/400/250"><div class="news-body"><div class="news-title">Yeni araştırma merkezimiz faaliyete geçti</div><div class="news-meta">07.10.2025 • Duyuru</div></div></a>
+    
+        <a class="news-card" href="#"><img src="https://picsum.photos/seed/h4/400/250"><div class="news-body"><div class="news-title">Kariyer Günleri 2025’e yoğun ilgi</div><div class="news-meta">03.10.2025 • Kariyer</div></div></a>
       </div>
     </div>
 
-    <!-- Sağ sütun -->
-    <div>
-      <div class="card" style="max-width:320px; margin-left:auto;">
-        <h2>🍽️ Yemek Listesi</h2>
-
-        <!-- Günlük menü -->
-        <input type="date" id="menuDate" style="width:100%; margin-bottom:10px;">
-        <div id="menuContent" class="menu-box">
-          <p><strong>Tarih:</strong> <span id="m_tarih"></span></p>
-          <p><strong>Çorba:</strong> <span id="m_corba"></span></p>
-          <p><strong>Ana Yemek:</strong> <span id="m_ana"></span></p>
-          <p><strong>Yardımcı Yemek:</strong> <span id="m_yardimci"></span></p>
-          <p><strong>Tatlı:</strong> <span id="m_tatli"></span></p>
-          <p><strong>İçecek:</strong> <span id="m_icecek"></span></p>
-        </div>
-        <div id="emptyMessage" class="empty-message">📅 Lütfen bir tarih seçiniz.</div>
-
-        <hr style="margin:12px 0;">
-        <h3 style="font-size:14px;color:var(--ted-navy);margin-bottom:6px;">📆 Haftanın Menüsü</h3>
-        <button class="pdf-btn" onclick="downloadPDF()">PDF Olarak İndir</button>
-
-        <!-- Haftalık tablo (gizli ama PDF için kullanılacak) -->
-        <table id="mealTable">
-          <thead>
-            <tr><th>Gün</th><th>Çorba</th><th>Ana Yemek</th></tr>
-          </thead>
-          <tbody></tbody>
-        </table>
-      </div>
-
-      <div class="card" style="max-width:320px; margin-left:auto;">
-        <h2>📞 Telefon Rehberi</h2>
-        <div style="display:flex;gap:8px;margin-top:5px;">
-          <input id="searchInput" placeholder="İsim ara..." style="flex:1;">
-          <select id="departmentFilter"><option value="">Tüm Birimler</option></select>
-        </div>
-        <div id="resultsContainer" style="margin-top:10px;">
-          <table><thead><tr><th>Birim</th><th>İsim</th><th>Dahili</th></tr></thead><tbody id="resultsTable"></tbody></table>
-        </div>
+    <!-- Etkinlikler -->
+    <div class="card">
+      <h2>🎓 Etkinlikler</h2>
+      <div class="news-strip">
+        <a class="news-card" href="#"><img src="https://picsum.photos/seed/e1/400/250"><div class="news-body"><div class="news-title">Akademik Gelişim Semineri – 15 Ekim</div><div class="news-meta">15.10.2025 • Konferans / Seminer</div></div></a>
+        <a class="news-card" href="#"><img src="https://picsum.photos/seed/e2/400/250"><div class="news-body"><div class="news-title">Kariyer Günleri – 22 Ekim</div><div class="news-meta">22.10.2025 • Kariyer Ofisi</div></div></a>
+        <a class="news-card" href="#"><img src="https://picsum.photos/seed/e3/400/250"><div class="news-body"><div class="news-title">Bilim Şenliği – 30 Ekim</div><div class="news-meta">30.10.2025 • Kampüs Etkinliği</div></div></a>
       </div>
     </div>
-  </main>
+  </div>
 
-  <footer>
-    © 2025 TED Üniversitesi • Tüm Hakları Saklıdır
-  </footer>
+  <!-- SAĞ SÜTUN -->
+  <div>
+    <div class="card" style="max-width:320px;margin-left:auto;">
+      <h2>🍽️ Yemek Listesi</h2>
+      <input type="date" id="menuDate" style="width:100%;margin-bottom:10px;">
+      <div id="menuContent" class="menu-box">
+        <p><strong>Tarih:</strong> <span id="m_tarih"></span></p>
+        <p><strong>Çorba:</strong> <span id="m_corba"></span></p>
+        <p><strong>Ana Yemek:</strong> <span id="m_ana"></span></p>
+        <p><strong>Yardımcı Yemek:</strong> <span id="m_yardimci"></span></p>
+        <p><strong>Tatlı:</strong> <span id="m_tatli"></span></p>
+        <p><strong>İçecek:</strong> <span id="m_icecek"></span></p>
+      </div>
+      <div id="emptyMessage" class="empty-message">📅 Lütfen bir tarih seçiniz.</div>
+      <hr style="margin:12px 0;">
+      <h3 style="font-size:14px;color:#1a365d;margin-bottom:6px;">📆 Haftanın Menüsü</h3>
+      <button class="pdf-btn" onclick="downloadPDF()">PDF Olarak İndir</button>
+      <table id="mealTable"><thead><tr><th>Gün</th><th>Çorba</th><th>Ana Yemek</th></tr></thead><tbody></tbody></table>
+    </div>
 
-  <script>
-  // Günlük Menü
-  async function loadYemekMenu() {
-    const res = await fetch("yemek.json");
-    const data = await res.json();
-    const dateInput = document.getElementById("menuDate");
-    const content = document.getElementById("menuContent");
-    const msg = document.getElementById("emptyMessage");
+    <div class="card" style="max-width:320px;margin-left:auto;">
+      <h2>📞 Telefon Rehberi</h2>
+      <div style="display:flex;gap:8px;margin-top:5px;">
+        <input id="searchInput" placeholder="İsim ara..." style="flex:1;">
+        <select id="departmentFilter"><option value="">Tüm Birimler</option></select>
+      </div>
+      <div id="resultsContainer" style="margin-top:10px;">
+        <table><thead><tr><th>Birim</th><th>İsim</th><th>Dahili</th></tr></thead><tbody id="resultsTable"></tbody></table>
+      </div>
+    </div>
+  </div>
+</main>
 
-    dateInput.addEventListener("change", () => {
-      const selectedDate = new Date(dateInput.value);
-      const formattedDate = selectedDate.toLocaleDateString("tr-TR", { day: "2-digit", month: "long", year: "numeric" });
-      const dayEntry = Object.values(data).find(entry => entry.tarih === formattedDate);
-      if (dayEntry) {
-        msg.style.display = "none"; content.style.display = "block";
-        document.getElementById("m_tarih").textContent = dayEntry.tarih;
-        document.getElementById("m_corba").textContent = dayEntry.corba;
-        document.getElementById("m_ana").textContent = dayEntry.anaYemek;
-        document.getElementById("m_yardimci").textContent = dayEntry.yardimci;
-        document.getElementById("m_tatli").textContent = dayEntry.tatli;
-        document.getElementById("m_icecek").textContent = dayEntry.icecek;
-      } else {
-        content.style.display = "none"; msg.style.display = "block";
-        msg.textContent = "Bu tarih için yemek menüsü bulunamadı.";
-      }
-    });
-  }
-  loadYemekMenu();
+<footer>© 2025 TED Üniversitesi • Tüm Hakları Saklıdır</footer>
 
-  // Haftalık tablo
-  async function loadWeeklyMenu() {
-    const res = await fetch("haftalik_yemek.json");
-    const data = await res.json();
-    const tbody = document.querySelector("#mealTable tbody");
-    tbody.innerHTML = "";
-    Object.values(data).forEach(item => {
-      const tr = document.createElement("tr");
-      tr.innerHTML = `<td>${item.gun}</td><td>${item.corba}</td><td>${item.anaYemek}</td>`;
-      tbody.appendChild(tr);
-    });
-  }
-  loadWeeklyMenu();
+<script>
+// hızlı erişim
+async function loadQuickLinks(){
+ const res=await fetch("hizlierisim.json");
+ const data=await res.json();
+ const c=document.getElementById("quickLinksContainer");
+ c.innerHTML="";
+ data.forEach(l=>{
+  const a=document.createElement("a");
+  a.href=l.url;a.target="_blank";
+  a.innerHTML=`${l.ikon} ${l.isim}`;
+  c.appendChild(a);
+ });
+}
+loadQuickLinks();
 
-  // PDF indir
-  async function downloadPDF() {
-    const { jsPDF } = window.jspdf;
-    const doc = new jsPDF();
+// yemek
+async function loadYemekMenu(){const r=await fetch("yemek.json");const d=await r.json();const i=document.getElementById("menuDate");const c=document.getElementById("menuContent");const m=document.getElementById("emptyMessage");i.addEventListener("change",()=>{const s=new Date(i.value);const f=s.toLocaleDateString("tr-TR",{day:"2-digit",month:"long",year:"numeric"});const e=Object.values(d).find(e=>e.tarih===f);if(e){m.style.display="none";c.style.display="block";m_tarih.textContent=e.tarih;m_corba.textContent=e.corba;m_ana.textContent=e.anaYemek;m_yardimci.textContent=e.yardimci;m_tatli.textContent=e.tatli;m_icecek.textContent=e.icecek;}else{c.style.display="none";m.style.display="block";m.textContent="Bu tarih için yemek menüsü bulunamadı."}});}
+loadYemekMenu();
 
-    // Başlık
-    doc.setFontSize(14);
-    doc.text("TED Üniversitesi - Haftalık Yemek Menüsü", 14, 20);
+async function loadWeeklyMenu(){const r=await fetch("haftalik_yemek.json");const d=await r.json();const t=document.querySelector("#mealTable tbody");t.innerHTML="";Object.values(d).forEach(e=>{const tr=document.createElement("tr");tr.innerHTML=`<td>${e.gun}</td><td>${e.corba}</td><td>${e.anaYemek}</td>`;t.appendChild(tr);});}
+loadWeeklyMenu();
 
-    const now = new Date().toLocaleDateString("tr-TR");
-    doc.setFontSize(10);
-    doc.text(`Tarih: ${now}`, 14, 27);
+async function downloadPDF(){const{jsPDF}=window.jspdf;const doc=new jsPDF();doc.setFontSize(14);doc.text("TED Üniversitesi - Haftalık Yemek Menüsü",14,20);const now=new Date().toLocaleDateString("tr-TR");doc.setFontSize(10);doc.text(`Tarih: ${now}`,14,27);const r=await fetch("haftalik_yemek.json");const d=await r.json();const rows=Object.values(d).map(e=>[e.gun,e.corba,e.anaYemek]);doc.autoTable({head:[["Gün","Çorba","Ana Yemek"]],body:rows,startY:33});doc.save("Haftalik_Yemek_Listesi.pdf");}
 
-    // Tabloyu oluştur
-    const res = await fetch("haftalik_yemek.json");
-    const data = await res.json();
-    const rows = Object.values(data).map(item => [item.gun, item.corba, item.anaYemek]);
-
-    doc.autoTable({
-      head: [["Gün", "Çorba", "Ana Yemek"]],
-      body: rows,
-      startY: 33
-    });
-
-    doc.save("Haftalik_Yemek_Listesi.pdf");
-  }
-  </script>
+// rehber
+async function loadRehber(){const r=await fetch("rehber.json");const d=await r.json();const s=document.getElementById("departmentFilter");const t=document.getElementById("resultsTable");const i=document.getElementById("searchInput");const birimler=[...new Set(d.map(e=>e.birim))];birimler.forEach(b=>{const o=document.createElement("option");o.value=b;o.textContent=b;s.appendChild(o);});function filtrele(){const a=i.value.toLowerCase();const sec=s.value;const f=d.filter(e=>e.isim.toLowerCase().includes(a)&&(sec===""||e.birim===sec));t.innerHTML=f.length?"":"<tr><td colspan='3'>Kayıt bulunamadı</td></tr>";f.forEach(e=>{const tr=document.createElement("tr");tr.innerHTML=`<td>${e.birim}</td><td>${e.isim}</td><td>${e.dahili}</td>`;t.appendChild(tr);});}
+filtrele();i.addEventListener("input",filtrele);s.addEventListener("change",filtrele);}
+loadRehber();
+</script>
 </body>
 </html>
