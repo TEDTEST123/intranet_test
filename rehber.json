@@ -1,0 +1,12 @@
+[
+  { "birim": "Bilgi İşlem", "isim": "Ahmet Yılmaz", "dahili": "1234" },
+  { "birim": "İnsan Kaynakları", "isim": "Elif Demir", "dahili": "1456" },
+  { "birim": "Kütüphane", "isim": "Mehmet Arslan", "dahili": "1678" },
+  { "birim": "Öğrenci İşleri", "isim": "Selin Kaya", "dahili": "1789" },
+  { "birim": "Mali İşler", "isim": "Kerem Uçar", "dahili": "1333" },
+  { "birim": "Personel Dairesi", "isim": "Ayşe Güneş", "dahili": "1402" },
+  { "birim": "Akademik İşler", "isim": "Bora Tekin", "dahili": "1120" },
+  { "birim": "Rektörlük", "isim": "Derya Aydın", "dahili": "1001" },
+  { "birim": "İdari İşler", "isim": "Can Demirtaş", "dahili": "1510" },
+  { "birim": "Basın Ofisi", "isim": "Nihan Polat", "dahili": "1625" }
+]
