@@ -15,6 +15,7 @@
       grid-gap: 40px;
       justify-content: center;
       padding: 50px 60px;
+      max-width: 100%;
     }
 
     .card {
@@ -46,6 +47,8 @@
       font-weight: 600;
       color: #002855;
       transition: background 0.2s;
+      white-space: normal;
+      word-break: break-word;
     }
     .accordion-header:hover { background: #e9eff8; }
     .accordion-header::after {
@@ -117,6 +120,75 @@
     }
     .lightbox img {
       max-width:90%; max-height:85%; border-radius:10px; box-shadow:0 0 20px rgba(255,255,255,0.3);
+    }
+
+    /* Taşma önlemleri */
+    body, main {
+      margin: 0;
+      padding: 0;
+      overflow-x: hidden;
+    }
+
+    /* === Responsive Düzen === */
+    @media (max-width: 1200px) {
+      .layout {
+        grid-template-columns: 320px 1fr;
+        grid-template-rows: auto auto auto;
+        grid-gap: 30px;
+        padding: 40px 30px;
+      }
+      .calendar, .recent-events {
+        grid-column: 2;
+        width: 100%;
+      }
+    }
+
+    @media (max-width: 900px) {
+      .layout {
+        grid-template-columns: 1fr;
+        grid-template-rows: auto auto auto;
+        padding: 30px 20px;
+        grid-gap: 25px;
+      }
+
+      .calendar, .recent-events, .layout > .card:first-child {
+        grid-column: 1;
+        width: 100%;
+      }
+
+      .card {
+        box-shadow: 0 1px 5px rgba(0,0,0,0.1);
+      }
+
+      .card .head {
+        font-size: 15px;
+        padding: 8px 10px;
+      }
+
+      .card .body {
+        padding: 12px;
+      }
+
+      table.cal th, table.cal td {
+        padding: 5px;
+        font-size: 13px;
+      }
+
+      footer {
+        font-size: 13px;
+        text-align: center;
+      }
+    }
+
+    @media (max-width: 600px) {
+      .layout {
+        padding: 20px 10px;
+        grid-gap: 20px;
+      }
+
+      .event-title { font-size: 14px; }
+      .download-btn { font-size: 12px; }
+      h3#monthYear { font-size: 16px; }
     }
   </style>
 </head>
@@ -206,7 +278,6 @@
 
     const galleryContainer = document.getElementById("galleryContainer");
 
-    // Dönemleri oluştur
     Object.entries(galleryData).forEach(([year, events]) => {
       const section = document.createElement("div");
       section.classList.add("accordion-section");
@@ -218,7 +289,6 @@
       const content = document.createElement("div");
       content.classList.add("accordion-content");
 
-      // Etkinlikler
       Object.entries(events).forEach(([eventName, images]) => {
         const eventTitle = document.createElement("div");
         eventTitle.className = "event-title";
@@ -242,7 +312,6 @@
           imgGrid.appendChild(wrap);
         });
 
-        // etkinlik aç/kapa
         eventTitle.onclick = () => {
           const visible = imgGrid.style.display === "grid";
           imgGrid.style.display = visible ? "none" : "grid";
@@ -252,7 +321,6 @@
         content.appendChild(imgGrid);
       });
 
-      // dönem aç/kapa
       header.onclick = () => {
         const isActive = header.classList.contains("active");
         document.querySelectorAll(".accordion-header").forEach(h => {
@@ -343,4 +411,3 @@
   </script>
 </body>
 </html>
-
